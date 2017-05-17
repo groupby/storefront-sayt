@@ -1,0 +1,9 @@
+<gb-list items="{ $sayt.categoryResults }">
+  <gb-link on-click="{ $sayt.searchCategory }">
+    <yield>
+      <!-- <gb-raw content="{ $sayt.highlightCurrentQuery($item.value, '<b>$&</b>') }"></gb-raw> -->
+      in
+      <span>{ $item.category }</span>
+    </yield>
+  </gb-link>
+</gb-list>
