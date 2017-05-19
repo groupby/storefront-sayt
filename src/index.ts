@@ -6,7 +6,7 @@ import SaytProducts from './sayt-products';
 import SaytRefinements from './sayt-refinements';
 import SaytSearchTerms from './sayt-search-terms';
 
-export = {
+export {
   Sayt,
   SaytAutocomplete,
   SaytCategories,

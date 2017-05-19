@@ -1,6 +1,6 @@
 import { view, Component } from '@storefront/core';
 
-@view('gb-sayt', require('./index.html'), require('./index.css'))
+@view('gb-sayt', require('./index.html'))
 class Sayt extends Component {
 
   state: Sayt.State = { isActive: false };
