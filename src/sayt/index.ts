@@ -1,16 +1,18 @@
-import { view, Component } from '@storefront/core';
+import { tag, Tag } from '@storefront/core';
 
-@view('gb-sayt', require('./index.html'))
-class Sayt extends Component {
+@tag('gb-sayt', require('./index.html'))
+class Sayt {
 
-  state: Sayt.State = { isActive: false };
+  state: Sayt.State = {
+    isActive: false
+  };
 
-  constructor() {
-    super();
+  init() {
     this.expose('sayt');
   }
 }
 
+interface Sayt extends Tag<any, Sayt.State> { }
 namespace Sayt {
   export interface State {
     isActive: boolean;
