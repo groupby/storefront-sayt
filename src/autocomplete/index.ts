@@ -1,5 +1,6 @@
-import { tag, Events, Store, Tag } from '@storefront/core';
+import { alias, tag, Events, Store, Tag } from '@storefront/core';
 
+@alias('autocomplete')
 @tag('gb-sayt-autocomplete', require('./index.html'))
 class Autocomplete {
 
@@ -9,14 +10,20 @@ class Autocomplete {
   };
 
   init() {
-    this.expose('autocomplete');
     // TODO register with autocomplete service (sayt service?) so it only runs if tags exist
-    this.flux.on(Events.AUTOCOMPLETE_UPDATED, this.updateSuggestions);
+    this.flux.on(Events.AUTOCOMPLETE_SUGGESTIONS_UPDATED, this.updateSuggestions);
+    this.flux.on(Events.AUTOCOMPLETE_CATEGORY_UPDATED, this.updateCategoryValues);
   }
 
-  // TODO decide on suggestions or searchTerms
-  updateSuggestions = ({ suggestions, category: { values: categoryValues } }: Store.Autocomplete) =>
-    this.set({ suggestions, categoryValues })
+  updateSuggestions = (suggestions: string[]) => {
+    this.log.warn(suggestions);
+    this.set({ suggestions });
+  }
+
+  updateCategoryValues = ({ values: categoryValues }: Store.Autocomplete.Category) => {
+    this.log.warn(categoryValues);
+    this.set({ categoryValues });
+  }
 }
 
 interface Autocomplete extends Tag<any, Autocomplete.State> { }
