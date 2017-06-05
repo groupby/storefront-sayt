@@ -36,8 +36,8 @@
     github-url-from-git "^1.4.0"
 
 "@storefront/core@dev":
-  version "0.0.28-development"
-  resolved "https://registry.yarnpkg.com/@storefront/core/-/core-0.0.28-development.tgz#860b21daa36d550a63a9c63e2b7c33d3af3b38c4"
+  version "0.0.29-development"
+  resolved "https://registry.yarnpkg.com/@storefront/core/-/core-0.0.29-development.tgz#7df963693b581df1bf129602a5577a293208b76b"
   dependencies:
     "@storefront/core" dev
     "@storefront/flux-capacitor" dev
@@ -59,14 +59,12 @@
     urijs "^1.18.10"
 
 "@storefront/flux-capacitor@dev":
-  version "0.0.23-development"
-  resolved "https://registry.yarnpkg.com/@storefront/flux-capacitor/-/flux-capacitor-0.0.23-development.tgz#25f67d8d40a192692cf9b49c6dd6b19379c6b97e"
+  version "0.0.26-development"
+  resolved "https://registry.yarnpkg.com/@storefront/flux-capacitor/-/flux-capacitor-0.0.26-development.tgz#e4dc00922de74e1080b5d702be7ef2ad0fc74d2a"
   dependencies:
-    "@types/redux-logger" "^3.0.0"
     "@types/uuid" "^2.0.29"
     eventemitter3 "^2.0.3"
     groupby-api dev
-    lodash.range "^3.2.0"
     redux "^3.6.0"
     redux-thunk "^2.2.0"
     sayt "^0.1.7"
@@ -119,12 +117,6 @@
 "@types/query-string@^4.3.1":
   version "4.3.1"
   resolved "https://registry.yarnpkg.com/@types/query-string/-/query-string-4.3.1.tgz#59ea5c75d425817370158789aa4f6197e5abd987"
-
-"@types/redux-logger@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@types/redux-logger/-/redux-logger-3.0.0.tgz#abe464fe812d03c3580ec56e6b5b375861439fca"
-  dependencies:
-    redux "^3.6.0"
 
 "@types/riot@^2.6.2":
   version "2.6.2"
@@ -1537,8 +1529,8 @@ es-to-primitive@^1.1.1:
     is-symbol "^1.0.1"
 
 es5-ext@^0.10.14, es5-ext@^0.10.9, es5-ext@~0.10.14:
-  version "0.10.22"
-  resolved "https://registry.yarnpkg.com/es5-ext/-/es5-ext-0.10.22.tgz#1876c51f990769c112c781ea3ebe89f84fd39071"
+  version "0.10.23"
+  resolved "https://registry.yarnpkg.com/es5-ext/-/es5-ext-0.10.23.tgz#7578b51be974207a5487821b56538c224e4e7b38"
   dependencies:
     es6-iterator "2"
     es6-symbol "~3.1"
@@ -2776,10 +2768,6 @@ lodash.padend@^4.1.0:
 lodash.padstart@^4.1.0:
   version "4.6.1"
   resolved "https://registry.yarnpkg.com/lodash.padstart/-/lodash.padstart-4.6.1.tgz#d2e3eebff0d9d39ad50f5cbd1b52a7bce6bb611b"
-
-lodash.range@^3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/lodash.range/-/lodash.range-3.2.0.tgz#f461e588f66683f7eadeade513e38a69a565a15d"
 
 lodash.restparam@^3.0.0:
   version "3.6.1"

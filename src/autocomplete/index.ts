@@ -5,6 +5,7 @@ import { alias, tag, Events, Store, Tag } from '@storefront/core';
 class Autocomplete {
 
   state: Autocomplete.State = {
+    category: this.flux.store.getState().data.autocomplete.category.field,
     categoryValues: this.flux.store.getState().data.autocomplete.category.values,
     suggestions: this.flux.store.getState().data.autocomplete.suggestions,
     navigations: this.flux.store.getState().data.autocomplete.navigations
@@ -23,6 +24,7 @@ class Autocomplete {
 interface Autocomplete extends Tag<any, Autocomplete.State> { }
 namespace Autocomplete {
   export interface State {
+    category: string;
     categoryValues: string[];
     suggestions: string[];
     navigations: Store.Autocomplete.Navigation[];

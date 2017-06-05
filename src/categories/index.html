@@ -1,9 +1,9 @@
-<gb-list items="{ $sayt.categoryResults }">
+<gb-list items="{ $autocomplete.categoryValues }" item-alias="categoryValue">
   <gb-link on-click="{ $sayt.searchCategory }">
     <yield>
-      <!-- <gb-raw content="{ $sayt.highlightCurrentQuery($item.value, '<b>$&</b>') }"></gb-raw> -->
+      <gb-raw content="{ $sayt.highlight($categoryValue, '<b>$&</b>') }"></gb-raw>
       in
-      <span>{ $item.category }</span>
+      <span>{ $autocomplete.category }</span>
     </yield>
   </gb-link>
 </gb-list>
