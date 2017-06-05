@@ -36,8 +36,8 @@
     github-url-from-git "^1.4.0"
 
 "@storefront/core@dev":
-  version "0.0.27-development"
-  resolved "https://registry.yarnpkg.com/@storefront/core/-/core-0.0.27-development.tgz#38c6bea76f836512b25f6f8bdbeba35bdbd1085d"
+  version "0.0.28-development"
+  resolved "https://registry.yarnpkg.com/@storefront/core/-/core-0.0.28-development.tgz#860b21daa36d550a63a9c63e2b7c33d3af3b38c4"
   dependencies:
     "@storefront/core" dev
     "@storefront/flux-capacitor" dev
@@ -59,8 +59,8 @@
     urijs "^1.18.10"
 
 "@storefront/flux-capacitor@dev":
-  version "0.0.22-development"
-  resolved "https://registry.yarnpkg.com/@storefront/flux-capacitor/-/flux-capacitor-0.0.22-development.tgz#cf0beb275e36634bbcd201e8f3bf8216e7c084f4"
+  version "0.0.23-development"
+  resolved "https://registry.yarnpkg.com/@storefront/flux-capacitor/-/flux-capacitor-0.0.23-development.tgz#25f67d8d40a192692cf9b49c6dd6b19379c6b97e"
   dependencies:
     "@types/redux-logger" "^3.0.0"
     "@types/uuid" "^2.0.29"
@@ -1024,8 +1024,8 @@ camelcase@^3.0.0:
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-3.0.0.tgz#32fc4b9fcdaf845fcdf7e73bb97cac2261f0ab0a"
 
 caniuse-lite@^1.0.30000670:
-  version "1.0.30000676"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000676.tgz#1e962123f48073f0c51c4ea0651dd64d25786498"
+  version "1.0.30000677"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000677.tgz#43090233d4b2c7190657f95455983d94d264baaa"
 
 caseless@~0.11.0:
   version "0.11.0"
@@ -1329,13 +1329,13 @@ dateformat@^1.0.11:
     get-stdin "^4.0.1"
     meow "^3.3.0"
 
-debug@2, debug@^2.1.3, debug@^2.6.3:
+debug@2, debug@^2.1.3, debug@^2.2.0, debug@^2.6.3:
   version "2.6.8"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.8.tgz#e731531ca2ede27d188222427da17821d68ff4fc"
   dependencies:
     ms "2.0.0"
 
-debug@2.2.0, debug@^2.1.1, debug@^2.2.0:
+debug@2.2.0, debug@^2.1.1:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/debug/-/debug-2.2.0.tgz#f87057e995b1a1f6ae6a4960664137bc56f039da"
   dependencies:
@@ -3773,16 +3773,16 @@ riot-cli@^3.0.2:
     shelljs "^0.7.7"
 
 riot-compiler@^3.2.1:
-  version "3.2.2"
-  resolved "https://registry.yarnpkg.com/riot-compiler/-/riot-compiler-3.2.2.tgz#e67dfdcd6b5dba0cce34695b2c838cba9ee4e164"
+  version "3.2.3"
+  resolved "https://registry.yarnpkg.com/riot-compiler/-/riot-compiler-3.2.3.tgz#db3cf1e920cd313f19eeac4f0c5314fc21db6314"
 
 riot-observable@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/riot-observable/-/riot-observable-3.0.0.tgz#8bbd2daf72a2141bb043082df4023dc504bad2eb"
 
 riot-tmpl@^3.0.4:
-  version "3.0.5"
-  resolved "https://registry.yarnpkg.com/riot-tmpl/-/riot-tmpl-3.0.5.tgz#508e27a4214ea212040ca9692f24af35b1f73a2b"
+  version "3.0.8"
+  resolved "https://registry.yarnpkg.com/riot-tmpl/-/riot-tmpl-3.0.8.tgz#dd654e72a3a1520cb009cbef70c73856ded584a6"
   dependencies:
     eslint-config-riot "^1.0.0"
 
@@ -4470,8 +4470,8 @@ typescript@^2.3.3:
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.3.4.tgz#3d38321828231e434f287514959c37a82b629f42"
 
 uglify-js@^2.6, uglify-js@^2.8.27:
-  version "2.8.27"
-  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-2.8.27.tgz#47787f912b0f242e5b984343be8e35e95f694c9c"
+  version "2.8.28"
+  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-2.8.28.tgz#e335032df9bb20dcb918f164589d5af47f38834a"
   dependencies:
     source-map "~0.5.1"
     yargs "~3.10.0"

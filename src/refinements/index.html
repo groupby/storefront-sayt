@@ -1,7 +1,9 @@
-<h4>{ $navigation.displayName }</h4>
-<gb-list items="{ $navigation.values }">
-  <gb-link on-click="{ $sayt.searchRefinement }">
+<h4>{ $navigation.field }</h4>
+<gb-list items="{ $navigation.refinements }" item-alias="refinement">
+  <gb-link on-click="{ $autocomplete.searchRefinement }">
     <yield>
+      <!-- <gb-raw content="{ $sayt.highlightCurrentQuery($item, '<b>$&</b>') }"></gb-raw> -->
+      <gb-raw content="{ $refinement }"></gb-raw>
       <!-- <gb-raw content="{ $sayt.highlightCurrentQuery($item, '<b>$&</b>') }"></gb-raw> -->
     </yield>
   </gb-link>

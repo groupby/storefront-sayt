@@ -5,13 +5,14 @@ import { alias, tag, Tag } from '@storefront/core';
 class Sayt {
 
   state: Sayt.State = {
-    isActive: false
+    isActive: false,
+    showProducts: true
   };
 
   init() {
     this.services.autocomplete.register(this);
     this.flux.on('sayt:show', this.setActive);
-    this.flux.on('sayt:hide', this.setInactive);
+    // this.flux.on('sayt:hide', this.setInactive);
   }
 
   setActive = () => this.set({ isActive: true });
@@ -23,6 +24,7 @@ interface Sayt extends Tag<any, Sayt.State> { }
 namespace Sayt {
   export interface State {
     isActive: boolean;
+    showProducts: boolean;
   }
 }
 

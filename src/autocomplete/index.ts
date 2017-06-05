@@ -5,24 +5,18 @@ import { alias, tag, Events, Store, Tag } from '@storefront/core';
 class Autocomplete {
 
   state: Autocomplete.State = {
-    categoryValues: [],
-    suggestions: []
+    categoryValues: this.flux.store.getState().data.autocomplete.category.values,
+    suggestions: this.flux.store.getState().data.autocomplete.suggestions,
+    navigations: this.flux.store.getState().data.autocomplete.navigations
   };
 
   init() {
     // TODO register with autocomplete service (sayt service?) so it only runs if tags exist
     this.flux.on(Events.AUTOCOMPLETE_SUGGESTIONS_UPDATED, this.updateSuggestions);
-    this.flux.on(Events.AUTOCOMPLETE_CATEGORY_UPDATED, this.updateCategoryValues);
   }
 
-  updateSuggestions = (suggestions: string[]) => {
-    this.log.warn(suggestions);
-    this.set({ suggestions });
-  }
-
-  updateCategoryValues = ({ values: categoryValues }: Store.Autocomplete.Category) => {
-    this.log.warn(categoryValues);
-    this.set({ categoryValues });
+  updateSuggestions = ({ suggestions, navigations, category: { values: categoryValues } }: Store.Autocomplete) => {
+    this.set({ suggestions, navigations, categoryValues });
   }
 }
 
@@ -31,6 +25,7 @@ namespace Autocomplete {
   export interface State {
     categoryValues: string[];
     suggestions: string[];
+    navigations: Store.Autocomplete.Navigation[];
   }
 }
 
