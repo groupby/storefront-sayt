@@ -5,7 +5,7 @@ import { alias, tag, Tag } from '@storefront/core';
 class Navigations {
 
   state: Navigations.State = {
-    onClick: (field) => (event) =>
+    onClick: (field) => () =>
       this.flux.store.dispatch(<any>this.flux.actions.updateSearch({ clear: true }))
   };
 }
@@ -13,7 +13,7 @@ class Navigations {
 interface Navigations extends Tag { }
 namespace Navigations {
   export interface State {
-    onClick: (field: string) => (event: MouseEvent) => void;
+    onClick: (field: string) => () => void;
   }
 }
 

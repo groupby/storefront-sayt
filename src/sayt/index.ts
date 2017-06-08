@@ -17,7 +17,7 @@ class Sayt {
   init() {
     this.services.autocomplete.register(this);
     this.flux.on('sayt:show', this.setActive);
-    // this.flux.on('sayt:hide', this.setInactive);
+    this.flux.on('sayt:hide', this.setInactive);
   }
 
   setActive = () =>
