@@ -2,18 +2,18 @@ version: 2
 
 jobs:
   build:
-    working_directory: ~/storefront-sort
+    working_directory: ~/storefront-sayt
     docker:
       - image: kkarczmarczyk/node-yarn
     steps:
       - checkout
       - restore_cache:
-          key: storefront-sort-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          key: storefront-sayt-{{ .Branch }}-{{ checksum "yarn.lock" }}
       - run:
           name: Install
           command: yarn
       - save_cache:
-          key: storefront-sort-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          key: storefront-sayt-{{ .Branch }}-{{ checksum "yarn.lock" }}
           paths:
             - ~/node_modules
       - run:
