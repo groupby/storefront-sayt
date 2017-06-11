@@ -1,0 +1,8 @@
+<h4>{ $navigation.field }</h4>
+<gb-list items="{ $navigation.refinements }" item-alias="refinement">
+  <gb-link on-click="{ $autocomplete.searchRefinement }">
+    <yield>
+      <gb-raw content="{ $sayt.highlight($refinement, '<b>$&</b>') }"></gb-raw>
+    </yield>
+  </gb-link>
+</gb-list>
