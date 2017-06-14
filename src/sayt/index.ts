@@ -1,4 +1,4 @@
-import { alias, tag, Tag } from '@storefront/core';
+import { alias, tag, utils, Tag } from '@storefront/core';
 import * as escapeRegexp from 'escape-string-regexp';
 
 @alias('sayt')
@@ -18,6 +18,7 @@ class Sayt {
     this.services.autocomplete.register(this);
     this.flux.on('sayt:show', this.setActive);
     this.flux.on('sayt:hide', this.setInactive);
+    utils.WINDOW.document().addEventListener('click', this.setInactive);
   }
 
   setActive = () =>

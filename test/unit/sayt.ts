@@ -1,7 +1,8 @@
+import { utils } from '@storefront/core';
 import Sayt from '../../src/sayt';
 import suite from './_suite';
 
-suite('Sayt', ({ expect, spy }) => {
+suite('Sayt', ({ expect, spy, stub }) => {
   let sayt: Sayt;
 
   beforeEach(() => sayt = new Sayt());
@@ -38,6 +39,7 @@ suite('Sayt', ({ expect, spy }) => {
   describe('init()', () => {
     it('should register with autocomplete service', () => {
       const register = spy();
+      stub(utils.WINDOW, 'document').returns({ addEventListener: () => null });
       sayt.services = <any>{ autocomplete: { register } };
       sayt.flux = <any>{ on: () => null };
 
@@ -48,6 +50,7 @@ suite('Sayt', ({ expect, spy }) => {
 
     it('should listen for sayt:show', () => {
       const on = spy();
+      stub(utils.WINDOW, 'document').returns({ addEventListener: () => null });
       sayt.flux = <any>{ on };
       sayt.services = <any>{ autocomplete: { register: () => null } };
 
@@ -58,12 +61,24 @@ suite('Sayt', ({ expect, spy }) => {
 
     it('should listen for sayt:hide', () => {
       const on = spy();
+      stub(utils.WINDOW, 'document').returns({ addEventListener: () => null });
       sayt.flux = <any>{ on };
       sayt.services = <any>{ autocomplete: { register: () => null } };
 
       sayt.init();
 
       expect(on).to.be.calledWith('sayt:hide', sayt.setInactive);
+    });
+
+    it('should add document click listener to hide itself', () => {
+      const addEventListener = spy();
+      stub(utils.WINDOW, 'document').returns({ addEventListener });
+      sayt.flux = <any>{ on: () => null };
+      sayt.services = <any>{ autocomplete: { register: () => null } };
+
+      sayt.init();
+
+      expect(addEventListener).to.be.calledWith('click', sayt.setInactive);
     });
   });
 
