@@ -66,5 +66,19 @@ suite('Autocomplete', ({ expect, spy }) => {
 
       expect(set).to.be.calledWith({ suggestions, navigations, categoryValues });
     });
+
+    it('should inactivate sayt when there are no suggestions', () => {
+      const suggestions = [];
+      const navigations = [];
+      const categoryValues = [];
+      const setInactive = spy();
+
+      autocomplete.set = () => null;
+      autocomplete.$sayt = <any>{ setInactive };
+
+      autocomplete.updateSuggestions(<any>{ suggestions, navigations, category: { values: categoryValues } });
+
+      expect(setInactive).to.be.calledOnce;
+    });
   });
 });
