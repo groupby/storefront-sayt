@@ -33,6 +33,16 @@ suite('Sayt', ({ expect, spy, stub }) => {
           expect(highlighted).to.eq('flamboyant <p>YElLOw Tie</p>');
         });
       });
+
+      describe('setInactive()', () => {
+        it('should call setInactive', () => {
+          const setInactive = sayt.setInactive = spy();
+
+          sayt.state.setInactive();
+
+          expect(setInactive).to.be.calledOnce;
+        });
+      });
     });
   });
 
@@ -100,7 +110,7 @@ suite('Sayt', ({ expect, spy, stub }) => {
     });
   });
 
-  describe('setInctive()', () => {
+  describe('setInactive()', () => {
     it('should set isActive', () => {
       const set = sayt.set = spy();
       sayt.state.isActive = true;
