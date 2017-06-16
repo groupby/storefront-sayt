@@ -1,9 +1,11 @@
 import { alias, tag, Events, Store, Tag } from '@storefront/core';
+import Sayt from '../sayt';
 
 @alias('autocomplete')
 @tag('gb-sayt-autocomplete', require('./index.html'))
 class Autocomplete {
 
+  $sayt: Sayt.State;
   state: Autocomplete.State = {
     category: this.flux.store.getState().data.autocomplete.category.field,
     categoryValues: this.flux.store.getState().data.autocomplete.category.values,
@@ -18,6 +20,9 @@ class Autocomplete {
 
   updateSuggestions = ({ suggestions, navigations, category: { values: categoryValues } }: Store.Autocomplete) => {
     this.set({ suggestions, navigations, categoryValues });
+    if (suggestions.length + navigations.length + categoryValues.length === 0) {
+      this.$sayt.setInactive();
+    }
   }
 }
 
