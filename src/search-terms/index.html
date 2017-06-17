@@ -1,5 +1,5 @@
 <gb-list items="{ $autocomplete.suggestions }" item-alias="suggestion">
-  <gb-link on-click="{ $searchTerms.onClick($suggestion) }">
+  <gb-link class="gb-autocomplete-target" on-click="{ $searchTerms.onClick($suggestion) }">
     <yield>
       <gb-raw content="{ $sayt.highlight($suggestion, '<b>$&</b>') }"></gb-raw>
     </yield>
