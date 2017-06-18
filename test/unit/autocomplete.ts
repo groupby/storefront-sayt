@@ -7,7 +7,7 @@ const CATEOGORY_VALUES = ['a', 'b', 'c'];
 const SUGGESTIONS = ['d', 'e', 'f'];
 const NAVIGATIONS = ['g', 'h', 'i'];
 
-suite('Autocomplete', ({ expect, spy, stub }) => {
+suite('Autocomplete', ({ expect, spy }) => {
   let autocomplete: Autocomplete;
 
   beforeEach(() => {
