@@ -26,9 +26,20 @@ suite('Products', ({ expect, spy, stub }) => {
   });
 
   describe('init()', () => {
+    it('should register with autocomplete service', () => {
+      const registerProducts = spy();
+      products.services = <any>{ autocomplete: { registerProducts } };
+      products.flux = <any>{ on: () => null };
+
+      products.init();
+
+      expect(registerProducts).to.be.calledWith(products);
+    });
+
     it('should listen for AUTOCOMPLETE_PRODUCTS_UPDATED', () => {
       const on = spy();
       products.flux = <any>{ on };
+      products.services = <any>{ autocomplete: { registerProducts: () => null } };
 
       products.init();
 
