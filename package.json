@@ -52,7 +52,7 @@
   },
   "devDependencies": {
     "@types/chai": "^4.0.0",
-    "@types/node": "^7.0.29",
+    "@types/node": "^7.0.31",
     "@types/sinon": "^2.3.1",
     "@types/sinon-chai": "^2.7.28",
     "chai": "^4.0.2",
@@ -70,7 +70,7 @@
     "typescript": "^2.3.3"
   },
   "dependencies": {
-    "@storefront/core": "^1.2.4",
+    "@storefront/core": "^1.2.14",
     "escape-string-regexp": "^1.0.5"
   }
 }
