@@ -59,6 +59,9 @@ class Autocomplete {
       this.setActivation(this.activationTargets(), this.state.selected, false);
     }
     this.set({ suggestions, navigations, categoryValues, selected: -1 });
+    if (suggestions.length + navigations.length + categoryValues.length === 0) {
+      this.flux.emit('sayt:hide');
+    }
   }
 
   setActivation(targets: NodeListOf<Element>, index: number, activate: boolean) {

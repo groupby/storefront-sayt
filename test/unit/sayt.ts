@@ -100,7 +100,7 @@ suite('Sayt', ({ expect, spy, stub }) => {
     });
   });
 
-  describe('setInctive()', () => {
+  describe('setInactive()', () => {
     it('should set isActive', () => {
       const set = sayt.set = spy();
       sayt.state.isActive = true;
