@@ -61,6 +61,8 @@ class Autocomplete {
     this.set({ suggestions, navigations, categoryValues, selected: -1 });
     if (suggestions.length + navigations.length + categoryValues.length === 0) {
       this.flux.emit('sayt:hide');
+    } else {
+      this.flux.emit('sayt:show');
     }
   }
 

@@ -191,6 +191,10 @@ suite('Autocomplete', ({ expect, spy }) => {
     const navigations = ['4', '5', '6'];
     const categoryValues = ['7', '8', '9'];
 
+    beforeEach(() => {
+      autocomplete.flux = <any>{ emit: () => null };
+    });
+
     it('should set values and not change activation', () => {
       const set = autocomplete.set = spy();
       autocomplete.isActive = () => false;
@@ -225,6 +229,17 @@ suite('Autocomplete', ({ expect, spy }) => {
       autocomplete.updateSuggestions(<any>{ suggestions: [], navigations: [], category: { values: [] } });
 
       expect(emit).to.be.calledWith('sayt:hide');
+    });
+
+    it('should activate sayt when there are suggestions', () => {
+      const emit = spy();
+
+      autocomplete.flux = <any>{ emit };
+      autocomplete.set = () => null;
+
+      autocomplete.updateSuggestions(<any>{ suggestions, navigations, category: { values: categoryValues } });
+
+      expect(emit).to.be.calledWith('sayt:show');
     });
   });
 
