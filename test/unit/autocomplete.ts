@@ -217,16 +217,14 @@ suite('Autocomplete', ({ expect, spy }) => {
     });
 
     it('should inactivate sayt when there are no suggestions', () => {
-      const suggestions = [];
-      const navigations = [];
-      const categoryValues = [];
-      const emit = autocomplete.flux.emit = spy();
+      const emit = spy();
 
+      autocomplete.flux = <any>{ emit };
       autocomplete.set = () => null;
 
-      autocomplete.updateSuggestions(<any>{ suggestions, navigations, category: { values: categoryValues } });
+      autocomplete.updateSuggestions(<any>{ suggestions: [], navigations: [], category: { values: [] } });
 
-      expect(emit).to.be.calledOnce;
+      expect(emit).to.be.calledWith('sayt:hide');
     });
   });
 
