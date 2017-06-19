@@ -33,16 +33,6 @@ suite('Sayt', ({ expect, spy, stub }) => {
           expect(highlighted).to.eq('flamboyant <p>YElLOw Tie</p>');
         });
       });
-
-      describe('setInactive()', () => {
-        it('should call setInactive', () => {
-          const setInactive = sayt.setInactive = spy();
-
-          sayt.state.setInactive();
-
-          expect(setInactive).to.be.calledOnce;
-        });
-      });
     });
   });
 

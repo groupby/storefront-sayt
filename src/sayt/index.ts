@@ -11,8 +11,7 @@ class Sayt {
     highlight: (value, replacement) => {
       const query = this.flux.store.getState().data.autocomplete.query;
       return value.replace(new RegExp(escapeRegexp(query), 'i'), replacement);
-    },
-    setInactive: () => this.setInactive()
+    }
   };
 
   init() {
@@ -35,7 +34,6 @@ namespace Sayt {
     isActive: boolean;
     showProducts: boolean;
     highlight: (value: string, replacement: string) => string;
-    setInactive: VoidFunction;
   }
 }
 

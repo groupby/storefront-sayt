@@ -215,6 +215,19 @@ suite('Autocomplete', ({ expect, spy }) => {
       expect(set).to.be.calledWith({ suggestions, navigations, categoryValues, selected: -1 });
       expect(setActivation).to.be.calledWith(targets, selected, false);
     });
+
+    it('should inactivate sayt when there are no suggestions', () => {
+      const suggestions = [];
+      const navigations = [];
+      const categoryValues = [];
+      const emit = autocomplete.flux.emit = spy();
+
+      autocomplete.set = () => null;
+
+      autocomplete.updateSuggestions(<any>{ suggestions, navigations, category: { values: categoryValues } });
+
+      expect(emit).to.be.calledOnce;
+    });
   });
 
   describe('setActivation()', () => {
@@ -251,20 +264,6 @@ suite('Autocomplete', ({ expect, spy }) => {
       autocomplete.state = <any>{ selected: -1 };
 
       expect(autocomplete.isActive()).to.be.false;
-    });
-
-    it('should inactivate sayt when there are no suggestions', () => {
-      const suggestions = [];
-      const navigations = [];
-      const categoryValues = [];
-      const setInactive = spy();
-
-      autocomplete.set = () => null;
-      autocomplete.$sayt = <any>{ setInactive };
-
-      autocomplete.updateSuggestions(<any>{ suggestions, navigations, category: { values: categoryValues } });
-
-      expect(setInactive).to.be.calledOnce;
     });
   });
 });

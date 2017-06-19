@@ -1,11 +1,8 @@
 import { alias, tag, Events, Store, Tag } from '@storefront/core';
-import Sayt from '../sayt';
 
 @alias('autocomplete')
 @tag('gb-sayt-autocomplete', require('./index.html'))
 class Autocomplete {
-
-  $sayt: Sayt.State;
 
   constructor() {
     const {
@@ -63,7 +60,7 @@ class Autocomplete {
     }
     this.set({ suggestions, navigations, categoryValues, selected: -1 });
     if (suggestions.length + navigations.length + categoryValues.length === 0) {
-      this.$sayt.setInactive();
+      this.flux.emit('sayt:hide');
     }
   }
 
