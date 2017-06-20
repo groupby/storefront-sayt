@@ -6,7 +6,7 @@ import * as escapeRegexp from 'escape-string-regexp';
 class Sayt {
 
   state: Sayt.State = {
-    isActive: false,
+    isActive: true,
     showProducts: true,
     highlight: (value, replacement) => {
       const query = this.flux.store.getState().data.autocomplete.query;
@@ -15,6 +15,8 @@ class Sayt {
   };
 
   init() {
+    // initialize as active to initialize child component
+    this.on('mount', this.setInactive);
     this.services.autocomplete.register(this);
     this.flux.on('sayt:show', this.setActive);
     this.flux.on('sayt:hide', this.setInactive);
