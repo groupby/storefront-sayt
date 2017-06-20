@@ -37,20 +37,8 @@ suite('Sayt', ({ expect, spy, stub }) => {
   });
 
   describe('init()', () => {
-    it('should inactivate sayt on mount', () => {
-      const on = sayt.on = spy();
-      stub(utils.WINDOW, 'document').returns({ addEventListener: () => null });
-      sayt.flux = <any>{ on };
-      sayt.services = <any>{ autocomplete: { register: () => null } };
-
-      sayt.init();
-
-      expect(on).to.be.calledWith('mount', sayt.setInactive);
-    });
-
     it('should register with autocomplete service', () => {
       const register = spy();
-      sayt.on = () => null;
       stub(utils.WINDOW, 'document').returns({ addEventListener: () => null });
       sayt.services = <any>{ autocomplete: { register } };
       sayt.flux = <any>{ on: () => null };
@@ -62,7 +50,6 @@ suite('Sayt', ({ expect, spy, stub }) => {
 
     it('should listen for sayt:show', () => {
       const on = spy();
-      sayt.on = () => null;
       stub(utils.WINDOW, 'document').returns({ addEventListener: () => null });
       sayt.flux = <any>{ on };
       sayt.services = <any>{ autocomplete: { register: () => null } };
@@ -74,7 +61,6 @@ suite('Sayt', ({ expect, spy, stub }) => {
 
     it('should listen for sayt:hide', () => {
       const on = spy();
-      sayt.on = () => null;
       stub(utils.WINDOW, 'document').returns({ addEventListener: () => null });
       sayt.flux = <any>{ on };
       sayt.services = <any>{ autocomplete: { register: () => null } };
@@ -86,7 +72,6 @@ suite('Sayt', ({ expect, spy, stub }) => {
 
     it('should add document click listener to hide itself', () => {
       const addEventListener = spy();
-      sayt.on = () => null;
       stub(utils.WINDOW, 'document').returns({ addEventListener });
       sayt.flux = <any>{ on: () => null };
       sayt.services = <any>{ autocomplete: { register: () => null } };
@@ -94,6 +79,16 @@ suite('Sayt', ({ expect, spy, stub }) => {
       sayt.init();
 
       expect(addEventListener).to.be.calledWith('click', sayt.setInactive);
+    });
+  });
+
+  describe('onMount()', () => {
+    it('should inactivate sayt', () => {
+      const setInactive = sayt.setInactive = spy();
+
+      sayt.onMount();
+
+      expect(setInactive).to.be.called;
     });
   });
 

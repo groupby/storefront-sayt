@@ -191,12 +191,9 @@ suite('Autocomplete', ({ expect, spy }) => {
     const navigations = ['4', '5', '6'];
     const categoryValues = ['7', '8', '9'];
 
-    beforeEach(() => {
-      autocomplete.flux = <any>{ emit: () => null };
-    });
-
     it('should set values and not change activation', () => {
       const set = autocomplete.set = spy();
+      autocomplete.flux = <any>{ emit: () => null };
       autocomplete.isActive = () => false;
       autocomplete.setActivation = () => expect.fail();
 
@@ -210,6 +207,7 @@ suite('Autocomplete', ({ expect, spy }) => {
       const targets = ['a', 'b', 'c'];
       const set = autocomplete.set = spy();
       const setActivation = autocomplete.setActivation = spy();
+      autocomplete.flux = <any>{ emit: () => null };
       autocomplete.activationTargets = (): any => targets;
       autocomplete.state = <any>{ selected };
       autocomplete.isActive = () => true;
@@ -222,7 +220,6 @@ suite('Autocomplete', ({ expect, spy }) => {
 
     it('should inactivate sayt when there are no suggestions', () => {
       const emit = spy();
-
       autocomplete.flux = <any>{ emit };
       autocomplete.set = () => null;
 
@@ -233,7 +230,6 @@ suite('Autocomplete', ({ expect, spy }) => {
 
     it('should activate sayt when there are suggestions', () => {
       const emit = spy();
-
       autocomplete.flux = <any>{ emit };
       autocomplete.set = () => null;
 
