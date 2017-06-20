@@ -10,7 +10,7 @@ suite('Sayt', ({ expect, spy, stub }) => {
   describe('constructor()', () => {
     describe('state', () => {
       it('should set initial value', () => {
-        expect(sayt.state.isActive).to.be.false;
+        expect(sayt.state.isActive).to.be.true;
         expect(sayt.state.showProducts).to.be.true;
       });
 
@@ -79,6 +79,16 @@ suite('Sayt', ({ expect, spy, stub }) => {
       sayt.init();
 
       expect(addEventListener).to.be.calledWith('click', sayt.setInactive);
+    });
+  });
+
+  describe('onMount()', () => {
+    it('should inactivate sayt', () => {
+      const setInactive = sayt.setInactive = spy();
+
+      sayt.onMount();
+
+      expect(setInactive).to.be.called;
     });
   });
 
