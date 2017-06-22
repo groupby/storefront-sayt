@@ -5,7 +5,7 @@ import { alias, tag, Selectors, Tag } from '@storefront/core';
 class SearchTerms {
 
   state: SearchTerms.State = {
-    onClick: (query) => () => this.flux.search(query),
+    onClick: (query) => () => this.actions.search(query),
   };
 }
 

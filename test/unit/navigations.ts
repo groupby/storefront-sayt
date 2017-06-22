@@ -13,15 +13,13 @@ suite('Navigations', ({ expect, spy }) => {
           const navigationId = 'author';
           const value = 'margaret atwood';
           const action = { a: 'b' };
-          const dispatch = spy();
           const updateSearch = spy(() => action);
           const handler = navigations.state.onClick(navigationId, value);
-          navigations.flux = <any>{ store: { dispatch }, actions: { updateSearch } };
+          navigations.actions = <any>{ updateSearch };
 
           handler();
 
           expect(updateSearch).to.be.calledWith({ navigationId, value, query: null, clear: true });
-          expect(dispatch).to.be.calledWith(action);
         });
       });
     });

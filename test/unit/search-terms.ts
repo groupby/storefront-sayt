@@ -9,11 +9,11 @@ suite('SearchTerms', ({ expect, spy }) => {
   describe('constructor()', () => {
     describe('state', () => {
       describe('onClick()', () => {
-        it('should call flux.search()', () => {
+        it('should call actions.search()', () => {
           const query = 'hats';
           const search = spy();
           const handler = searchTerms.state.onClick(query);
-          searchTerms.flux = <any>{ search };
+          searchTerms.actions = <any>{ search };
 
           handler();
 

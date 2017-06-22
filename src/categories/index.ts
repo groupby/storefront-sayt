@@ -9,12 +9,12 @@ class Categories {
 
   state: Categories.State = {
     onClick: (value) => () =>
-      this.flux.store.dispatch(<any>this.flux.actions.updateSearch({
+      this.actions.updateSearch({
         clear: true,
         query: this.flux.store.getState().data.autocomplete.query,
         navigationId: this.$autocomplete.category,
         value
-      }))
+      })
   };
 }
 

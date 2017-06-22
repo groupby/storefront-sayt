@@ -6,12 +6,12 @@ class Navigations {
 
   state: Navigations.State = {
     onClick: (navigationId, value) => () =>
-      this.flux.store.dispatch(<any>this.flux.actions.updateSearch({
+      this.actions.updateSearch({
         clear: true,
         query: null,
         navigationId,
         value
-      }))
+      })
   };
 }
 
