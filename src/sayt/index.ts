@@ -19,7 +19,7 @@ class Sayt {
     this.services.autocomplete.register(this);
     this.flux.on('sayt:show', this.setActive);
     this.flux.on('sayt:hide', this.setInactive);
-    utils.WINDOW.document().addEventListener('click', this.setInactive);
+    utils.WINDOW().document.addEventListener('click', this.setInactive);
   }
 
   onMount() {

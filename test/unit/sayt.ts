@@ -39,7 +39,7 @@ suite('Sayt', ({ expect, spy, stub }) => {
   describe('init()', () => {
     it('should register with autocomplete service', () => {
       const register = spy();
-      stub(utils.WINDOW, 'document').returns({ addEventListener: () => null });
+      stub(utils, 'WINDOW').returns({ document: { addEventListener: () => null } });
       sayt.services = <any>{ autocomplete: { register } };
       sayt.flux = <any>{ on: () => null };
 
@@ -50,7 +50,7 @@ suite('Sayt', ({ expect, spy, stub }) => {
 
     it('should listen for sayt:show', () => {
       const on = spy();
-      stub(utils.WINDOW, 'document').returns({ addEventListener: () => null });
+      stub(utils, 'WINDOW').returns({ document: { addEventListener: () => null } });
       sayt.flux = <any>{ on };
       sayt.services = <any>{ autocomplete: { register: () => null } };
 
@@ -61,7 +61,7 @@ suite('Sayt', ({ expect, spy, stub }) => {
 
     it('should listen for sayt:hide', () => {
       const on = spy();
-      stub(utils.WINDOW, 'document').returns({ addEventListener: () => null });
+      stub(utils, 'WINDOW').returns({ document: { addEventListener: () => null } });
       sayt.flux = <any>{ on };
       sayt.services = <any>{ autocomplete: { register: () => null } };
 
@@ -72,7 +72,7 @@ suite('Sayt', ({ expect, spy, stub }) => {
 
     it('should add document click listener to hide itself', () => {
       const addEventListener = spy();
-      stub(utils.WINDOW, 'document').returns({ addEventListener });
+      stub(utils, 'WINDOW').returns({ document: { addEventListener } });
       sayt.flux = <any>{ on: () => null };
       sayt.services = <any>{ autocomplete: { register: () => null } };
 
