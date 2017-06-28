@@ -35,14 +35,15 @@
     conventional-changelog "0.0.17"
     github-url-from-git "^1.4.0"
 
-"@storefront/core@^1.4.0":
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/@storefront/core/-/core-1.4.0.tgz#64921e84f446fbe634e99e2b3cff69212089c3a8"
+"@storefront/core@^1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@storefront/core/-/core-1.5.0.tgz#8c047d79dd0011f80345eb2b6ef1a93b291037d9"
   dependencies:
     "@storefront/flux-capacitor" "^1.2.1"
     "@types/clone" "^0.1.30"
     "@types/deep-assign" "^0.1.0"
     "@types/js-cookie" "^2.0.28"
+    "@types/lodash.camelcase" "^4.3.2"
     "@types/loglevel" "^1.4.29"
     "@types/riot" "^2.6.2"
     clone "^2.1.1"
@@ -89,6 +90,16 @@
 "@types/js-cookie@^2.0.28":
   version "2.0.28"
   resolved "https://registry.yarnpkg.com/@types/js-cookie/-/js-cookie-2.0.28.tgz#d6a9136d699257970fc74d899cd7b12a608d14da"
+
+"@types/lodash.camelcase@^4.3.2":
+  version "4.3.2"
+  resolved "https://registry.yarnpkg.com/@types/lodash.camelcase/-/lodash.camelcase-4.3.2.tgz#fd195ae81b02c6d50f82f25e0d238ee8a76eb006"
+  dependencies:
+    "@types/lodash" "*"
+
+"@types/lodash@*":
+  version "4.14.67"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.67.tgz#4714714434da110306b9862fbd36b30b55eb850a"
 
 "@types/loglevel@^1.4.29":
   version "1.4.29"
