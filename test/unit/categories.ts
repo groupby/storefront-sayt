@@ -14,21 +14,19 @@ suite('Categories', ({ expect, spy }) => {
           const value = 'margaret atwood';
           const query = 'handmaid';
           const action = { a: 'b' };
-          const dispatch = spy();
           const updateSearch = spy(() => action);
           const handler = navigations.state.onClick(value);
           navigations.$autocomplete = <any>{ category: navigationId };
+          navigations.actions = <any>{ updateSearch };
           navigations.flux = <any>{
             store: {
-              dispatch, getState: () => ({ data: { autocomplete: { query } } })
-            },
-            actions: { updateSearch }
+              getState: () => ({ data: { autocomplete: { query } } })
+            }
           };
 
           handler();
 
           expect(updateSearch).to.be.calledWith({ navigationId, value, query, clear: true });
-          expect(dispatch).to.be.calledWith(action);
         });
       });
     });
