@@ -1,15 +1,15 @@
-import { alias, tag, Events, Store, Tag } from '@storefront/core';
+import { alias, tag, Events, Selectors, Store, Tag } from '@storefront/core';
 
 @alias('autocomplete')
 @tag('gb-sayt-autocomplete', require('./index.html'))
 class Autocomplete {
 
   constructor() {
-    const {
-      suggestions,
-      navigations,
-      category: { field: category, values: categoryValues }
-    } = this.flux.store.getState().data.autocomplete;
+    const state = this.flux.store.getState();
+    const suggestions = Selectors.autocompleteSuggestions(state);
+    const category = Selectors.autocompleteCategoryField(state);
+    const categoryValues = Selectors.autocompleteCategoryValues(state);
+    const navigations = Selectors.autocompleteNavigations(state);
     this.state = { suggestions, navigations, category, categoryValues, selected: -1 };
   }
 
