@@ -1,4 +1,4 @@
-import { utils } from '@storefront/core';
+import { utils, Events } from '@storefront/core';
 import Sayt from '../../src/sayt';
 import suite from './_suite';
 
@@ -68,6 +68,17 @@ suite('Sayt', ({ expect, spy, stub }) => {
       sayt.init();
 
       expect(on).to.be.calledWith('sayt:hide', sayt.setInactive);
+    });
+
+    it('should listen for URL_UPDATED', () => {
+      const on = spy();
+      stub(utils, 'WINDOW').returns({ document: { addEventListener: () => null } });
+      sayt.flux = <any>{ on };
+      sayt.services = <any>{ autocomplete: { register: () => null } };
+
+      sayt.init();
+
+      expect(on).to.be.calledWith(Events.URL_UPDATED, sayt.setInactive);
     });
 
     it('should add document click listener to hide itself', () => {
