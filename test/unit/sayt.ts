@@ -2,10 +2,13 @@ import { utils, Events } from '@storefront/core';
 import Sayt from '../../src/sayt';
 import suite from './_suite';
 
-suite('Sayt', ({ expect, spy, stub }) => {
+suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias }) => {
   let sayt: Sayt;
 
   beforeEach(() => sayt = new Sayt());
+
+  itShouldBeConfigurable(Sayt);
+  itShouldHaveAlias(Sayt, 'sayt');
 
   describe('constructor()', () => {
     describe('state', () => {

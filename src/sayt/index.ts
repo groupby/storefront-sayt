@@ -1,6 +1,7 @@
-import { alias, origin, tag, utils, Events, Tag } from '@storefront/core';
+import { alias, configurable, origin, tag, utils, Events, Tag } from '@storefront/core';
 import * as escapeRegexp from 'escape-string-regexp';
 
+@configurable
 @alias('sayt')
 @origin('sayt')
 @tag('gb-sayt', require('./index.html'))
