@@ -21,7 +21,7 @@ class Sayt {
     this.flux.on('sayt:show', this.setActive);
     this.flux.on('sayt:hide', this.setInactive);
     this.flux.on(Events.URL_UPDATED, this.setInactive);
-    utils.WINDOW().document.addEventListener('click', this.setInactive);
+    utils.WINDOW().document.addEventListener('click', this.checkRootNode);
   }
 
   onMount() {
@@ -29,11 +29,12 @@ class Sayt {
     this.setInactive();
   }
 
-  setActive = () =>
-    !this.state.isActive && this.set({ isActive: true })
+  setActive = () => !this.state.isActive && this.set({ isActive: true });
 
-  setInactive = () =>
-    this.state.isActive && this.set({ isActive: false })
+  setInactive = () => this.state.isActive && this.set({ isActive: false });
+
+  checkRootNode = ({ target }: MouseEvent & { target: Node }) =>
+    !this.root.contains(target) && this.setInactive()
 }
 
 interface Sayt extends Tag<any, Sayt.State> { }
