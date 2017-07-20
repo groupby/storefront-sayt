@@ -1,5 +1,6 @@
 import SaytAutocomplete from './autocomplete';
 import './categories';
+import './icon';
 import './navigations';
 import SaytProducts from './products';
 import './refinements';

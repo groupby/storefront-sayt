@@ -84,7 +84,7 @@ namespace Autocomplete {
     selected: number;
     category: string;
     categoryValues: string[];
-    suggestions: string[];
+    suggestions: Store.Autocomplete.Suggestion[];
     navigations: Store.Autocomplete.Navigation[];
   }
 }
