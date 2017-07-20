@@ -1,4 +1,5 @@
-import { Events } from '@storefront/core';
+import { Events, Selectors } from '@storefront/core';
+import * as sinon from 'sinon';
 import Autocomplete from '../../src/autocomplete';
 import suite from './_suite';
 
@@ -6,27 +7,21 @@ const CATEOGORY = 'brand';
 const CATEOGORY_VALUES = ['a', 'b', 'c'];
 const SUGGESTIONS = ['d', 'e', 'f'];
 const NAVIGATIONS = ['g', 'h', 'i'];
+const STATE = { h: 'j' };
 
-suite('Autocomplete', ({ expect, spy }) => {
+suite('Autocomplete', ({ expect, spy, stub }) => {
   let autocomplete: Autocomplete;
+  let autocompleteSuggestionsSelector: sinon.SinonStub;
+  let autocompleteCategoryFieldSelector: sinon.SinonStub;
+  let autocompleteCategoryValuesSelector: sinon.SinonStub;
+  let autocompleteNavigationsSelector: sinon.SinonStub;
 
   beforeEach(() => {
-    Autocomplete.prototype.flux = <any>{
-      store: {
-        getState: () => ({
-          data: {
-            autocomplete: {
-              category: {
-                field: CATEOGORY,
-                values: CATEOGORY_VALUES
-              },
-              suggestions: SUGGESTIONS,
-              navigations: NAVIGATIONS
-            }
-          }
-        })
-      }
-    };
+    Autocomplete.prototype.flux = <any>{ store: { getState: () => STATE } };
+    autocompleteSuggestionsSelector = stub(Selectors, 'autocompleteSuggestions').returns(SUGGESTIONS);
+    autocompleteCategoryFieldSelector = stub(Selectors, 'autocompleteCategoryField').returns(CATEOGORY);
+    autocompleteCategoryValuesSelector = stub(Selectors, 'autocompleteCategoryValues').returns(CATEOGORY_VALUES);
+    autocompleteNavigationsSelector = stub(Selectors, 'autocompleteNavigations').returns(NAVIGATIONS);
     autocomplete = new Autocomplete();
   });
   afterEach(() => delete Autocomplete.prototype.flux);

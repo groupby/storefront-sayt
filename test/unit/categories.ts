@@ -1,7 +1,8 @@
+import { Selectors } from '@storefront/core';
 import Categories from '../../src/categories';
 import suite from './_suite';
 
-suite('Categories', ({ expect, spy }) => {
+suite('Categories', ({ expect, spy, stub }) => {
   let navigations: Categories;
 
   beforeEach(() => navigations = new Categories());
@@ -14,19 +15,18 @@ suite('Categories', ({ expect, spy }) => {
           const value = 'margaret atwood';
           const query = 'handmaid';
           const action = { a: 'b' };
+          const state = { c: 'd' };
           const updateSearch = spy(() => action);
           const handler = navigations.state.onClick(value);
+          const autocompleteQuerySelector = stub(Selectors, 'autocompleteQuery').returns(query);
           navigations.$autocomplete = <any>{ category: navigationId };
           navigations.actions = <any>{ updateSearch };
-          navigations.flux = <any>{
-            store: {
-              getState: () => ({ data: { autocomplete: { query } } })
-            }
-          };
+          navigations.flux = <any>{ store: { getState: () => state } };
 
           handler();
 
           expect(updateSearch).to.be.calledWith({ navigationId, value, query, clear: true });
+          expect(autocompleteQuerySelector).to.be.calledWith(state);
         });
       });
     });

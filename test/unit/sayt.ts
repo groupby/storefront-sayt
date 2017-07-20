@@ -1,4 +1,4 @@
-import { utils, Events } from '@storefront/core';
+import { utils, Events, Selectors } from '@storefront/core';
 import Sayt from '../../src/sayt';
 import suite from './_suite';
 
@@ -20,16 +20,20 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
       describe('highlight()', () => {
         it('should replace the current autocomplete query', () => {
           const query = 'yellow tie';
-          sayt.flux = <any>{ store: { getState: () => ({ data: { autocomplete: { query } } }) } };
+          const state = { a: 'b' };
+          const autocompleteQuerySelector = stub(Selectors, 'autocompleteQuery').returns(query);
+          sayt.flux = <any>{ store: { getState: () => state } };
 
           const highlighted = sayt.state.highlight('flamboyant yellow tie', '<i>$&</i>');
 
           expect(highlighted).to.eq('flamboyant <i>yellow tie</i>');
+          expect(autocompleteQuerySelector).to.be.calledWith(state);
         });
 
         it('should be case insensitive', () => {
           const query = 'YelLoW tIE';
-          sayt.flux = <any>{ store: { getState: () => ({ data: { autocomplete: { query } } }) } };
+          stub(Selectors, 'autocompleteQuery').returns(query);
+          sayt.flux = <any>{ store: { getState: () => null } };
 
           const highlighted = sayt.state.highlight('flamboyant YElLOw Tie', '<p>$&</p>');
 

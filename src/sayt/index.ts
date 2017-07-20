@@ -1,4 +1,4 @@
-import { alias, configurable, origin, tag, utils, Events, Tag } from '@storefront/core';
+import { alias, configurable, origin, tag, utils, Events, Selectors, Tag } from '@storefront/core';
 import * as escapeRegexp from 'escape-string-regexp';
 
 @configurable
@@ -11,7 +11,7 @@ class Sayt {
     isActive: true,
     showProducts: true,
     highlight: (value, replacement) => {
-      const query = this.flux.store.getState().data.autocomplete.query;
+      const query = Selectors.autocompleteQuery(this.flux.store.getState());
       return value.replace(new RegExp(escapeRegexp(query), 'i'), replacement);
     }
   };

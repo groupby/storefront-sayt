@@ -1,4 +1,4 @@
-import { alias, tag, Tag } from '@storefront/core';
+import { alias, tag, Selectors, Tag } from '@storefront/core';
 import Autocomplete from '../autocomplete';
 
 @alias('saytCategories')
@@ -11,7 +11,7 @@ class Categories {
     onClick: (value) => () =>
       this.actions.updateSearch({
         clear: true,
-        query: this.flux.store.getState().data.autocomplete.query,
+        query: Selectors.autocompleteQuery(this.flux.store.getState()),
         navigationId: this.$autocomplete.category,
         value
       })
