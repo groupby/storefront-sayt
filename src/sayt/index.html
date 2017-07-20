@@ -1,6 +1,7 @@
 <div if="{ $sayt.isActive }">
   <yield>
-    <gb-sayt-autocomplete></gb-sayt-autocomplete>
-    <gb-sayt-products if="{ $sayt.showProducts }"></gb-sayt-products>
+    <gb-recommendations if="{ $sayt.showRecommendations }"></gb-recommendations>
+    <gb-sayt-autocomplete if="{ !$sayt.showRecommendations }" labels="{ props.labels }"></gb-sayt-autocomplete>
+    <gb-sayt-products if="{ $sayt.showProducts && !$sayt.showRecommendations }"></gb-sayt-products>
   </yield>
 </div>

@@ -7,12 +7,12 @@ suite('SearchTerms', ({ expect, spy }) => {
   beforeEach(() => searchTerms = new SearchTerms());
 
   describe('constructor()', () => {
-    describe('state', () => {
+    describe('props', () => {
       describe('onClick()', () => {
         it('should call actions.search()', () => {
           const query = 'hats';
           const search = spy();
-          const handler = searchTerms.state.onClick(query);
+          const handler = searchTerms.props.onClick(query);
           searchTerms.actions = <any>{ search };
 
           handler();
@@ -20,6 +20,17 @@ suite('SearchTerms', ({ expect, spy }) => {
           expect(search).to.be.calledWith(query);
         });
       });
+    });
+  });
+
+  describe('init()', () => {
+    it('should expose props as searchTerms', () => {
+      const props = searchTerms.props = <any>{ a: 'b' };
+      const expose = searchTerms.expose = spy();
+
+      searchTerms.init();
+
+      expect(expose).to.be.calledWithExactly('searchTerms', props);
     });
   });
 });
