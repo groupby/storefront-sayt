@@ -96,7 +96,7 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
 
       sayt.init();
 
-      expect(addEventListener).to.be.calledWith('click', sayt.setInactive);
+      expect(addEventListener).to.be.calledWith('click', sayt.checkRootNode);
     });
   });
 
@@ -143,6 +143,28 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
       sayt.state.isActive = false;
 
       sayt.setInactive();
+    });
+  });
+
+  describe('checkRootNode()', () => {
+    it('should not setInactive() if target found', () => {
+      const stubSetInactive = stub(sayt, 'setInactive');
+      const event: any = { target: { nodeName: 'gb-sayt'} };
+      stub(sayt, 'root').value({ contains: () => true });
+
+      sayt.checkRootNode(event);
+
+      expect(stubSetInactive).to.not.be.called;
+    });
+
+    it('should setInactive() if target not found', () => {
+      const stubSetInactive = stub(sayt, 'setInactive');
+      const event: any = { target: { nodeName: 'html'} };
+      stub(sayt, 'root').value({ contains: () => false });
+
+      sayt.checkRootNode(event);
+
+      expect(stubSetInactive).to.be.called;
     });
   });
 });
