@@ -14,6 +14,7 @@ class Sayt {
   };
   state: Sayt.State = {
     isActive: true,
+    showRecommendations: false,
     showProducts: true,
     highlight: (value, replacement) => {
       const query = Selectors.autocompleteQuery(this.flux.store.getState());
@@ -25,6 +26,8 @@ class Sayt {
     this.services.autocomplete.register(this);
     this.flux.on('sayt:show', this.setActive);
     this.flux.on('sayt:hide', this.setInactive);
+    this.flux.on('sayt:show_recommendations', this.setRecommendationsActive);
+    this.flux.on(Events.AUTOCOMPLETE_QUERY_UPDATED, this.setRecommendationsInactive);
     this.flux.on(Events.URL_UPDATED, this.setInactive);
     utils.WINDOW().document.addEventListener('click', this.checkRootNode);
   }
@@ -40,6 +43,12 @@ class Sayt {
 
   checkRootNode = ({ target }: MouseEvent & { target: Node }) =>
     !this.root.contains(target) && this.setInactive()
+
+  setRecommendationsActive = () =>
+    !this.state.showRecommendations && this.set({ isActive: true, showRecommendations: true })
+
+  setRecommendationsInactive = () =>
+    this.state.showRecommendations && this.set({ showRecommendations: false })
 }
 
 interface Sayt extends Tag<any, Sayt.State> { }
@@ -50,6 +59,7 @@ namespace Sayt {
 
   export interface State {
     isActive: boolean;
+    showRecommendations: boolean;
     showProducts: boolean;
     highlight: (value: string, replacement: string) => string;
   }
