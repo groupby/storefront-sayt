@@ -11,6 +11,12 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
   itShouldHaveAlias(Sayt, 'sayt');
 
   describe('constructor()', () => {
+    describe('props', () => {
+      it('should set initial value', () => {
+        expect(sayt.props).to.eql({ labels: { trending: 'Trending' } });
+      });
+    });
+
     describe('state', () => {
       it('should set initial value', () => {
         expect(sayt.state.isActive).to.be.true;
@@ -44,11 +50,24 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
   });
 
   describe('init()', () => {
+    it('should expose saytProps', () => {
+      const expose = sayt.expose = spy();
+      const props = sayt.props = <any>{ a: 'b' };
+      stub(utils, 'WINDOW').returns({ document: { addEventListener: () => null } });
+      sayt.services = <any>{ autocomplete: { register: () => null } };
+      sayt.flux = <any>{ on: () => null };
+
+      sayt.init();
+
+      expect(expose).to.be.calledWith('saytProps', props);
+    });
+
     it('should register with autocomplete service', () => {
       const register = spy();
       stub(utils, 'WINDOW').returns({ document: { addEventListener: () => null } });
       sayt.services = <any>{ autocomplete: { register } };
       sayt.flux = <any>{ on: () => null };
+      sayt.expose = () => null;
 
       sayt.init();
 
@@ -60,6 +79,7 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
       stub(utils, 'WINDOW').returns({ document: { addEventListener: () => null } });
       sayt.flux = <any>{ on };
       sayt.services = <any>{ autocomplete: { register: () => null } };
+      sayt.expose = () => null;
 
       sayt.init();
 
@@ -71,6 +91,7 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
       stub(utils, 'WINDOW').returns({ document: { addEventListener: () => null } });
       sayt.flux = <any>{ on };
       sayt.services = <any>{ autocomplete: { register: () => null } };
+      sayt.expose = () => null;
 
       sayt.init();
 
@@ -82,6 +103,7 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
       stub(utils, 'WINDOW').returns({ document: { addEventListener: () => null } });
       sayt.flux = <any>{ on };
       sayt.services = <any>{ autocomplete: { register: () => null } };
+      sayt.expose = () => null;
 
       sayt.init();
 
@@ -93,6 +115,7 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
       stub(utils, 'WINDOW').returns({ document: { addEventListener } });
       sayt.flux = <any>{ on: () => null };
       sayt.services = <any>{ autocomplete: { register: () => null } };
+      sayt.expose = () => null;
 
       sayt.init();
 
@@ -149,7 +172,7 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
   describe('checkRootNode()', () => {
     it('should not setInactive() if target found', () => {
       const stubSetInactive = stub(sayt, 'setInactive');
-      const event: any = { target: { nodeName: 'gb-sayt'} };
+      const event: any = { target: { nodeName: 'gb-sayt' } };
       stub(sayt, 'root').value({ contains: () => true });
 
       sayt.checkRootNode(event);
@@ -159,7 +182,7 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
 
     it('should setInactive() if target not found', () => {
       const stubSetInactive = stub(sayt, 'setInactive');
-      const event: any = { target: { nodeName: 'html'} };
+      const event: any = { target: { nodeName: 'html' } };
       stub(sayt, 'root').value({ contains: () => false });
 
       sayt.checkRootNode(event);

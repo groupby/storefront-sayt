@@ -7,6 +7,11 @@ import * as escapeRegexp from 'escape-string-regexp';
 @tag('gb-sayt', require('./index.html'))
 class Sayt {
 
+  props: Sayt.Props = {
+    labels: {
+      trending: 'Trending'
+    }
+  };
   state: Sayt.State = {
     isActive: true,
     showProducts: true,
@@ -17,6 +22,7 @@ class Sayt {
   };
 
   init() {
+    this.expose('saytProps', this.props);
     this.services.autocomplete.register(this);
     this.flux.on('sayt:show', this.setActive);
     this.flux.on('sayt:hide', this.setInactive);
@@ -39,6 +45,10 @@ class Sayt {
 
 interface Sayt extends Tag<any, Sayt.State> { }
 namespace Sayt {
+  export interface Props {
+    labels?: { trending?: string };
+  }
+
   export interface State {
     isActive: boolean;
     showProducts: boolean;
