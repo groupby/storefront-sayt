@@ -1,4 +1,5 @@
 import { alias, tag, Events, Selectors, Store, Tag } from '@storefront/core';
+import Sayt from '../sayt';
 
 @alias('autocomplete')
 @tag('gb-sayt-autocomplete', require('./index.html'))
@@ -78,8 +79,12 @@ class Autocomplete {
   }
 }
 
-interface Autocomplete extends Tag<any, Autocomplete.State> { }
+interface Autocomplete extends Tag<Autocomplete.Props, Autocomplete.State> { }
 namespace Autocomplete {
+  export interface Props {
+    labels?: Sayt.Labels;
+  }
+
   export interface State {
     selected: number;
     category: string;
