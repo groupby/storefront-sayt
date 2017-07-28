@@ -26,9 +26,11 @@ class Sayt {
     this.services.autocomplete.register(this);
     this.flux.on('sayt:show', this.setActive);
     this.flux.on('sayt:hide', this.setInactive);
-    this.flux.on('sayt:show_recommendations', this.setRecommendationsActive);
-    this.flux.on(Events.AUTOCOMPLETE_QUERY_UPDATED, this.setRecommendationsInactive);
     this.flux.on(Events.URL_UPDATED, this.setInactive);
+    if (this.props.recommendations) {
+      this.flux.on('sayt:show_recommendations', this.setRecommendationsActive);
+      this.flux.on(Events.AUTOCOMPLETE_QUERY_UPDATED, this.setRecommendationsInactive);
+    }
     utils.WINDOW().document.addEventListener('click', this.checkRootNode);
   }
 
@@ -55,6 +57,7 @@ interface Sayt extends Tag<any, Sayt.State> { }
 namespace Sayt {
   export interface Props {
     labels?: Labels;
+    recommendations?: boolean;
   }
 
   export interface State {

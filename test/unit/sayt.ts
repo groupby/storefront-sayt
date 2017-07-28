@@ -20,6 +20,7 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
     describe('state', () => {
       it('should set initial value', () => {
         expect(sayt.state.isActive).to.be.true;
+        expect(sayt.state.showRecommendations).to.be.false;
         expect(sayt.state.showProducts).to.be.true;
       });
 
@@ -84,6 +85,56 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
       sayt.init();
 
       expect(on).to.be.calledWith('sayt:hide', sayt.setInactive);
+    });
+
+    it('should listen for sayt:show_recommendations when recommendations on', () => {
+      const on = spy();
+      stub(utils, 'WINDOW').returns({ document: { addEventListener: () => null } });
+      sayt.flux = <any>{ on };
+      sayt.services = <any>{ autocomplete: { register: () => null } };
+      sayt.expose = () => null;
+      sayt.props = { recommendations: true };
+
+      sayt.init();
+
+      expect(on).to.be.calledWith('sayt:show_recommendations', sayt.setRecommendationsActive);
+    });
+
+    it('should not listen for sayt:show_recommendations when recommendations off', () => {
+      const on = spy();
+      stub(utils, 'WINDOW').returns({ document: { addEventListener: () => null } });
+      sayt.flux = <any>{ on };
+      sayt.services = <any>{ autocomplete: { register: () => null } };
+      sayt.expose = () => null;
+
+      sayt.init();
+
+      expect(on).to.not.be.calledWith('sayt:show_recommendations');
+    });
+
+    it('should listen for URL_UPDATED when recommendations on', () => {
+      const on = spy();
+      stub(utils, 'WINDOW').returns({ document: { addEventListener: () => null } });
+      sayt.flux = <any>{ on };
+      sayt.services = <any>{ autocomplete: { register: () => null } };
+      sayt.expose = () => null;
+      sayt.props = { recommendations: true };
+
+      sayt.init();
+
+      expect(on).to.be.calledWith(Events.AUTOCOMPLETE_QUERY_UPDATED, sayt.setRecommendationsInactive);
+    });
+
+    it('should not listen for URL_UPDATED when recommendations off', () => {
+      const on = spy();
+      stub(utils, 'WINDOW').returns({ document: { addEventListener: () => null } });
+      sayt.flux = <any>{ on };
+      sayt.services = <any>{ autocomplete: { register: () => null } };
+      sayt.expose = () => null;
+
+      sayt.init();
+
+      expect(on).to.not.be.calledWith(Events.AUTOCOMPLETE_QUERY_UPDATED);
     });
 
     it('should listen for URL_UPDATED', () => {
@@ -154,6 +205,42 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
       sayt.state.isActive = false;
 
       sayt.setInactive();
+    });
+  });
+
+  describe('setRecommendationsActive()', () => {
+    it('should set showRecommendations', () => {
+      const set = sayt.set = spy();
+      sayt.state.showRecommendations = false;
+
+      sayt.setRecommendationsActive();
+
+      expect(set).to.be.calledWithExactly({ isActive: true, showRecommendations: true });
+    });
+
+    it('should not set showRecommendations if already active', () => {
+      sayt.set = () => expect.fail();
+      sayt.state.showRecommendations = true;
+
+      sayt.setRecommendationsActive();
+    });
+  });
+
+  describe('setRecommendationsInactive()', () => {
+    it('should set showRecommendations', () => {
+      const set = sayt.set = spy();
+      sayt.state.showRecommendations = true;
+
+      sayt.setRecommendationsInactive();
+
+      expect(set).to.be.calledWithExactly({ showRecommendations: false });
+    });
+
+    it('should not set showRecommendations if not already active', () => {
+      sayt.set = () => expect.fail();
+      sayt.state.showRecommendations = false;
+
+      sayt.setRecommendationsInactive();
     });
   });
 
