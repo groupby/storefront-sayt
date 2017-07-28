@@ -56,7 +56,6 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
       stub(utils, 'WINDOW').returns({ document: { addEventListener: () => null } });
       sayt.services = <any>{ autocomplete: { register } };
       sayt.flux = <any>{ on: () => null };
-      sayt.expose = () => null;
 
       sayt.init();
 
@@ -68,7 +67,6 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
       stub(utils, 'WINDOW').returns({ document: { addEventListener: () => null } });
       sayt.flux = <any>{ on };
       sayt.services = <any>{ autocomplete: { register: () => null } };
-      sayt.expose = () => null;
 
       sayt.init();
 
@@ -80,7 +78,6 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
       stub(utils, 'WINDOW').returns({ document: { addEventListener: () => null } });
       sayt.flux = <any>{ on };
       sayt.services = <any>{ autocomplete: { register: () => null } };
-      sayt.expose = () => null;
 
       sayt.init();
 
@@ -92,7 +89,6 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
       stub(utils, 'WINDOW').returns({ document: { addEventListener: () => null } });
       sayt.flux = <any>{ on };
       sayt.services = <any>{ autocomplete: { register: () => null } };
-      sayt.expose = () => null;
       sayt.props = { recommendations: true };
 
       sayt.init();
@@ -105,7 +101,6 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
       stub(utils, 'WINDOW').returns({ document: { addEventListener: () => null } });
       sayt.flux = <any>{ on };
       sayt.services = <any>{ autocomplete: { register: () => null } };
-      sayt.expose = () => null;
 
       sayt.init();
 
@@ -117,7 +112,6 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
       stub(utils, 'WINDOW').returns({ document: { addEventListener: () => null } });
       sayt.flux = <any>{ on };
       sayt.services = <any>{ autocomplete: { register: () => null } };
-      sayt.expose = () => null;
       sayt.props = { recommendations: true };
 
       sayt.init();
@@ -130,7 +124,6 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
       stub(utils, 'WINDOW').returns({ document: { addEventListener: () => null } });
       sayt.flux = <any>{ on };
       sayt.services = <any>{ autocomplete: { register: () => null } };
-      sayt.expose = () => null;
 
       sayt.init();
 
@@ -142,7 +135,6 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
       stub(utils, 'WINDOW').returns({ document: { addEventListener: () => null } });
       sayt.flux = <any>{ on };
       sayt.services = <any>{ autocomplete: { register: () => null } };
-      sayt.expose = () => null;
 
       sayt.init();
 
@@ -154,7 +146,6 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
       stub(utils, 'WINDOW').returns({ document: { addEventListener } });
       sayt.flux = <any>{ on: () => null };
       sayt.services = <any>{ autocomplete: { register: () => null } };
-      sayt.expose = () => null;
 
       sayt.init();
 
