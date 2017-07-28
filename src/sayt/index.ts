@@ -22,7 +22,6 @@ class Sayt {
   };
 
   init() {
-    this.expose('saytProps', this.props);
     this.services.autocomplete.register(this);
     this.flux.on('sayt:show', this.setActive);
     this.flux.on('sayt:hide', this.setInactive);
@@ -46,13 +45,17 @@ class Sayt {
 interface Sayt extends Tag<any, Sayt.State> { }
 namespace Sayt {
   export interface Props {
-    labels?: { trending?: string };
+    labels?: Labels;
   }
 
   export interface State {
     isActive: boolean;
     showProducts: boolean;
     highlight: (value: string, replacement: string) => string;
+  }
+
+  export interface Labels {
+    trending?: string;
   }
 }
 

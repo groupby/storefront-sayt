@@ -50,18 +50,6 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
   });
 
   describe('init()', () => {
-    it('should expose saytProps', () => {
-      const expose = sayt.expose = spy();
-      const props = sayt.props = <any>{ a: 'b' };
-      stub(utils, 'WINDOW').returns({ document: { addEventListener: () => null } });
-      sayt.services = <any>{ autocomplete: { register: () => null } };
-      sayt.flux = <any>{ on: () => null };
-
-      sayt.init();
-
-      expect(expose).to.be.calledWith('saytProps', props);
-    });
-
     it('should register with autocomplete service', () => {
       const register = spy();
       stub(utils, 'WINDOW').returns({ document: { addEventListener: () => null } });
