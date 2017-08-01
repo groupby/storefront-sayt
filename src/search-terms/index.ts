@@ -15,7 +15,7 @@ class SearchTerms {
 
 interface SearchTerms extends Tag<SearchTerms.Props> { }
 namespace SearchTerms {
-  export interface Props {
+  export interface Props extends Tag.Props {
     labels?: Sayt.Labels;
     onClick: (query: string) => () => void;
   }

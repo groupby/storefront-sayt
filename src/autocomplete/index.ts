@@ -81,7 +81,7 @@ class Autocomplete {
 
 interface Autocomplete extends Tag<Autocomplete.Props, Autocomplete.State> { }
 namespace Autocomplete {
-  export interface Props {
+  export interface Props extends Tag.Props {
     labels?: Sayt.Labels;
   }
 

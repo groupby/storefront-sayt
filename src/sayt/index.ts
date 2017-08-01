@@ -53,9 +53,9 @@ class Sayt {
     this.state.showRecommendations && this.set({ showRecommendations: false })
 }
 
-interface Sayt extends Tag<any, Sayt.State> { }
+interface Sayt extends Tag<Sayt.Props, Sayt.State> { }
 namespace Sayt {
-  export interface Props {
+  export interface Props extends Tag.Props {
     labels?: Labels;
     recommendations?: boolean;
   }
