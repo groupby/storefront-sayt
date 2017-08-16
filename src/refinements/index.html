@@ -1,4 +1,4 @@
-<h4>{ $navigation.field }</h4>
+<h4>{ $navigation.label }</h4>
 <gb-list items="{ $navigation.refinements }" item-alias="refinement">
   <gb-link class="gb-autocomplete-target" on-click="{ $navigations.onClick($navigation.field, $refinement) }">
     <yield>
