@@ -31,7 +31,6 @@ class Sayt {
       this.flux.on('sayt:show_recommendations', this.setRecommendationsActive);
       this.flux.on(Events.AUTOCOMPLETE_QUERY_UPDATED, this.setRecommendationsInactive);
     }
-    utils.WINDOW().document.addEventListener('click', this.checkRootNode);
   }
 
   onMount() {
@@ -41,7 +40,12 @@ class Sayt {
 
   setActive = () => !this.state.isActive && this.set({ isActive: true });
 
-  setInactive = () => this.state.isActive && this.set({ isActive: false });
+  setInactive = () => {
+    this.unregisterClickAwayHandler();
+    if (this.state.isActive) {
+      this.set({ isActive: false });
+    }
+  }
 
   checkRootNode = ({ target }: MouseEvent & { target: Node }) =>
     !this.root.contains(target) && this.setInactive()
@@ -51,6 +55,14 @@ class Sayt {
 
   setRecommendationsInactive = () =>
     this.state.showRecommendations && this.set({ showRecommendations: false })
+
+  registerClickAwayHandler = () =>
+    utils.WINDOW().document.addEventListener('click', this.checkRootNode)
+
+  unregisterClickAwayHandler = () => {
+    this.flux.once(Events.AUTOCOMPLETE_QUERY_UPDATED, this.registerClickAwayHandler);
+    utils.WINDOW().document.removeEventListener('click', this.checkRootNode);
+  }
 }
 
 interface Sayt extends Tag<Sayt.Props, Sayt.State> { }
