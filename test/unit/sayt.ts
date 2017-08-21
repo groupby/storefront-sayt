@@ -140,17 +140,6 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
 
       expect(on).to.be.calledWith(Events.URL_UPDATED, sayt.setInactive);
     });
-
-    it('should add document click listener to hide itself', () => {
-      const addEventListener = spy();
-      stub(utils, 'WINDOW').returns({ document: { addEventListener } });
-      sayt.flux = <any>{ on: () => null };
-      sayt.services = <any>{ autocomplete: { register: () => null } };
-
-      sayt.init();
-
-      expect(addEventListener).to.be.calledWith('click', sayt.checkRootNode);
-    });
   });
 
   describe('onMount()', () => {
@@ -182,8 +171,18 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
   });
 
   describe('setInactive()', () => {
+    it('should call unregisterClickAwayHandler()', () => {
+      sayt.set = () => null;
+      const unregisterClickAwayHandler = sayt.unregisterClickAwayHandler = spy();
+
+      sayt.setInactive();
+
+      expect(unregisterClickAwayHandler).to.be.called;
+    });
+
     it('should set isActive', () => {
       const set = sayt.set = spy();
+      sayt.unregisterClickAwayHandler = () => null;
       sayt.state.isActive = true;
 
       sayt.setInactive();
@@ -193,6 +192,7 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
 
     it('should not set isActive if not already active', () => {
       sayt.set = () => expect.fail();
+      sayt.unregisterClickAwayHandler = () => null;
       sayt.state.isActive = false;
 
       sayt.setInactive();
@@ -254,6 +254,39 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
       sayt.checkRootNode(event);
 
       expect(stubSetInactive).to.be.called;
+    });
+  });
+
+  describe('registerClickAwayHandler()', () => {
+    it('should add click handler to window.document', () => {
+      const addEventListener = spy();
+      stub(utils, 'WINDOW').returns({ document: { addEventListener } });
+
+      sayt.registerClickAwayHandler();
+
+      expect(addEventListener).to.be.calledWithExactly('click', sayt.checkRootNode);
+    });
+  });
+
+  describe('unregisterClickAwayHandler()', () => {
+    it('should add a one-time event listener to re-register the click handler', () => {
+      const once = spy();
+      sayt.flux = <any>{ once };
+      stub(utils, 'WINDOW').returns({ document: { removeEventListener: () => null } });
+
+      sayt.unregisterClickAwayHandler();
+
+      expect(once).to.be.calledWithExactly(Events.AUTOCOMPLETE_QUERY_UPDATED, sayt.registerClickAwayHandler);
+    });
+
+    it('should remove click handler from window.document', () => {
+      const removeEventListener = spy();
+      sayt.flux = <any>{ once: () => null };
+      stub(utils, 'WINDOW').returns({ document: { removeEventListener } });
+
+      sayt.unregisterClickAwayHandler();
+
+      expect(removeEventListener).to.be.calledWithExactly('click', sayt.checkRootNode);
     });
   });
 });
