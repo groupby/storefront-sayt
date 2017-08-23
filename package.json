@@ -70,10 +70,9 @@
     "typescript": "^2.4.2"
   },
   "dependencies": {
-    "@storefront/core": "~1.14.0",
     "escape-string-regexp": "^1.0.5"
   },
   "peerDependencies": {
-    "@storefront/core": "~1.13.0"
+    "@storefront/core": "~1.14.0"
   }
 }
