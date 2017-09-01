@@ -44,6 +44,7 @@ class Sayt {
     this.unregisterClickAwayHandler();
     if (this.state.isActive) {
       this.set({ isActive: false });
+      this.flux.emit('query:update', Selectors.query(this.flux.store.getState()));
     }
   }
 

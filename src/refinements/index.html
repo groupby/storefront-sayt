@@ -1,6 +1,6 @@
 <h4>{ $navigation.label }</h4>
 <gb-list items="{ $navigation.refinements }" item-alias="refinement">
-  <gb-link class="gb-autocomplete-target" on-click="{ $navigations.onClick($navigation.field, $refinement) }">
+  <gb-link class="gb-autocomplete-target" data-query="" data-field="{ $navigation.field }" data-refinement="{ $refinement }" onmouseenter="{ $autocomplete.onHover }" on-click="{ $navigations.onClick($navigation.field, $refinement) }">
     <yield>
       <gb-raw content="{ $sayt.highlight($refinement, '<b>$&</b>') }"></gb-raw>
     </yield>
