@@ -135,19 +135,6 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
         .and.calledWith(targets, selected - 1, true);
     });
 
-    it('should not activate previous if at beginning of targets', () => {
-      const selected = 0;
-      const setActivation = autocomplete.setActivation = spy();
-      autocomplete.state = <any>{ selected };
-      autocomplete.activationTargets = (): any => targets;
-      autocomplete.isActive = () => true;
-
-      autocomplete.activatePrevious();
-
-      expect(setActivation).to.be.calledOnce
-        .and.calledWith(targets, selected, false);
-    });
-
     it('should not change activate element if no current active element', () => {
       autocomplete.setActivation = () => expect.fail();
       autocomplete.activationTargets = (): any => targets;
@@ -246,6 +233,15 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
   });
 
   describe('setActivation()', () => {
+    it('should not toggle gb-active if selected is -1', () => {
+      const index = -1;
+      const state = autocomplete.state = <any>{ selected: 4 };
+
+      autocomplete.setActivation(<any>[], index, true);
+
+      expect(state.selected).to.eq(index);
+    });
+
     it('should add gb-active to classList if activating and update state', () => {
       const add = spy();
       const state = autocomplete.state = <any>{ selected: 4 };

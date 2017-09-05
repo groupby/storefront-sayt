@@ -42,9 +42,7 @@ class Autocomplete {
     if (this.isActive()) {
       let selected = this.state.selected;
       this.setActivation(targets, selected, false);
-      if (--selected !== -1) {
-        this.setActivation(targets, selected, true);
-      }
+      this.setActivation(targets, --selected, true);
     }
   }
 
@@ -68,7 +66,9 @@ class Autocomplete {
   }
 
   setActivation(targets: NodeListOf<Element>, index: number, activate: boolean) {
-    targets[index].classList[activate ? 'add' : 'remove']('gb-active');
+    if (index !== -1) {
+      targets[index].classList[activate ? 'add' : 'remove']('gb-active');
+    }
     if (activate) {
       this.state.selected = index;
     }
