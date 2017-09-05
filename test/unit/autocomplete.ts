@@ -197,6 +197,16 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
       expect(set).to.be.calledWith({ suggestions, navigations, categoryValues, selected: -1 });
     });
 
+    it('should not change activation if not mounted', () => {
+      const set = autocomplete.set = spy();
+      autocomplete.flux = <any>{ emit: () => null };
+      autocomplete.isActive = () => true;
+      autocomplete.isMounted = false;
+      autocomplete.setActivation = () => expect.fail();
+
+      autocomplete.updateSuggestions(<any>{ suggestions, navigations, category: { values: categoryValues } });
+    });
+
     it('should deactivate selected element', () => {
       const selected = 1;
       const targets = ['a', 'b', 'c'];
@@ -206,6 +216,7 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
       autocomplete.activationTargets = (): any => targets;
       autocomplete.state = <any>{ selected };
       autocomplete.isActive = () => true;
+      autocomplete.isMounted = true;
 
       autocomplete.updateSuggestions(<any>{ suggestions, navigations, category: { values: categoryValues } });
 
