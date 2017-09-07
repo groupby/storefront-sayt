@@ -102,13 +102,13 @@
 								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite"><a href="autocomplete.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
-						<section class="tsd-index-section tsd-is-inherited">
+						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="autocomplete.html#aliasing" class="tsd-kind-icon">aliasing</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="autocomplete.html#opts" class="tsd-kind-icon">opts</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="autocomplete.html#props-1" class="tsd-kind-icon">props</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a href="autocomplete.html#state-1" class="tsd-kind-icon">state</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite"><a href="autocomplete.html#state-1" class="tsd-kind-icon">state</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="autocomplete.html#_riot_id" class="tsd-kind-icon">_riot_<wbr>id</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="autocomplete.html#actions" class="tsd-kind-icon">actions</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="autocomplete.html#config" class="tsd-kind-icon">config</a></li>
@@ -138,6 +138,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="autocomplete.html#setactivation" class="tsd-kind-icon">set<wbr>Activation</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="autocomplete.html#unexpose" class="tsd-kind-icon">unexpose</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="autocomplete.html#updatealias" class="tsd-kind-icon">update<wbr>Alias</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="autocomplete.html#updateproducts" class="tsd-kind-icon">update<wbr>Products</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="autocomplete.html#updatesuggestions" class="tsd-kind-icon">update<wbr>Suggestions</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-static"><a href="autocomplete.html#init-1" class="tsd-kind-icon">init</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="autocomplete.html#mixin" class="tsd-kind-icon">mixin</a></li>
@@ -172,7 +173,7 @@
 							<aside class="tsd-sources">
 								<p>Overrides Tag.__constructor</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/groupby/storefront-sayt/blob/01cd2f5/src/autocomplete/index.ts#L6">src/autocomplete/index.ts:6</a></li>
+									<li>Defined in <a href="https://github.com/groupby/storefront-sayt/blob/3224c8f/src/autocomplete/index.ts#L16">src/autocomplete/index.ts:16</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="autocomplete.html" class="tsd-signature-type">Autocomplete</a></h4>
@@ -180,7 +181,7 @@
 					</ul>
 				</section>
 			</section>
-			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
+			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 					<a name="aliasing" class="tsd-anchor"></a>
@@ -215,14 +216,14 @@
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-overwrite">
 					<a name="state-1" class="tsd-anchor"></a>
 					<h3>state</h3>
-					<div class="tsd-signature tsd-kind-icon">state<span class="tsd-signature-symbol">:</span> <a href="../interfaces/autocomplete.state.html" class="tsd-signature-type">State</a></div>
+					<div class="tsd-signature tsd-kind-icon">state<span class="tsd-signature-symbol">:</span> <a href="../interfaces/autocomplete.state.html" class="tsd-signature-type">State</a><span class="tsd-signature-symbol"> =&nbsp;&lt;any&gt;{onHover: (event: MouseEvent) &#x3D;&gt; {const targets &#x3D; this.activationTargets();if (this.isActive()) {this.setActivation(targets, this.state.selected, false);}this.setActivation(targets, Array.from(targets).findIndex((element) &#x3D;&gt; element &#x3D;&#x3D;&#x3D; event.target), true);}}</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from Tag.state</p>
+						<p>Overrides Tag.state</p>
 						<ul>
-							<li>Defined in node_modules/@storefront/core/dist/core/tag/index.d.ts:14</li>
+							<li>Defined in <a href="https://github.com/groupby/storefront-sayt/blob/3224c8f/src/autocomplete/index.ts#L8">src/autocomplete/index.ts:8</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -393,7 +394,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/groupby/storefront-sayt/blob/01cd2f5/src/autocomplete/index.ts#L29">src/autocomplete/index.ts:29</a></li>
+									<li>Defined in <a href="https://github.com/groupby/storefront-sayt/blob/3224c8f/src/autocomplete/index.ts#L39">src/autocomplete/index.ts:39</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -410,7 +411,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/groupby/storefront-sayt/blob/01cd2f5/src/autocomplete/index.ts#L40">src/autocomplete/index.ts:40</a></li>
+									<li>Defined in <a href="https://github.com/groupby/storefront-sayt/blob/3224c8f/src/autocomplete/index.ts#L50">src/autocomplete/index.ts:50</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -421,16 +422,16 @@
 					<a name="activationtargets" class="tsd-anchor"></a>
 					<h3>activation<wbr>Targets</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">activation<wbr>Targets<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">NodeListOf</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Element</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">activation<wbr>Targets<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">NodeListOf</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">HTMLElement</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/groupby/storefront-sayt/blob/01cd2f5/src/autocomplete/index.ts#L25">src/autocomplete/index.ts:25</a></li>
+									<li>Defined in <a href="https://github.com/groupby/storefront-sayt/blob/3224c8f/src/autocomplete/index.ts#L35">src/autocomplete/index.ts:35</a></li>
 								</ul>
 							</aside>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">NodeListOf</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Element</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">NodeListOf</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">HTMLElement</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -495,7 +496,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/groupby/storefront-sayt/blob/01cd2f5/src/autocomplete/index.ts#L17">src/autocomplete/index.ts:17</a></li>
+									<li>Defined in <a href="https://github.com/groupby/storefront-sayt/blob/3224c8f/src/autocomplete/index.ts#L27">src/autocomplete/index.ts:27</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -512,7 +513,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/groupby/storefront-sayt/blob/01cd2f5/src/autocomplete/index.ts#L77">src/autocomplete/index.ts:77</a></li>
+									<li>Defined in <a href="https://github.com/groupby/storefront-sayt/blob/3224c8f/src/autocomplete/index.ts#L96">src/autocomplete/index.ts:96</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -529,7 +530,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/groupby/storefront-sayt/blob/01cd2f5/src/autocomplete/index.ts#L49">src/autocomplete/index.ts:49</a></li>
+									<li>Defined in <a href="https://github.com/groupby/storefront-sayt/blob/3224c8f/src/autocomplete/index.ts#L59">src/autocomplete/index.ts:59</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -564,19 +565,19 @@
 					<a name="setactivation" class="tsd-anchor"></a>
 					<h3>set<wbr>Activation</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">set<wbr>Activation<span class="tsd-signature-symbol">(</span>targets<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">NodeListOf</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Element</span><span class="tsd-signature-symbol">&gt;</span>, index<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, activate<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Activation<span class="tsd-signature-symbol">(</span>targets<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">NodeListOf</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">HTMLElement</span><span class="tsd-signature-symbol">&gt;</span>, index<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, activate<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/groupby/storefront-sayt/blob/01cd2f5/src/autocomplete/index.ts#L68">src/autocomplete/index.ts:68</a></li>
+									<li>Defined in <a href="https://github.com/groupby/storefront-sayt/blob/3224c8f/src/autocomplete/index.ts#L78">src/autocomplete/index.ts:78</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>targets: <span class="tsd-signature-type">NodeListOf</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Element</span><span class="tsd-signature-symbol">&gt;</span></h5>
+									<h5>targets: <span class="tsd-signature-type">NodeListOf</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">HTMLElement</span><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
 									<h5>index: <span class="tsd-signature-type">number</span></h5>
@@ -641,6 +642,45 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="updateproducts" class="tsd-anchor"></a>
+					<h3>update<wbr>Products</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">update<wbr>Products<span class="tsd-signature-symbol">(</span>__namedParameters<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/groupby/storefront-sayt/blob/3224c8f/src/autocomplete/index.ts#L89">src/autocomplete/index.ts:89</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>__namedParameters: <span class="tsd-signature-type">object</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter">
+											<h5>dataset<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">object</span></h5>
+											<ul class="tsd-parameters">
+												<li class="tsd-parameter">
+													<h5>field<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+												</li>
+												<li class="tsd-parameter">
+													<h5>refinement<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+												</li>
+												<li class="tsd-parameter">
+													<h5>selected<wbr>Query<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="updatesuggestions" class="tsd-anchor"></a>
 					<h3>update<wbr>Suggestions</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -650,7 +690,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/groupby/storefront-sayt/blob/01cd2f5/src/autocomplete/index.ts#L56">src/autocomplete/index.ts:56</a></li>
+									<li>Defined in <a href="https://github.com/groupby/storefront-sayt/blob/3224c8f/src/autocomplete/index.ts#L66">src/autocomplete/index.ts:66</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1126,7 +1166,7 @@
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
 								<a href="autocomplete.html#props-1" class="tsd-kind-icon">props</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite">
 								<a href="autocomplete.html#state-1" class="tsd-kind-icon">state</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
@@ -1200,6 +1240,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
 								<a href="autocomplete.html#updatealias" class="tsd-kind-icon">update<wbr>Alias</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="autocomplete.html#updateproducts" class="tsd-kind-icon">update<wbr>Products</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="autocomplete.html#updatesuggestions" class="tsd-kind-icon">update<wbr>Suggestions</a>
