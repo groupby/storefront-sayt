@@ -237,6 +237,7 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
     it('should not toggle gb-active if selected is -1', () => {
       const index = -1;
       const state = autocomplete.state = <any>{ selected: 4 };
+      autocomplete.updateProducts = () => null;
 
       autocomplete.setActivation(<any>[], index, true);
 
@@ -260,6 +261,7 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
       const remove = spy();
       const selected = 4;
       const state = autocomplete.state = <any>{ selected };
+      autocomplete.updateProducts = () => null;
 
       autocomplete.setActivation(<any>[{}, { classList: { remove } }, {}], 1, false);
 
