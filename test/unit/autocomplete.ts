@@ -30,6 +30,7 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
     describe('state', () => {
       it('should set initial value', () => {
         expect(autocomplete.state).to.eql({
+          onHover: autocomplete.state.onHover,
           selected: -1,
           category: CATEOGORY,
           categoryValues: CATEOGORY_VALUES,
@@ -236,6 +237,7 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
     it('should not toggle gb-active if selected is -1', () => {
       const index = -1;
       const state = autocomplete.state = <any>{ selected: 4 };
+      autocomplete.updateProducts = () => null;
 
       autocomplete.setActivation(<any>[], index, true);
 
@@ -244,23 +246,84 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
 
     it('should add gb-active to classList if activating and update state', () => {
       const add = spy();
+      const target = { classList: { add } };
       const state = autocomplete.state = <any>{ selected: 4 };
+      const updateProducts = autocomplete.updateProducts = spy();
 
-      autocomplete.setActivation(<any>[{}, { classList: { add } }, {}], 1, true);
+      autocomplete.setActivation(<any>[{}, target, {}], 1, true);
 
       expect(add).to.be.calledWith('gb-active');
       expect(state.selected).to.eq(1);
+      expect(updateProducts).to.be.calledWith(target);
     });
 
     it('should remove gb-active from classList if deactivating', () => {
       const remove = spy();
       const selected = 4;
       const state = autocomplete.state = <any>{ selected };
+      autocomplete.updateProducts = () => null;
 
       autocomplete.setActivation(<any>[{}, { classList: { remove } }, {}], 1, false);
 
       expect(remove).to.be.calledWith('gb-active');
       expect(state.selected).to.eq(selected);
+    });
+  });
+
+  describe('updateProducts()', () => {
+    const query = 'salad';
+
+    it('should emit query:update event', () => {
+      const emit = spy();
+      autocomplete.flux = <any>{ emit, saytProducts: () => null };
+
+      autocomplete.updateProducts(<any>{ dataset: { query } });
+
+      expect(emit).to.be.calledWithExactly('query:update', query);
+    });
+
+    it('should call flux.saytProducts() with only query', () => {
+      const saytProducts = spy();
+      autocomplete.flux = <any>{ emit: () => null, saytProducts };
+
+      autocomplete.updateProducts(<any>{ dataset: { query } });
+
+      expect(saytProducts).to.be.calledWithExactly(query, []);
+    });
+
+    it('should call flux.saytProducts() with original query', () => {
+      const saytProducts = spy();
+      const state = { a: 'b' };
+      const querySelector = stub(Selectors, 'query').returns(query);
+      autocomplete.flux = <any>{ emit: () => null, saytProducts, store: { getState: () => state } };
+
+      autocomplete.updateProducts(<any>{ dataset: {} });
+
+      expect(saytProducts).to.be.calledWithExactly(query, []);
+      expect(querySelector).to.be.calledWith(state);
+    });
+
+    it('should call flux.saytProducts() with only refinement', () => {
+      const refinement = 'Nike';
+      const field = 'brand';
+      const saytProducts = spy();
+      autocomplete.flux = <any>{ emit: () => null, saytProducts };
+
+      autocomplete.updateProducts(<any>{ dataset: { query, refinement, field } });
+
+      expect(saytProducts).to.be.calledWithExactly('', [{ field, value: refinement }]);
+    });
+
+    it('should call flux.saytProducts() with query and category refinement', () => {
+      const refinement = 'Nike';
+      const category = 'brand';
+      const saytProducts = spy();
+      autocomplete.state = <any>{ category };
+      autocomplete.flux = <any>{ emit: () => null, saytProducts };
+
+      autocomplete.updateProducts(<any>{ dataset: { query, refinement } });
+
+      expect(saytProducts).to.be.calledWithExactly(query, [{ field: category, value: refinement }]);
     });
   });
 

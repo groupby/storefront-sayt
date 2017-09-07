@@ -172,8 +172,10 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
 
   describe('setInactive()', () => {
     it('should call unregisterClickAwayHandler()', () => {
-      sayt.set = () => null;
       const unregisterClickAwayHandler = sayt.unregisterClickAwayHandler = spy();
+      stub(Selectors, 'query');
+      sayt.set = () => null;
+      sayt.flux = <any>{ emit: () => null, store: { getState: () => null } };
 
       sayt.setInactive();
 
@@ -181,13 +183,20 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
     });
 
     it('should set isActive', () => {
+      const query = 'apple';
+      const state = { a: 'b' };
+      const emit = spy();
       const set = sayt.set = spy();
+      const querySelector = stub(Selectors, 'query').returns(query);
+      sayt.flux = <any>{ emit, store: { getState: () => state } };
       sayt.unregisterClickAwayHandler = () => null;
       sayt.state.isActive = true;
 
       sayt.setInactive();
 
       expect(set).to.be.calledWith({ isActive: false });
+      expect(emit).to.be.calledWithExactly('query:update', query);
+      expect(querySelector).to.be.calledWith(state);
     });
 
     it('should not set isActive if not already active', () => {

@@ -5,13 +5,23 @@ import Sayt from '../sayt';
 @tag('gb-sayt-autocomplete', require('./index.html'))
 class Autocomplete {
 
+  state: Autocomplete.State = <any>{
+    onHover: (event: MouseEvent) => {
+      const targets = this.activationTargets();
+      if (this.isActive()) {
+        this.setActivation(targets, this.state.selected, false);
+      }
+      this.setActivation(targets, Array.from(targets).findIndex((element) => element === event.target), true);
+    }
+  };
+
   constructor() {
     const state = this.flux.store.getState();
     const suggestions = Selectors.autocompleteSuggestions(state);
     const category = Selectors.autocompleteCategoryField(state);
     const categoryValues = Selectors.autocompleteCategoryValues(state);
     const navigations = Selectors.autocompleteNavigations(state);
-    this.state = { suggestions, navigations, category, categoryValues, selected: -1 };
+    this.state = { ...this.state, suggestions, navigations, category, categoryValues, selected: -1 };
   }
 
   init() {
@@ -22,8 +32,8 @@ class Autocomplete {
     this.flux.on('sayt:select_active', this.selectActive);
   }
 
-  activationTargets() {
-    return this.root.querySelectorAll('.gb-autocomplete-target');
+  activationTargets(): NodeListOf<HTMLElement> {
+    return <any>this.root.querySelectorAll('.gb-autocomplete-target');
   }
 
   activateNext = () => {
@@ -65,13 +75,22 @@ class Autocomplete {
     }
   }
 
-  setActivation(targets: NodeListOf<Element>, index: number, activate: boolean) {
+  setActivation(targets: NodeListOf<HTMLElement>, index: number, activate: boolean) {
+    const target = targets[index];
     if (index !== -1) {
-      targets[index].classList[activate ? 'add' : 'remove']('gb-active');
+      target.classList[activate ? 'add' : 'remove']('gb-active');
     }
     if (activate) {
       this.state.selected = index;
+      this.updateProducts(target);
     }
+  }
+
+  updateProducts({ dataset: { query: selectedQuery, refinement, field } }: HTMLElement) {
+    const query = selectedQuery == null ? Selectors.query(this.flux.store.getState()) : selectedQuery;
+    this.flux.emit('query:update', query);
+    // tslint:disable-next-line max-line-length
+    this.flux.saytProducts(field ? '' : query, refinement ? [{ field: field || this.state.category, value: refinement }] : []);
   }
 
   isActive() {
@@ -91,6 +110,7 @@ namespace Autocomplete {
     categoryValues: string[];
     suggestions: Store.Autocomplete.Suggestion[];
     navigations: Store.Autocomplete.Navigation[];
+    onHover(event: MouseEvent): void;
   }
 }
 
