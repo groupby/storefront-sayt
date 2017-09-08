@@ -1,4 +1,4 @@
-import { alias, tag, Selectors, Tag } from '@storefront/core';
+import { alias, tag, Events, Selectors, Tag } from '@storefront/core';
 import Autocomplete from '../autocomplete';
 
 @alias('saytCategories')
@@ -14,13 +14,21 @@ class Categories {
         query: Selectors.autocompleteQuery(this.flux.store.getState()),
         navigationId: this.$autocomplete.category,
         value
-      })
+      }),
+    query: Selectors.autocompleteQuery(this.flux.store.getState())
   };
+
+  init() {
+    this.flux.on(Events.AUTOCOMPLETE_QUERY_UPDATED, this.updateQuery);
+  }
+
+  updateQuery = (query: string) => this.set({ query });
 }
 
 interface Categories extends Tag { }
 namespace Categories {
   export interface State {
+    query: string;
     onClick: (value: string) => () => void;
   }
 }
