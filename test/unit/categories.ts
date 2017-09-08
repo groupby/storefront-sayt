@@ -6,7 +6,7 @@ import suite from './_suite';
 const QUERY = 'red dress';
 
 suite('Categories', ({ expect, spy, stub }) => {
-  let navigations: Categories;
+  let categories: Categories;
   let getState: sinon.SinonSpy;
   let selectAutocompleteQuery: sinon.SinonStub;
 
@@ -14,7 +14,7 @@ suite('Categories', ({ expect, spy, stub }) => {
     selectAutocompleteQuery = stub(Selectors, 'autocompleteQuery').returns(QUERY);
     getState = spy();
     Categories.prototype.flux = <any>{ store: { getState } };
-    navigations = new Categories();
+    categories = new Categories();
   });
   afterEach(() => delete Categories.prototype.flux);
 
@@ -28,11 +28,11 @@ suite('Categories', ({ expect, spy, stub }) => {
           const action = { a: 'b' };
           const state = { c: 'd' };
           const updateSearch = spy(() => action);
-          const handler = navigations.state.onClick(value);
+          const handler = categories.state.onClick(value);
           selectAutocompleteQuery.returns(query);
-          navigations.$autocomplete = <any>{ category: navigationId };
-          navigations.actions = <any>{ updateSearch };
-          navigations.flux = <any>{ store: { getState: () => state } };
+          categories.$autocomplete = <any>{ category: navigationId };
+          categories.actions = <any>{ updateSearch };
+          categories.flux = <any>{ store: { getState: () => state } };
 
           handler();
 
@@ -43,7 +43,7 @@ suite('Categories', ({ expect, spy, stub }) => {
 
       describe('query', () => {
         it('should equal original autocomplete query', () => {
-          expect(navigations.state.query).to.eq(QUERY);
+          expect(categories.state.query).to.eq(QUERY);
         });
       });
     });
@@ -52,11 +52,22 @@ suite('Categories', ({ expect, spy, stub }) => {
   describe('init()', () => {
     it('should listen for AUTOCOMPLETE_QUERY_UPDATED', () => {
       const on = spy();
-      navigations.flux = <any>{ on };
+      categories.flux = <any>{ on };
 
-      navigations.init();
+      categories.init();
 
-      expect(on).to.be.calledWithExactly(Events.AUTOCOMPLETE_QUERY_UPDATED, navigations.updateQuery);
+      expect(on).to.be.calledWithExactly(Events.AUTOCOMPLETE_QUERY_UPDATED, categories.updateQuery);
+    });
+  });
+
+  describe('updateQuery()', () => {
+    it('should update the query', () => {
+      const query = 'test';
+      const set = categories.set = spy();
+
+      categories.updateQuery(query);
+
+      expect(set).to.be.calledWithExactly({ query });
     });
   });
 });
