@@ -28,7 +28,7 @@ suite('Categories', ({ expect, spy, stub }) => {
           const action = { a: 'b' };
           const state = { c: 'd' };
           const updateSearch = spy(() => action);
-          const handler = categories.state.onClick(value);
+          const handler = categories.state.onClick({ value });
           selectAutocompleteQuery.returns(query);
           categories.$autocomplete = <any>{ category: navigationId };
           categories.actions = <any>{ updateSearch };

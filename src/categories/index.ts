@@ -8,12 +8,14 @@ class Categories {
   $autocomplete: Autocomplete.State;
 
   state: Categories.State = {
-    onClick: (value) => () =>
+    onClick: ({ matchAll, value }) => () =>
       this.actions.updateSearch({
         clear: true,
         query: Selectors.autocompleteQuery(this.flux.store.getState()),
-        navigationId: this.$autocomplete.category,
-        value
+        ...(<any>matchAll || {
+          navigationId: this.$autocomplete.category,
+          value: value
+        })
       }),
     query: Selectors.autocompleteQuery(this.flux.store.getState())
   };
@@ -29,7 +31,7 @@ interface Categories extends Tag { }
 namespace Categories {
   export interface State {
     query: string;
-    onClick: (value: string) => () => void;
+    onClick: (category: { value?: string, matchAll?: boolean }) => () => void;
   }
 }
 
