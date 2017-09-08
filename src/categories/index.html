@@ -1,9 +1,11 @@
 <gb-list items="{ $autocomplete.categoryValues }" item-alias="categoryValue">
-  <gb-link class="gb-autocomplete-target" data-refinement="{ $categoryValue }" onmouseenter="{ $autocomplete.onHover }" on-click="{ $saytCategories.onClick($categoryValue) }">
+  <gb-link class="gb-autocomplete-target" data-match-all="{ $categoryValue.matchAll }" data-refinement="{ $categoryValue.value }" onmouseenter="{ $autocomplete.onHover }" on-click="{ $saytCategories.onClick($categoryValue) }">
     <yield>
-      <gb-raw content="{ $sayt.highlight($categoryValue, '<b>$&</b>') }"></gb-raw>
+      <gb-raw content="{ $sayt.highlight($saytCategories.query, '<b>$&</b>') }"></gb-raw>
       in
-      <span class="gb-autocomplete-category">{ $autocomplete.category }</span>
+      <span class="gb-autocomplete-category">
+        { $categoryValue.matchAll ? "All Departments" : $categoryValue.value }
+      </span>
     </yield>
   </gb-link>
 </gb-list>

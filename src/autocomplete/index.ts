@@ -87,7 +87,7 @@ class Autocomplete {
   }
 
   updateProducts({ dataset: { query: selectedQuery, refinement, field } }: HTMLElement) {
-    const query = selectedQuery == null ? Selectors.query(this.flux.store.getState()) : selectedQuery;
+    const query = selectedQuery == null ? Selectors.autocompleteQuery(this.flux.store.getState()) : selectedQuery;
     this.flux.emit('query:update', query);
     // tslint:disable-next-line max-line-length
     this.flux.saytProducts(field ? '' : query, refinement ? [{ field: field || this.state.category, value: refinement }] : []);
