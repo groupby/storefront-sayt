@@ -294,7 +294,7 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
     it('should call flux.saytProducts() with original query', () => {
       const saytProducts = spy();
       const state = { a: 'b' };
-      const querySelector = stub(Selectors, 'query').returns(query);
+      const querySelector = stub(Selectors, 'autocompleteQuery').returns(query);
       autocomplete.flux = <any>{ emit: () => null, saytProducts, store: { getState: () => state } };
 
       autocomplete.updateProducts(<any>{ dataset: {} });

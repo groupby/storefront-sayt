@@ -14,7 +14,7 @@ class Categories {
         query: Selectors.autocompleteQuery(this.flux.store.getState()),
         ...(<any>matchAll || {
           navigationId: this.$autocomplete.category,
-          value: value
+          value
         })
       }),
     query: Selectors.autocompleteQuery(this.flux.store.getState())
