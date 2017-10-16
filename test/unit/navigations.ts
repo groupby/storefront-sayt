@@ -19,7 +19,6 @@ suite('Navigations', ({ expect, spy, stub }) => {
           const handler = navigations.state.onClick(navigationId, value);
           navigations.flux = <any>{ store: { getState: () => 1 }};
           navigations.actions = <any>{ updateSearch };
-
           stub(Selectors, 'autocompleteQuery').returns(query);
 
           handler();
