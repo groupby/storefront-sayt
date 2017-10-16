@@ -1,4 +1,4 @@
-import { alias, tag, Tag } from '@storefront/core';
+import { alias, tag, Selectors, Tag } from '@storefront/core';
 
 @alias('navigations')
 @tag('gb-sayt-navigations', require('./index.html'))
@@ -8,7 +8,7 @@ class Navigations {
     onClick: (navigationId, value) => () =>
       this.actions.updateSearch({
         clear: true,
-        query: null,
+        query: Selectors.autocompleteQuery(this.flux.store.getState()),
         navigationId,
         value
       })
