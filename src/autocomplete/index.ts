@@ -8,6 +8,10 @@ class Autocomplete {
   state: Autocomplete.State = <any>{
     onHover: (event: MouseEvent) => {
       const targets = this.activationTargets();
+      if (Array.from(targets).findIndex((element) => element === event.target) === this.state.selected) {
+        return;
+      }
+
       if (this.isActive()) {
         this.setActivation(targets, this.state.selected, false);
       }
