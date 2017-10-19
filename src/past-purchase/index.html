@@ -1,7 +1,6 @@
 <yield>
-  { console.log(this, 'past') }
   <!-- "gb-past-purchase-target" -->
-  <gb-link class="gb-autocomplete-target"> <!-- onmouseenter="{ $autocomplete.onHover }" on-click="{ $saytCategories.onClick($categoryValue) }" -->
+  <gb-link if="{$saytCategories.query && this.state.pastPurchases && this.state.pastPurchases.length > 0 }" class="gb-autocomplete-target" onmouseenter="{ this.state.onHover }"> <!-- onmouseenter="{ $autocomplete.onHover }" on-click="{ $saytCategories.onClick($categoryValue) }" -->
     <yield style="margin:0 10px;" > <!-- TODO: fix -->
       <gb-raw content="{ $sayt.highlight($saytCategories.query, '<b>$&</b>') }"></gb-raw>
       in
