@@ -4,6 +4,7 @@ import Autocomplete from '../autocomplete';
 @alias('saytCategories')
 @tag('gb-sayt-past-purchase', require('./index.html'))
 class PastPurchase {
+  $autocomplete: Autocomplete.State;
 
   state: PastPurchase.State = {
     // onClick: ({ matchAll, value }) => () =>
@@ -16,7 +17,11 @@ class PastPurchase {
     //     })
     //   }),
     query: Selectors.autocompleteQuery(this.flux.store.getState()),
-    pastPurchases: Selectors.queryPastPurchases(this.flux.store.getState())
+    pastPurchases: Selectors.queryPastPurchases(this.flux.store.getState()),
+    onHover: (event: MouseEvent) => {
+      this.$autocomplete.onHover(event, false);
+      this.flux.emit('autocomplete_products_updated', this.state.pastPurchases);
+    }
   };
 
   init() {
@@ -31,6 +36,7 @@ namespace PastPurchase {
   export interface State {
     query: string;
     pastPurchases: any[];
+    onHover: any;
   }
 }
 

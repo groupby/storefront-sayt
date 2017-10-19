@@ -6,16 +6,15 @@ import Sayt from '../sayt';
 class Autocomplete {
 
   state: Autocomplete.State = <any>{
-    onHover: (event: MouseEvent) => {
+    onHover: (event: MouseEvent, extra: boolean = true) => {
       const targets = this.activationTargets();
       if (Array.from(targets).findIndex((element) => element === event.target) === this.state.selected) {
         return;
       }
-
       if (this.isActive()) {
-        this.setActivation(targets, this.state.selected, false);
+        this.setActivation(targets, this.state.selected, false, extra);
       }
-      this.setActivation(targets, Array.from(targets).findIndex((element) => element === event.target), true);
+      this.setActivation(targets, Array.from(targets).findIndex((element) => element === event.target), true, extra);
     }
   };
 
@@ -86,7 +85,7 @@ class Autocomplete {
     }
   }
 
-  setActivation(targets: NodeListOf<HTMLElement>, index: number, activate: boolean) {
+  setActivation(targets: NodeListOf<HTMLElement>, index: number, activate: boolean, extra: boolean = true) {
     const target = targets[index];
     const indexExists = index !== -1;
     if (indexExists) {
