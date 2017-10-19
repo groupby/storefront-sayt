@@ -115,7 +115,7 @@ namespace Autocomplete {
     categoryValues: string[];
     suggestions: Store.Autocomplete.Suggestion[];
     navigations: Store.Autocomplete.Navigation[];
-    onHover(event: MouseEvent): void;
+    onHover(event: MouseEvent, extra?: boolean): void;
   }
 }
 
