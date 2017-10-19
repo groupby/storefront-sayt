@@ -124,7 +124,7 @@ namespace Autocomplete {
     suggestions: Store.Autocomplete.Suggestion[];
     navigations: Store.Autocomplete.Navigation[];
     products: Store.ProductWithMetadata[];
-    onHover(event: MouseEvent): void;
+    onHover(event: MouseEvent, extra?: boolean): void;
   }
 }
 
