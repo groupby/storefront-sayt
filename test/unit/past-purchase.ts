@@ -19,7 +19,14 @@ suite('PastPurchase', ({ expect, spy, stub }) => {
   describe('state', () => {
     it('should hold pastPurchases', () => {
       expect(pastPurchase.state).to.eql({
+        onClick: pastPurchase.state.onClick,
         pastPurchases: PAST
+      });
+    });
+
+    describe('onClick()', () => {
+      it('should ', () => {
+        pastPurchase.state.onClick(<any>{});
       });
     });
   });
