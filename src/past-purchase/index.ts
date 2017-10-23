@@ -1,19 +1,14 @@
-import { alias, tag, Events, Selectors, Tag } from '@storefront/core';
+import { alias, tag, Events, Selectors, Store, Tag } from '@storefront/core';
 
 @alias('saytCategories')
 @tag('gb-sayt-past-purchase', require('./index.html'))
 class PastPurchase {
+  $pastPurchase: Store.Autocomplete.Suggestion;
 
   state: PastPurchase.State = {
-    // onClick: ({ matchAll, value }) => () =>
-    //   this.actions.updateSearch({
-    //     clear: true,
-    //     query: Selectors.autocompleteQuery(this.flux.store.getState()),
-    //     ...(<any>matchAll || {
-    //       navigationId: this.$autocomplete.category,
-    //       value
-    //     })
-    //   }),
+    onClick: (event: MouseEvent) => {
+      // todo:
+    },
     pastPurchases: Selectors.queryPastPurchases(this.flux.store.getState()),
   };
 }
@@ -21,7 +16,8 @@ class PastPurchase {
 interface PastPurchase extends Tag { }
 namespace PastPurchase {
   export interface State {
-    pastPurchases: any[];
+    pastPurchases: Store.Product[];
+    onClick(event: MouseEvent): void;
   }
 }
 
