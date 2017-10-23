@@ -17,12 +17,6 @@ class PastPurchase {
     //   }),
     pastPurchases: Selectors.queryPastPurchases(this.flux.store.getState()),
   };
-
-  init() {
-    this.flux.on(Events.AUTOCOMPLETE_QUERY_UPDATED, this.updateQuery);
-  }
-
-  updateQuery = (query: string) => this.set({ query });
 }
 
 interface PastPurchase extends Tag { }
