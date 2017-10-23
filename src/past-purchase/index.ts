@@ -9,7 +9,7 @@ class PastPurchase {
     onClick: (event: MouseEvent) => {
       // todo:
     },
-    pastPurchases: Selectors.queryPastPurchases(this.flux.store.getState()),
+    pastPurchases: this.select(Selectors.queryPastPurchases),
   };
 }
 
