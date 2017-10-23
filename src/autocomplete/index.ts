@@ -6,15 +6,15 @@ import Sayt from '../sayt';
 class Autocomplete {
 
   state: Autocomplete.State = <any>{
-    onHover: (event: MouseEvent, extra: boolean = true) => {
+    onHover: (event: MouseEvent) => {
       const targets = this.activationTargets();
       if (Array.from(targets).findIndex((element) => element === event.target) === this.state.selected) {
         return;
       }
       if (this.isActive()) {
-        this.setActivation(targets, this.state.selected, false, extra);
+        this.setActivation(targets, this.state.selected, false);
       }
-      this.setActivation(targets, Array.from(targets).findIndex((element) => element === event.target), true, extra);
+      this.setActivation(targets, Array.from(targets).findIndex((element) => element === event.target), true);
     }
   };
 
@@ -77,7 +77,7 @@ class Autocomplete {
     }
   }
 
-  setActivation(targets: NodeListOf<HTMLElement>, index: number, activate: boolean, extra: boolean = true) {
+  setActivation(targets: NodeListOf<HTMLElement>, index: number, activate: boolean) {
     const target = targets[index];
     const indexExists = index !== -1;
     if (indexExists) {
@@ -91,11 +91,15 @@ class Autocomplete {
     }
   }
 
-  updateProducts({ dataset: { query: selectedQuery, refinement, field } }: HTMLElement) {
+  updateProducts({ dataset: { query: selectedQuery, refinement, field, pastPurchase } }: HTMLElement) {
     const query = selectedQuery == null ? this.select(Selectors.autocompleteQuery) : selectedQuery;
     this.flux.emit('query:update', query);
-    // tslint:disable-next-line max-line-length
-    this.flux.saytProducts(field ? null : query, refinement ? [{ field: field || this.state.category, value: refinement }] : []);
+    if (pastPurchase !== undefined) {
+      this.flux.pastPurchaseProducts();
+    } else {
+      // tslint:disable-next-line max-line-length
+      this.flux.saytProducts(field ? null : query, refinement ? [{ field: field || this.state.category, value: refinement }] : []);
+    }
   }
 
   isActive() {
@@ -115,7 +119,7 @@ namespace Autocomplete {
     categoryValues: string[];
     suggestions: Store.Autocomplete.Suggestion[];
     navigations: Store.Autocomplete.Navigation[];
-    onHover(event: MouseEvent, extra?: boolean): void;
+    onHover(event: MouseEvent): void;
   }
 }
 
