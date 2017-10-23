@@ -4,15 +4,13 @@ import PastPurchase from '../../src/past-purchase';
 import suite from './_suite';
 
 const PAST = ['a', 'b'];
-const STATE = { h: 'j' };
 
 suite('PastPurchase', ({ expect, spy, stub }) => {
   let pastPurchase: PastPurchase;
   let queryPastPurchases: sinon.SinonStub;
 
   beforeEach(() => {
-    PastPurchase.prototype.flux = <any>{ store: { getState: () => STATE } };
-    queryPastPurchases = stub(Selectors, 'queryPastPurchases').returns(PAST);
+    PastPurchase.prototype.select = <any>spy(() => PAST);
     pastPurchase = new PastPurchase();
   });
 
@@ -22,6 +20,7 @@ suite('PastPurchase', ({ expect, spy, stub }) => {
         onClick: pastPurchase.state.onClick,
         pastPurchases: PAST
       });
+      expect(pastPurchase.select).to.be.calledWith(Selectors.queryPastPurchases);
     });
 
     describe('onClick()', () => {
