@@ -1,5 +1,4 @@
 import { alias, tag, Events, Selectors, Tag } from '@storefront/core';
-import Autocomplete from '../autocomplete';
 
 @alias('saytCategories')
 @tag('gb-sayt-past-purchase', require('./index.html'))
