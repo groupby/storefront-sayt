@@ -1,7 +1,3 @@
-import { tag } from '@storefront/core';
+import { view } from '@storefront/core';
 
-@tag('gb-sayt-past-purchases', require('./index.html'))
-class PastPurchases {
-}
-
-export default PastPurchases;
+view('gb-sayt-past-purchases', require('./index.html'));
