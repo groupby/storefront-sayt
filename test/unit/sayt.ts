@@ -27,20 +27,17 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
       describe('highlight()', () => {
         it('should replace the current autocomplete query', () => {
           const query = 'yellow tie';
-          const state = { a: 'b' };
-          const autocompleteQuerySelector = stub(Selectors, 'autocompleteQuery').returns(query);
-          sayt.flux = <any>{ store: { getState: () => state } };
+          const select = sayt.select = spy(() => query);
 
           const highlighted = sayt.state.highlight('flamboyant yellow tie', '<i>$&</i>');
 
           expect(highlighted).to.eq('flamboyant <i>yellow tie</i>');
-          expect(autocompleteQuerySelector).to.be.calledWith(state);
+          expect(select).to.be.calledWith(Selectors.autocompleteQuery);
         });
 
         it('should be case insensitive', () => {
           const query = 'YelLoW tIE';
-          stub(Selectors, 'autocompleteQuery').returns(query);
-          sayt.flux = <any>{ store: { getState: () => null } };
+          sayt.select = spy(() => query);
 
           const highlighted = sayt.state.highlight('flamboyant YElLOw Tie', '<p>$&</p>');
 
@@ -173,9 +170,9 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
   describe('setInactive()', () => {
     it('should call unregisterClickAwayHandler()', () => {
       const unregisterClickAwayHandler = sayt.unregisterClickAwayHandler = spy();
-      stub(Selectors, 'query');
+      sayt.select = spy();
       sayt.set = () => null;
-      sayt.flux = <any>{ emit: () => null, store: { getState: () => null } };
+      sayt.flux = <any>{ emit: () => null};
 
       sayt.setInactive();
 
@@ -187,8 +184,8 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
       const state = { a: 'b' };
       const emit = spy();
       const set = sayt.set = spy();
-      const querySelector = stub(Selectors, 'query').returns(query);
-      sayt.flux = <any>{ emit, store: { getState: () => state } };
+      const select = sayt.select = spy(() => query);
+      sayt.flux = <any>{ emit };
       sayt.unregisterClickAwayHandler = () => null;
       sayt.state.isActive = true;
 
@@ -196,7 +193,7 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
 
       expect(set).to.be.calledWith({ isActive: false });
       expect(emit).to.be.calledWithExactly('query:update', query);
-      expect(querySelector).to.be.calledWith(state);
+      expect(select).to.be.calledWith(Selectors.query);
     });
 
     it('should not set isActive if not already active', () => {

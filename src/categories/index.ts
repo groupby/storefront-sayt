@@ -11,13 +11,13 @@ class Categories {
     onClick: ({ matchAll, value }) => () =>
       this.actions.updateSearch({
         clear: true,
-        query: Selectors.autocompleteQuery(this.flux.store.getState()),
+        query: this.select(Selectors.autocompleteQuery),
         ...(<any>matchAll || {
           navigationId: this.$autocomplete.category,
           value
         })
       }),
-    query: Selectors.autocompleteQuery(this.flux.store.getState())
+    query: this.select(Selectors.autocompleteQuery)
   };
 
   init() {

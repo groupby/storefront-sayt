@@ -3,28 +3,28 @@ import * as sinon from 'sinon';
 import Autocomplete from '../../src/autocomplete';
 import suite from './_suite';
 
-const CATEOGORY = 'brand';
-const CATEOGORY_VALUES = ['a', 'b', 'c'];
+const CATEGORY = 'brand';
+const CATEGORY_VALUES = ['a', 'b', 'c'];
 const SUGGESTIONS = ['d', 'e', 'f'];
 const NAVIGATIONS = ['g', 'h', 'i'];
-const STATE = { h: 'j' };
 
 suite('Autocomplete', ({ expect, spy, stub }) => {
   let autocomplete: Autocomplete;
-  let autocompleteSuggestionsSelector: sinon.SinonStub;
-  let autocompleteCategoryFieldSelector: sinon.SinonStub;
-  let autocompleteCategoryValuesSelector: sinon.SinonStub;
-  let autocompleteNavigationsSelector: sinon.SinonStub;
+  let select: sinon.SinonStub;
 
   beforeEach(() => {
-    Autocomplete.prototype.flux = <any>{ store: { getState: () => STATE } };
-    autocompleteSuggestionsSelector = stub(Selectors, 'autocompleteSuggestions').returns(SUGGESTIONS);
-    autocompleteCategoryFieldSelector = stub(Selectors, 'autocompleteCategoryField').returns(CATEOGORY);
-    autocompleteCategoryValuesSelector = stub(Selectors, 'autocompleteCategoryValues').returns(CATEOGORY_VALUES);
-    autocompleteNavigationsSelector = stub(Selectors, 'autocompleteNavigations').returns(NAVIGATIONS);
+    Autocomplete.prototype.flux = <any>{};
+    select = Autocomplete.prototype.select = stub();
+    select.withArgs(Selectors.autocompleteSuggestions).returns(SUGGESTIONS);
+    select.withArgs(Selectors.autocompleteCategoryField).returns(CATEGORY);
+    select.withArgs(Selectors.autocompleteCategoryValues).returns(CATEGORY_VALUES);
+    select.withArgs(Selectors.autocompleteNavigations).returns(NAVIGATIONS);
     autocomplete = new Autocomplete();
   });
-  afterEach(() => delete Autocomplete.prototype.flux);
+  afterEach(() => {
+    delete Autocomplete.prototype.flux;
+    delete Autocomplete.prototype.select;
+  });
 
   describe('constructor()', () => {
     describe('state', () => {
@@ -32,8 +32,8 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
         expect(autocomplete.state).to.eql({
           onHover: autocomplete.state.onHover,
           selected: -1,
-          category: CATEOGORY,
-          categoryValues: CATEOGORY_VALUES,
+          category: CATEGORY,
+          categoryValues: CATEGORY_VALUES,
           suggestions: SUGGESTIONS,
           navigations: NAVIGATIONS
         });
@@ -294,13 +294,13 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
     it('should call flux.saytProducts() with original query', () => {
       const saytProducts = spy();
       const state = { a: 'b' };
-      const querySelector = stub(Selectors, 'autocompleteQuery').returns(query);
-      autocomplete.flux = <any>{ emit: () => null, saytProducts, store: { getState: () => state } };
+      select.returns(query);
+      autocomplete.flux = <any>{ emit: () => null, saytProducts};
 
       autocomplete.updateProducts(<any>{ dataset: {} });
 
       expect(saytProducts).to.be.calledWithExactly(query, []);
-      expect(querySelector).to.be.calledWith(state);
+      expect(select).to.be.calledWith(Selectors.autocompleteQuery);
     });
 
     it('should call flux.saytProducts() with only refinement', () => {
