@@ -7,13 +7,12 @@ const QUERY = 'red dress';
 
 suite('Categories', ({ expect, spy, stub }) => {
   let categories: Categories;
-  let getState: sinon.SinonSpy;
-  let selectAutocompleteQuery: sinon.SinonStub;
+  let select: sinon.SinonSpy;
 
   beforeEach(() => {
-    selectAutocompleteQuery = stub(Selectors, 'autocompleteQuery').returns(QUERY);
-    getState = spy();
-    Categories.prototype.flux = <any>{ store: { getState } };
+    //selectAutocompleteQuery = stub(Selectors, 'autocompleteQuery').returns(QUERY);
+    select = Categories.prototype.select = spy(() => QUERY);
+    Categories.prototype.flux = <any>{};
     categories = new Categories();
   });
   afterEach(() => delete Categories.prototype.flux);
@@ -30,7 +29,7 @@ suite('Categories', ({ expect, spy, stub }) => {
           const updateSearch = spy(() => action);
           const handler = categories.state.onClick({ value });
 
-          selectAutocompleteQuery.returns(query);
+          select = Categories.prototype.select = spy(() => query);
           categories.$autocomplete = <any>{ category: navigationId };
           categories.actions = <any>{ updateSearch };
           categories.flux = <any>{ store: { getState: () => state } };
@@ -38,7 +37,7 @@ suite('Categories', ({ expect, spy, stub }) => {
           handler();
 
           expect(updateSearch).to.be.calledWith({ navigationId, value, query, clear: true });
-          expect(selectAutocompleteQuery).to.be.calledWith(state);
+          expect(select).to.be.calledWith(Selectors.autocompleteQuery);
         });
       });
 
