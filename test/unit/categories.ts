@@ -10,7 +10,6 @@ suite('Categories', ({ expect, spy, stub }) => {
   let select: sinon.SinonSpy;
 
   beforeEach(() => {
-    //selectAutocompleteQuery = stub(Selectors, 'autocompleteQuery').returns(QUERY);
     select = Categories.prototype.select = spy(() => QUERY);
     Categories.prototype.flux = <any>{};
     categories = new Categories();

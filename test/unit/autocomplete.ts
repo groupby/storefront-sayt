@@ -14,10 +14,6 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
 
   beforeEach(() => {
     Autocomplete.prototype.flux = <any>{};
-    // autocompleteSuggestionsSelector = stub(Selectors, 'autocompleteSuggestions').returns(SUGGESTIONS);
-    // autocompleteCategoryFieldSelector = stub(Selectors, 'autocompleteCategoryField').returns(CATEGORY);
-    // autocompleteCategoryValuesSelector = stub(Selectors, 'autocompleteCategoryValues').returns(CATEGORY_VALUES);
-    // autocompleteNavigationsSelector = stub(Selectors, 'autocompleteNavigations').returns(NAVIGATIONS);
     Autocomplete.prototype.select = spy((selector) => {
       if (selector === Selectors.autocompleteSuggestions) {
         return SUGGESTIONS;
@@ -34,7 +30,10 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
     });
     autocomplete = new Autocomplete();
   });
-  afterEach(() => delete Autocomplete.prototype.flux);
+  afterEach(() => {
+    delete Autocomplete.prototype.flux;
+    delete Autocomplete.prototype.select;
+  });
 
   describe('constructor()', () => {
     describe('state', () => {
