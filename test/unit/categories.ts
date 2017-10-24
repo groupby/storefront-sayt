@@ -7,10 +7,10 @@ const QUERY = 'red dress';
 
 suite('Categories', ({ expect, spy, stub }) => {
   let categories: Categories;
-  let select: sinon.SinonSpy;
+  let select: sinon.SinonStub;
 
   beforeEach(() => {
-    select = Categories.prototype.select = spy(() => QUERY);
+    select = Categories.prototype.select = stub().returns(QUERY);
     Categories.prototype.flux = <any>{};
     categories = new Categories();
   });
@@ -28,7 +28,7 @@ suite('Categories', ({ expect, spy, stub }) => {
           const updateSearch = spy(() => action);
           const handler = categories.state.onClick({ value });
 
-          select = Categories.prototype.select = spy(() => query);
+          select.returns(query);
           categories.$autocomplete = <any>{ category: navigationId };
           categories.actions = <any>{ updateSearch };
           categories.flux = <any>{ store: { getState: () => state } };
