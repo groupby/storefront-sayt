@@ -90,7 +90,7 @@ class Autocomplete {
     const query = selectedQuery == null ? Selectors.autocompleteQuery(this.flux.store.getState()) : selectedQuery;
     this.flux.emit('query:update', query);
     // tslint:disable-next-line max-line-length
-    this.flux.saytProducts(field ? '' : query, refinement ? [{ field: field || this.state.category, value: refinement }] : []);
+    this.flux.saytProducts(field ? null : query, refinement ? [{ field: field || this.state.category, value: refinement }] : []);
   }
 
   isActive() {

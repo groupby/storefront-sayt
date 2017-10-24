@@ -311,7 +311,7 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
 
       autocomplete.updateProducts(<any>{ dataset: { query, refinement, field } });
 
-      expect(saytProducts).to.be.calledWithExactly('', [{ field, value: refinement }]);
+      expect(saytProducts).to.be.calledWithExactly(null, [{ field, value: refinement }]);
     });
 
     it('should call flux.saytProducts() with query and category refinement', () => {
