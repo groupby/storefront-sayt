@@ -16,11 +16,10 @@ class Autocomplete {
   };
 
   constructor() {
-    const state = this.flux.store.getState();
-    const suggestions = Selectors.autocompleteSuggestions(state);
-    const category = Selectors.autocompleteCategoryField(state);
-    const categoryValues = Selectors.autocompleteCategoryValues(state);
-    const navigations = Selectors.autocompleteNavigations(state);
+    const suggestions = this.select(Selectors.autocompleteSuggestions);
+    const category = this.select(Selectors.autocompleteCategoryField);
+    const categoryValues = this.select(Selectors.autocompleteCategoryValues);
+    const navigations = this.select(Selectors.autocompleteNavigations);
     this.state = { ...this.state, suggestions, navigations, category, categoryValues, selected: -1 };
   }
 
@@ -87,7 +86,7 @@ class Autocomplete {
   }
 
   updateProducts({ dataset: { query: selectedQuery, refinement, field } }: HTMLElement) {
-    const query = selectedQuery == null ? Selectors.autocompleteQuery(this.flux.store.getState()) : selectedQuery;
+    const query = selectedQuery == null ? this.select(Selectors.autocompleteQuery) : selectedQuery;
     this.flux.emit('query:update', query);
     // tslint:disable-next-line max-line-length
     this.flux.saytProducts(field ? null : query, refinement ? [{ field: field || this.state.category, value: refinement }] : []);

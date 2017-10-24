@@ -17,7 +17,7 @@ class Sayt {
     showRecommendations: false,
     showProducts: true,
     highlight: (value, replacement) => {
-      const query = Selectors.autocompleteQuery(this.flux.store.getState());
+      const query = this.select(Selectors.autocompleteQuery);
       return value.replace(new RegExp(escapeRegexp(query), 'i'), replacement);
     }
   };
@@ -44,7 +44,7 @@ class Sayt {
     this.unregisterClickAwayHandler();
     if (this.state.isActive) {
       this.set({ isActive: false });
-      this.flux.emit('query:update', Selectors.query(this.flux.store.getState()));
+      this.flux.emit('query:update', this.select(Selectors.query));
     }
   }
 
