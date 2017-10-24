@@ -10,24 +10,15 @@ const NAVIGATIONS = ['g', 'h', 'i'];
 
 suite('Autocomplete', ({ expect, spy, stub }) => {
   let autocomplete: Autocomplete;
-  let select: sinon.SinonSpy;
+  let select: sinon.SinonStub;
 
   beforeEach(() => {
     Autocomplete.prototype.flux = <any>{};
-    Autocomplete.prototype.select = spy((selector) => {
-      if (selector === Selectors.autocompleteSuggestions) {
-        return SUGGESTIONS;
-      }
-      if (selector === Selectors.autocompleteCategoryField) {
-        return CATEGORY;
-      }
-      if (selector === Selectors.autocompleteCategoryValues) {
-        return CATEGORY_VALUES;
-      }
-      if (selector === Selectors.autocompleteNavigations) {
-        return NAVIGATIONS;
-      }
-    });
+    select = Autocomplete.prototype.select = stub();
+    select.withArgs(Selectors.autocompleteSuggestions).returns(SUGGESTIONS);
+    select.withArgs(Selectors.autocompleteCategoryField).returns(CATEGORY);
+    select.withArgs(Selectors.autocompleteCategoryValues).returns(CATEGORY_VALUES);
+    select.withArgs(Selectors.autocompleteNavigations).returns(NAVIGATIONS);
     autocomplete = new Autocomplete();
   });
   afterEach(() => {
@@ -303,7 +294,7 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
     it('should call flux.saytProducts() with original query', () => {
       const saytProducts = spy();
       const state = { a: 'b' };
-      select = Autocomplete.prototype.select = spy(() => query);
+      select.returns(query);
       autocomplete.flux = <any>{ emit: () => null, saytProducts};
 
       autocomplete.updateProducts(<any>{ dataset: {} });

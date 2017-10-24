@@ -170,7 +170,7 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
   describe('setInactive()', () => {
     it('should call unregisterClickAwayHandler()', () => {
       const unregisterClickAwayHandler = sayt.unregisterClickAwayHandler = spy();
-      sayt.select = spy(() => undefined);
+      sayt.select = spy();
       sayt.set = () => null;
       sayt.flux = <any>{ emit: () => null};
 
