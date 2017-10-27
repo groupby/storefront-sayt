@@ -41,7 +41,7 @@ class Autocomplete {
 
   activateNext = () => {
     const targets = this.activationTargets();
-    console.log('ac next targets', targets)
+    console.log('ac next targets', targets);
     let selected = this.state.selected;
     if (selected < targets.length - 1) {
       if (this.isActive()) {
