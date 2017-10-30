@@ -30,10 +30,6 @@ class Autocomplete {
     this.flux.on('sayt:activate_previous', this.activatePrevious);
     this.flux.on('sayt:select_active', this.selectActive);
   }
-  
-  onUpdate() {
-    console.log('selected', this.state.selected);
-  }
 
   activationTargets(): NodeListOf<HTMLElement> {
     return <any>this.root.querySelectorAll('.gb-autocomplete-target');
@@ -41,7 +37,6 @@ class Autocomplete {
 
   activateNext = () => {
     const targets = this.activationTargets();
-    console.log('ac next targets', targets);
     let selected = this.state.selected;
     if (selected < targets.length - 1) {
       if (this.isActive()) {
@@ -52,12 +47,9 @@ class Autocomplete {
   }
 
   activatePrevious = () => {
-    console.log('ac prev')
-    
     const targets = this.activationTargets();
     if (this.isActive()) {
       let selected = this.state.selected;
-      console.log('selected', selected);
       this.setActivation(targets, selected, false);
       this.setActivation(targets, --selected, true);
     }
@@ -84,20 +76,18 @@ class Autocomplete {
 
   setActivation(targets: NodeListOf<HTMLElement>, index: number, activate: boolean) {
     const target = targets[index];
-    console.log('ss', targets)
     if (index !== -1) {
       target.classList[activate ? 'add' : 'remove']('gb-active');
     }
     if (activate) {
       this.state.selected = index;
-      console.log('tttt', target);
-      
-      this.updateProducts(target);
+      if (index !== -1) {
+        this.updateProducts(target);
+      }
     }
   }
 
   updateProducts({ dataset: { query: selectedQuery, refinement, field } }: HTMLElement) {
-    console.log('ddd', refinement);
     const query = selectedQuery == null ? this.select(Selectors.autocompleteQuery) : selectedQuery;
     this.flux.emit('query:update', query);
     // tslint:disable-next-line max-line-length
