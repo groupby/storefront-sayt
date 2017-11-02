@@ -76,12 +76,13 @@ class Autocomplete {
 
   setActivation(targets: NodeListOf<HTMLElement>, index: number, activate: boolean) {
     const target = targets[index];
-    if (index !== -1) {
+    const indexExist = index !== -1;
+    if (indexExist) {
       target.classList[activate ? 'add' : 'remove']('gb-active');
     }
     if (activate) {
       this.state.selected = index;
-      if (index !== -1) {
+      if (indexExist) {
         this.updateProducts(target);
       }
     }

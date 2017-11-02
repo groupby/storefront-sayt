@@ -244,6 +244,17 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
       expect(state.selected).to.eq(index);
     });
 
+    it('should not update products if selected is -1', () => {
+      const index = -1;
+      const state = autocomplete.state = <any>{ selected: 4 };
+      autocomplete.updateProducts = spy();
+
+      autocomplete.setActivation(<any>[], index, true);
+
+      expect(state.selected).to.eq(index);
+      expect(autocomplete.updateProducts).to.not.have.been.called;
+    });
+
     it('should add gb-active to classList if activating and update state', () => {
       const add = spy();
       const target = { classList: { add } };
