@@ -182,18 +182,13 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
     it('should set isActive', () => {
       const query = 'apple';
       const state = { a: 'b' };
-      const emit = spy();
       const set = sayt.set = spy();
-      const select = sayt.select = spy(() => query);
-      sayt.flux = <any>{ emit };
       sayt.unregisterClickAwayHandler = () => null;
       sayt.state.isActive = true;
 
       sayt.setInactive();
 
       expect(set).to.be.calledWith({ isActive: false });
-      expect(emit).to.be.calledWithExactly('query:update', query);
-      expect(select).to.be.calledWith(Selectors.query);
     });
 
     it('should not set isActive if not already active', () => {
