@@ -9,7 +9,7 @@ class PastPurchase {
     onClick: (event: MouseEvent) => {
       // todo:
     },
-    pastPurchases: this.select(Selectors.queryPastPurchases),
+    pastPurchases: this.select(Selectors.orderHistory),
   };
 }
 
