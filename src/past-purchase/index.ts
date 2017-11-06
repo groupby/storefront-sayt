@@ -9,14 +9,14 @@ class PastPurchase {
     onClick: (event: MouseEvent) => {
       // todo:
     },
-    pastPurchases: this.select(Selectors.orderHistory)
+    pastPurchases: this.select(Selectors.orderHistoryLength)
   };
 }
 
 interface PastPurchase extends Tag { }
 namespace PastPurchase {
   export interface State {
-    pastPurchases: Store.ProductWithMetadata[];
+    pastPurchases: number;
     onClick(event: MouseEvent): void;
   }
 }
