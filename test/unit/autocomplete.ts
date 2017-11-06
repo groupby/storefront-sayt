@@ -67,6 +67,20 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
     });
   });
 
+  describe('onUnmount()', () => {
+    it('should remove flux event listeners', () => {
+      const off = spy();
+      autocomplete.flux = <any>{ off };
+
+      autocomplete.onUnmount();
+
+      expect(off).to.have.callCount(3)
+        .and.calledWith('sayt:activate_next', autocomplete.activateNext)
+        .and.calledWith('sayt:activate_previous', autocomplete.activatePrevious)
+        .and.calledWith('sayt:select_active', autocomplete.selectActive);
+    });
+  });
+
   describe('activationTargets()', () => {
     it('should return a NodeList of .gb-autocomplete-target elements', () => {
       const targets = ['a', 'b'];
