@@ -29,7 +29,12 @@ class Autocomplete {
     this.flux.on('sayt:activate_next', this.activateNext);
     this.flux.on('sayt:activate_previous', this.activatePrevious);
     this.flux.on('sayt:select_active', this.selectActive);
-    console.log('initdkfjal')
+  }
+
+  onUnmount() {
+    this.flux.off('sayt:activate_next', this.activateNext);
+    this.flux.off('sayt:activate_previous', this.activatePrevious);
+    this.flux.off('sayt:select_active', this.selectActive);
   }
 
   activationTargets(): NodeListOf<HTMLElement> {
@@ -57,17 +62,8 @@ class Autocomplete {
   }
 
   selectActive = () => {
-    console.log('s active', this.state.selected);
     if (this.isActive()) {
-      // console.log("in if", this.activationTargets());
-      if (this.activationTargets()) {
-
-        this.activationTargets()[this.state.selected].querySelector('a').click();
-      } else {
-       
-      }
-
-      console.log(this.root.querySelector('.gb-search-box').querySelector('input'))
+      this.activationTargets()[this.state.selected].querySelector('a').click();
       this.set({ selected: -1 });
     }
   }
