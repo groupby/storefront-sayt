@@ -7,10 +7,28 @@ class PastPurchase {
 
   state: PastPurchase.State = {
     onClick: (event: MouseEvent) => {
-      // todo:
+      return 3;
     },
-    pastPurchases: this.select(Selectors.orderHistoryLength)
+    url: () =>
+      this.services.url.beautifier.build('pastPurchase', {
+        query: this.$pastPurchase.value,
+        page: 1,
+        pageSize: 10,
+        refinements: [],
+        sort: {field: "pdpData.salePrice", descending: true},
+        collection: 'alternate',
+      }),
+    pastPurchases: this.select(Selectors.orderHistory).length
   };
+
+  init() {
+    this.flux.on(Events.ORDER_HISTORY_UPDATED, this.updatePastPurchases);
+  }
+
+  updatePastPurchases = (pastPurchases: Store.ProductWithMetadata[]) =>
+    this.set({
+      pastPurchases: pastPurchases.length
+    })
 }
 
 interface PastPurchase extends Tag { }
@@ -18,6 +36,7 @@ namespace PastPurchase {
   export interface State {
     pastPurchases: number;
     onClick(event: MouseEvent): void;
+    url: Function;
   }
 }
 
