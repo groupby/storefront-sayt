@@ -14,13 +14,17 @@ suite('PastPurchase', ({ expect, spy, stub }) => {
     pastPurchase = new PastPurchase();
   });
 
+  afterEach(() => {
+    delete PastPurchase.prototype.select;
+  });
+
   describe('state', () => {
     it('should hold pastPurchases', () => {
       expect(pastPurchase.state).to.eql({
         onClick: pastPurchase.state.onClick,
         pastPurchases: PAST
       });
-      expect(pastPurchase.select).to.be.calledWith(Selectors.queryPastPurchases);
+      expect(pastPurchase.select).to.be.calledWith(Selectors.orderHistory);
     });
 
     describe('onClick()', () => {

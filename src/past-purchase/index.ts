@@ -1,6 +1,5 @@
 import { alias, tag, Events, Selectors, Store, Tag } from '@storefront/core';
 
-@alias('saytCategories')
 @tag('gb-sayt-past-purchase', require('./index.html'))
 class PastPurchase {
   $pastPurchase: Store.Autocomplete.Suggestion;

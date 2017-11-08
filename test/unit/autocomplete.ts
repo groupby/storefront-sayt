@@ -41,6 +41,7 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
 
       describe('onHover()', () => {
         const targets = [0,'tar',2,3,4];
+
         beforeEach(() => {
           autocomplete.activationTargets = spy(() => targets);
           autocomplete.setActivation = spy(() => null);
@@ -61,7 +62,7 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
           autocomplete.state.onHover(<any>{ target });
 
           expect(autocomplete.setActivation).to.be.calledOnce
-            .and.calledWith(targets, Array.from(targets).findIndex((element) => element === target), true);
+            .and.calledWith(targets, Array.from(targets).indexOf(<any>target), true);
         });
 
         it('should call setActivation with false activate if this.isActive() is true', () => {
@@ -73,7 +74,7 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
 
           expect(autocomplete.setActivation).to.be.calledTwice
             .and.calledWith(targets, autocomplete.state.selected, false)
-            .and.calledWith(targets, Array.from(targets).findIndex((element) => element === target), true);
+            .and.calledWith(targets, Array.from(targets).indexOf(<any>target), true);
         });
       });
     });
