@@ -7,22 +7,22 @@ class PastPurchase {
 
   state: PastPurchase.State = {
     onClick: (event: MouseEvent) => {
-      return 3;
+      this.flux.store.dispatch(this.flux.actions.updatePastPurchaseQuery(this.$pastPurchase.value));
     },
-    url: () =>
-      this.services.url.beautifier.build('pastPurchase', {
-        query: this.$pastPurchase.value,
-        page: 1,
-        pageSize: 10,
-        refinements: [],
-        sort: {field: "pdpData.salePrice", descending: true},
-        collection: 'alternate',
-      }),
-    pastPurchases: this.select(Selectors.orderHistory).length
+    // url: () =>
+    //   this.services.url.beautifier.build('pastPurchase', {
+    //     query: this.$pastPurchase.value,
+    //     page: 1,
+    //     pageSize: 10,
+    //     refinements: [],
+    //     sort: {field: "pdpData.salePrice", descending: true},
+    //     collection: 'alternate',
+    //   }),
+    pastPurchases: this.select(Selectors.saytPastPurchases).length
   };
 
   init() {
-    this.flux.on(Events.ORDER_HISTORY_UPDATED, this.updatePastPurchases);
+    this.flux.on(Events.SAYT_PAST_PURCHASES_UPDATED, this.updatePastPurchases);
   }
 
   updatePastPurchases = (pastPurchases: Store.ProductWithMetadata[]) =>
@@ -36,7 +36,7 @@ namespace PastPurchase {
   export interface State {
     pastPurchases: number;
     onClick(event: MouseEvent): void;
-    url: Function;
+    //url: Function;
   }
 }
 

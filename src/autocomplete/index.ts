@@ -103,7 +103,7 @@ class Autocomplete {
     const query = selectedQuery == null ? this.select(Selectors.autocompleteQuery) : selectedQuery;
     this.flux.emit('query:update', query);
     if (pastPurchase !== undefined) {
-      this.flux.pastPurchaseProducts();
+      this.flux.displaySaytPastPurchases();
     } else {
       // tslint:disable-next-line max-line-length
       this.flux.saytProducts(field ? null : query, refinement ? [{ field: field || this.state.category, value: refinement }] : []);
