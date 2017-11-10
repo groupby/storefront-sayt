@@ -75,9 +75,9 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
       autocomplete.onUnmount();
 
       expect(off).to.have.callCount(3)
-        .and.calledWith('sayt:activate_next', autocomplete.activateNext)
-        .and.calledWith('sayt:activate_previous', autocomplete.activatePrevious)
-        .and.calledWith('sayt:select_active', autocomplete.selectActive);
+        .and.calledWithExactly('sayt:activate_next', autocomplete.activateNext)
+        .and.calledWithExactly('sayt:activate_previous', autocomplete.activatePrevious)
+        .and.calledWithExactly('sayt:select_active', autocomplete.selectActive);
     });
   });
 
