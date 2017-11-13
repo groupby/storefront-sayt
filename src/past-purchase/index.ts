@@ -8,6 +8,8 @@ class PastPurchase {
   state: PastPurchase.State = {
     onClick: (event: MouseEvent) => {
       this.flux.store.dispatch(this.flux.actions.updatePastPurchaseQuery(this.$pastPurchase.value));
+      this.flux.store.dispatch(this.flux.actions.fetchPastPurchaseProducts(this.$pastPurchase.value));
+      this.flux.emit('sayt:hide');
     },
     // url: () =>
     //   this.services.url.beautifier.build('pastPurchase', {
