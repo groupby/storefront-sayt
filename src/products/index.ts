@@ -1,10 +1,9 @@
-import { alias, tag, Events, ProductTransformer, Store, Structure, Tag } from '@storefront/core';
+import { alias, tag, CoreSelectors, Events, Store, Structure, Tag } from '@storefront/core';
 
 @alias('saytProducts')
 @tag('gb-sayt-products', require('./index.html'))
 class Products {
 
-  structure: Structure = this.config.structure;
   state: Products.State = {
     products: []
   };
@@ -16,7 +15,7 @@ class Products {
 
   updateProducts = (products: Store.Product[]) =>
     this.set({
-      products: products.map(ProductTransformer.transformer(this.structure))
+      products: products.map(this.select(CoreSelectors.productTransformer))
     })
 }
 
