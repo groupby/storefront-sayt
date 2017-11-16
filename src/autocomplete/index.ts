@@ -8,10 +8,13 @@ class Autocomplete {
   state: Autocomplete.State = <any>{
     onHover: (event: MouseEvent) => {
       const targets = this.activationTargets();
+      if (Array.from(targets).indexOf(<HTMLElement>event.target) === this.state.selected) {
+        return;
+      }
       if (this.isActive()) {
         this.setActivation(targets, this.state.selected, false);
       }
-      this.setActivation(targets, Array.from(targets).findIndex((element) => element === event.target), true);
+      this.setActivation(targets, Array.from(targets).indexOf(<HTMLElement>event.target), true);
     }
   };
 
@@ -94,11 +97,15 @@ class Autocomplete {
     }
   }
 
-  updateProducts({ dataset: { query: selectedQuery, refinement, field } }: HTMLElement) {
+  updateProducts({ dataset: { query: selectedQuery, refinement, field, pastPurchase } }: HTMLElement) {
     const query = selectedQuery == null ? this.select(Selectors.autocompleteQuery) : selectedQuery;
     this.flux.emit('query:update', query);
-    // tslint:disable-next-line max-line-length
-    this.flux.saytProducts(field ? null : query, refinement ? [{ field: field || this.state.category, value: refinement }] : []);
+    if (pastPurchase !== undefined) {
+      this.flux.pastPurchaseProducts();
+    } else {
+      // tslint:disable-next-line max-line-length
+      this.flux.saytProducts(field ? null : query, refinement ? [{ field: field || this.state.category, value: refinement }] : []);
+    }
   }
 
   isActive() {
