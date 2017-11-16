@@ -31,6 +31,12 @@ class Autocomplete {
     this.flux.on('sayt:select_active', this.selectActive);
   }
 
+  onUnmount() {
+    this.flux.off('sayt:activate_next', this.activateNext);
+    this.flux.off('sayt:activate_previous', this.activatePrevious);
+    this.flux.off('sayt:select_active', this.selectActive);
+  }
+
   activationTargets(): NodeListOf<HTMLElement> {
     return <any>this.root.querySelectorAll('.gb-autocomplete-target');
   }
