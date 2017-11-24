@@ -17,10 +17,11 @@ class Autocomplete {
 
   constructor() {
     const suggestions = this.select(Selectors.autocompleteSuggestions);
+    const products = this.select(Selectors.autocompleteProducts);
     const category = this.select(Selectors.autocompleteCategoryField);
     const categoryValues = this.select(Selectors.autocompleteCategoryValues);
     const navigations = this.select(Selectors.autocompleteNavigations);
-    this.state = { ...this.state, suggestions, navigations, category, categoryValues, selected: -1 };
+    this.state = { ...this.state, suggestions, navigations, category, categoryValues, products, selected: -1 };
   }
 
   init() {
@@ -68,12 +69,14 @@ class Autocomplete {
     }
   }
 
-  updateSuggestions = ({ suggestions, navigations, category: { values: categoryValues } }: Store.Autocomplete) => {
+  // tslint:disable-next-line:max-line-length
+  updateSuggestions = ({ suggestions, navigations, category: { values: categoryValues }, products }: Store.Autocomplete) => {
     if (this.isActive() && this.isMounted) {
       this.setActivation(this.activationTargets(), this.state.selected, false);
     }
     this.set({ suggestions, navigations, categoryValues, selected: -1 });
-    if (suggestions.length + navigations.length + categoryValues.length === 0) {
+    console.log('products', [...products])
+    if (suggestions.length + navigations.length + categoryValues.length + products.length === 0) {
       this.flux.emit('sayt:hide');
     } else {
       this.flux.emit('sayt:show');
@@ -118,6 +121,8 @@ namespace Autocomplete {
     categoryValues: string[];
     suggestions: Store.Autocomplete.Suggestion[];
     navigations: Store.Autocomplete.Navigation[];
+    //TODO
+    products: Store.Autocomplete.Product[];
     onHover(event: MouseEvent): void;
   }
 }
