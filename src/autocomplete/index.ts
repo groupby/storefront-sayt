@@ -75,7 +75,6 @@ class Autocomplete {
       this.setActivation(this.activationTargets(), this.state.selected, false);
     }
     this.set({ suggestions, navigations, categoryValues, selected: -1 });
-    console.log('products', [...products])
     if (suggestions.length + navigations.length + categoryValues.length + products.length === 0) {
       this.flux.emit('sayt:hide');
     } else {
@@ -121,8 +120,7 @@ namespace Autocomplete {
     categoryValues: string[];
     suggestions: Store.Autocomplete.Suggestion[];
     navigations: Store.Autocomplete.Navigation[];
-    //TODO
-    products: Store.Autocomplete.Product[];
+    products: Store.ProductWithMetadata[];
     onHover(event: MouseEvent): void;
   }
 }
