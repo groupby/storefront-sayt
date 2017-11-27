@@ -244,8 +244,9 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
       autocomplete.flux = <any>{ emit };
       autocomplete.set = () => null;
 
-      // tslint:disable-next-line:max-line-length
-      autocomplete.updateSuggestions(<any>{ suggestions, navigations, products: [], category: { values: categoryValues } });
+      autocomplete.updateSuggestions(
+        <any>{ suggestions, navigations, products: [], category: { values: categoryValues } }
+      );
 
       expect(emit).to.be.calledWith('sayt:show');
     });
@@ -265,8 +266,9 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
       autocomplete.flux = <any>{ emit };
       autocomplete.set = () => null;
 
-      // tslint:disable-next-line:max-line-length
-      autocomplete.updateSuggestions(<any>{ suggestions, navigations, products: [], category: { values: categoryValues } });
+      autocomplete.updateSuggestions(
+        <any>{ suggestions, navigations, products: [], category: { values: categoryValues } }
+      );
 
       expect(emit).to.be.calledWith('sayt:show');
     });
