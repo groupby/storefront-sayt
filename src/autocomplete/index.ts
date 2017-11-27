@@ -74,7 +74,7 @@ class Autocomplete {
     if (this.isActive() && this.isMounted) {
       this.setActivation(this.activationTargets(), this.state.selected, false);
     }
-    this.set({ suggestions, navigations, categoryValues, selected: -1 });
+    this.set({ suggestions, navigations, categoryValues, products, selected: -1 });
     if (suggestions.length + navigations.length + categoryValues.length + products.length === 0) {
       this.flux.emit('sayt:hide');
     } else {
