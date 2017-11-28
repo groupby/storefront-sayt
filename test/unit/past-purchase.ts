@@ -18,14 +18,32 @@ suite('PastPurchase', ({ expect, spy, stub }) => {
     it('should hold pastPurchases', () => {
       expect(pastPurchase.state).to.eql({
         onClick: pastPurchase.state.onClick,
-        pastPurchases: PAST
+        pastPurchases: PAST.length
       });
-      expect(pastPurchase.select).to.be.calledWith(Selectors.queryPastPurchases);
+      expect(pastPurchase.select).to.be.calledWith(Selectors.saytPastPurchases);
     });
 
     describe('onClick()', () => {
       it('should ', () => {
+        const value = 'past';
+        const action = { a: 'b' };
+        const emit = spy();
+        const dispatch = spy();
+        const updatePastPurchaseQuery = spy(() => action);
+        pastPurchase.flux = <any>{
+          actions: {
+            updatePastPurchaseQuery,
+          },
+          store: {
+            dispatch,
+          },
+          emit,
+        };
+        pastPurchase.$pastPurchase = { value };
         pastPurchase.state.onClick(<any>{});
+        expect(updatePastPurchaseQuery).to.be.calledWithExactly(value);
+        expect(dispatch).to.be.calledWithExactly(action);
+        expect(emit).to.be.calledWith('sayt:hide');
       });
     });
   });

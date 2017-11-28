@@ -8,18 +8,8 @@ class PastPurchase {
   state: PastPurchase.State = {
     onClick: (event: MouseEvent) => {
       this.flux.store.dispatch(this.flux.actions.updatePastPurchaseQuery(this.$pastPurchase.value));
-      this.flux.store.dispatch(this.flux.actions.fetchPastPurchaseProducts(this.$pastPurchase.value));
       this.flux.emit('sayt:hide');
     },
-    // url: () =>
-    //   this.services.url.beautifier.build('pastPurchase', {
-    //     query: this.$pastPurchase.value,
-    //     page: 1,
-    //     pageSize: 10,
-    //     refinements: [],
-    //     sort: {field: "pdpData.salePrice", descending: true},
-    //     collection: 'alternate',
-    //   }),
     pastPurchases: this.select(Selectors.saytPastPurchases).length
   };
 
@@ -38,7 +28,6 @@ namespace PastPurchase {
   export interface State {
     pastPurchases: number;
     onClick(event: MouseEvent): void;
-    //url: Function;
   }
 }
 

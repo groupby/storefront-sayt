@@ -418,12 +418,12 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
     });
 
     it('should call flux.pastPurchaseProducts() if past purchase', () => {
-      const pastPurchaseProducts = spy();
-      autocomplete.flux = <any>{ emit: () => null, pastPurchaseProducts };
+      const displaySaytPastPurchases = spy();
+      autocomplete.flux = <any>{ emit: () => null, displaySaytPastPurchases };
 
       autocomplete.updateProducts(<any>{ dataset: { pastPurchase: true, query: 'test' } });
 
-      expect(pastPurchaseProducts).to.be.calledWithExactly();
+      expect(displaySaytPastPurchases).to.be.calledWithExactly();
     });
   });
 
