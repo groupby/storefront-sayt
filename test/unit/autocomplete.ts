@@ -7,6 +7,7 @@ const CATEGORY = 'brand';
 const CATEGORY_VALUES = ['a', 'b', 'c'];
 const SUGGESTIONS = ['d', 'e', 'f'];
 const NAVIGATIONS = ['g', 'h', 'i'];
+const PRODUCTS = ['j', 'k', 'l', 'm'];
 
 suite('Autocomplete', ({ expect, spy, stub }) => {
   let autocomplete: Autocomplete;
@@ -19,6 +20,7 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
     select.withArgs(Selectors.autocompleteCategoryField).returns(CATEGORY);
     select.withArgs(Selectors.autocompleteCategoryValues).returns(CATEGORY_VALUES);
     select.withArgs(Selectors.autocompleteNavigations).returns(NAVIGATIONS);
+    select.withArgs(Selectors.autocompleteProducts).returns(PRODUCTS);
     autocomplete = new Autocomplete();
   });
   afterEach(() => {
@@ -35,7 +37,8 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
           category: CATEGORY,
           categoryValues: CATEGORY_VALUES,
           suggestions: SUGGESTIONS,
-          navigations: NAVIGATIONS
+          navigations: NAVIGATIONS,
+          products: PRODUCTS
         });
       });
     });
@@ -187,6 +190,7 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
     const suggestions = ['1', '2', '3'];
     const navigations = ['4', '5', '6'];
     const categoryValues = ['7', '8', '9'];
+    const products = ['10', '11'];
 
     it('should set values and not change activation', () => {
       const set = autocomplete.set = spy();
@@ -194,9 +198,9 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
       autocomplete.isActive = () => false;
       autocomplete.setActivation = () => expect.fail();
 
-      autocomplete.updateSuggestions(<any>{ suggestions, navigations, category: { values: categoryValues } });
+      autocomplete.updateSuggestions(<any>{ suggestions, navigations, category: { values: categoryValues }, products });
 
-      expect(set).to.be.calledWith({ suggestions, navigations, categoryValues, selected: -1 });
+      expect(set).to.be.calledWith({ suggestions, navigations, categoryValues, products, selected: -1 });
     });
 
     it('should not change activation if not mounted', () => {
@@ -206,7 +210,7 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
       autocomplete.isMounted = false;
       autocomplete.setActivation = () => expect.fail();
 
-      autocomplete.updateSuggestions(<any>{ suggestions, navigations, category: { values: categoryValues } });
+      autocomplete.updateSuggestions(<any>{ suggestions, navigations, category: { values: categoryValues }, products });
     });
 
     it('should deactivate selected element', () => {
@@ -220,28 +224,52 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
       autocomplete.isActive = () => true;
       autocomplete.isMounted = true;
 
-      autocomplete.updateSuggestions(<any>{ suggestions, navigations, category: { values: categoryValues } });
+      autocomplete.updateSuggestions(<any>{ suggestions, navigations, category: { values: categoryValues }, products });
 
-      expect(set).to.be.calledWith({ suggestions, navigations, categoryValues, selected: -1 });
+      expect(set).to.be.calledWith({ suggestions, navigations, categoryValues, products, selected: -1 });
       expect(setActivation).to.be.calledWith(targets, selected, false);
     });
 
-    it('should inactivate sayt when there are no suggestions', () => {
+    it('should inactivate sayt when there are no suggestions nor products', () => {
       const emit = spy();
       autocomplete.flux = <any>{ emit };
       autocomplete.set = () => null;
 
-      autocomplete.updateSuggestions(<any>{ suggestions: [], navigations: [], category: { values: [] } });
+      autocomplete.updateSuggestions(<any>{ suggestions: [], navigations: [], products: [], category: { values: [] } });
 
       expect(emit).to.be.calledWith('sayt:hide');
     });
 
-    it('should activate sayt when there are suggestions', () => {
+    it('should activate sayt when there are suggestions and no products', () => {
       const emit = spy();
       autocomplete.flux = <any>{ emit };
       autocomplete.set = () => null;
 
-      autocomplete.updateSuggestions(<any>{ suggestions, navigations, category: { values: categoryValues } });
+      autocomplete.updateSuggestions(
+        <any>{ suggestions, navigations, products: [], category: { values: categoryValues } }
+      );
+
+      expect(emit).to.be.calledWith('sayt:show');
+    });
+
+    it('should activate sayt when there are only products and no suggestions', () => {
+      const emit = spy();
+      autocomplete.flux = <any>{ emit };
+      autocomplete.set = () => null;
+
+      autocomplete.updateSuggestions(<any>{ suggestions: [], navigations: [], products, category: { values: [] } });
+
+      expect(emit).to.be.calledWith('sayt:show');
+    });
+
+    it('should activate sayt when there are both products and suggestions', () => {
+      const emit = spy();
+      autocomplete.flux = <any>{ emit };
+      autocomplete.set = () => null;
+
+      autocomplete.updateSuggestions(
+        <any>{ suggestions, navigations, products: [], category: { values: categoryValues } }
+      );
 
       expect(emit).to.be.calledWith('sayt:show');
     });
@@ -320,7 +348,7 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
       const saytProducts = spy();
       const state = { a: 'b' };
       select.returns(query);
-      autocomplete.flux = <any>{ emit: () => null, saytProducts};
+      autocomplete.flux = <any>{ emit: () => null, saytProducts };
 
       autocomplete.updateProducts(<any>{ dataset: {} });
 
