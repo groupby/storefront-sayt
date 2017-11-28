@@ -24,7 +24,7 @@ suite('PastPurchase', ({ expect, spy, stub }) => {
     });
 
     describe('onClick()', () => {
-      it('should ', () => {
+      it('should dispatch update query', () => {
         const value = 'past';
         const action = { a: 'b' };
         const emit = spy();
@@ -48,4 +48,21 @@ suite('PastPurchase', ({ expect, spy, stub }) => {
     });
   });
 
+  describe('init()', () => {
+    it('should wait on SAYT_PAST_PURCHASE_UPDATED', () => {
+      const on = spy();
+      pastPurchase.flux = <any>{ on };
+      pastPurchase.init();
+      expect(on).to.be.calledWithExactly(Events.SAYT_PAST_PURCHASES_UPDATED, pastPurchase.updatePastPurchases);
+    });
+  });
+
+  describe('updatePastPurchases()', () => {
+    it('should call set with past purchase length', () => {
+      const doSet = pastPurchase.set = spy();
+      const purchases: any[] = [1,2,3,4,55,5,54];
+      pastPurchase.updatePastPurchases(purchases);
+      expect(doSet).to.be.calledWith({ pastPurchases: purchases.length });
+    });
+  });
 });
