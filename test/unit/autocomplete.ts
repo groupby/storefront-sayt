@@ -199,6 +199,7 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
       autocomplete.setActivation = () => expect.fail();
 
       autocomplete.updateSuggestions(<any>{ suggestions, navigations, category: { values: categoryValues }, products });
+
       expect(set).to.be.calledWith({ suggestions, navigations, categoryValues, products, selected: -1 });
     });
 
