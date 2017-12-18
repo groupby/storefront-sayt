@@ -1,5 +1,5 @@
 <yield>
-  <gb-link if="{ $pastPurchase.value && this.state.pastPurchases > 0 }" class="gb-autocomplete-target" data-past-purchase onmouseenter="{ $autocomplete.onHover }" onclick="{ this.state.onClick }">
+  <gb-link if="{ $pastPurchase.value && $pastPurchaseItem.pastPurchases > 0 }" class="gb-autocomplete-target" data-past-purchase onmouseenter="{ $autocomplete.onHover }" onclick="{ $pastPurchaseItem.onClick }">
     <yield>
       <gb-raw content="{ $sayt.highlight($pastPurchase.value, '<b>$&</b>') }"></gb-raw>
       in
