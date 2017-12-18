@@ -40,7 +40,9 @@ suite('PastPurchase', ({ expect, spy, stub }) => {
           emit,
         };
         pastPurchase.$pastPurchase = { value };
+
         pastPurchase.state.onClick(<any>{});
+
         expect(updatePastPurchaseQuery).to.be.calledWithExactly(value);
         expect(dispatch).to.be.calledWithExactly(action);
         expect(emit).to.be.calledWith('sayt:hide');
@@ -52,7 +54,9 @@ suite('PastPurchase', ({ expect, spy, stub }) => {
     it('should wait on SAYT_PAST_PURCHASE_UPDATED', () => {
       const on = spy();
       pastPurchase.flux = <any>{ on };
+
       pastPurchase.init();
+
       expect(on).to.be.calledWithExactly(Events.SAYT_PAST_PURCHASES_UPDATED, pastPurchase.updatePastPurchases);
     });
   });
@@ -61,7 +65,9 @@ suite('PastPurchase', ({ expect, spy, stub }) => {
     it('should call set with past purchase length', () => {
       const doSet = pastPurchase.set = spy();
       const purchases: any[] = [1,2,3,4,55,5,54];
+
       pastPurchase.updatePastPurchases(purchases);
+
       expect(doSet).to.be.calledWith({ pastPurchases: purchases.length });
     });
   });
