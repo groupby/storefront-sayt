@@ -7,15 +7,17 @@ class Autocomplete {
 
   state: Autocomplete.State = <any>{
     onHover: (event: MouseEvent) => {
+      const updateQuery = this.config.autocomplete.hoverQuery;
       const targets = this.activationTargets();
       const index = Array.from(targets).findIndex((element) => element === event.target);
       if (index === this.state.selected) {
         return;
       }
       if (this.isActive()) {
-        this.setActivation(targets, this.state.selected, false, false);
+        this.setActivation(targets, this.state.selected, false, updateQuery);
       }
-      this.setActivation(targets, Array.from(targets).findIndex((element) => element === event.target), true, false);
+      this.setActivation(targets, Array.from(targets).findIndex((element) => element === event.target),
+                         true, updateQuery);
     }
   };
 

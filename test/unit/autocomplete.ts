@@ -467,6 +467,7 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
       const activationTargets = autocomplete.activationTargets = stub().returns(targets);
       const setActivation = autocomplete.setActivation = spy();
       autocomplete.isActive = stub().returns(true);
+      autocomplete.config = <any>{ autocomplete: { hoverQuery: false }};
 
       autocomplete.state.onHover(<any>{});
 
@@ -474,11 +475,26 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
       expect(setActivation).to.be.calledWithExactly(matchAny, matchAny, matchAny, false);
     });
 
+    it('should call setActivation with updateQuery set to true', () => {
+      const targets = [1, 2, 3];
+      const matchAny = sinon.match.any;
+      const activationTargets = autocomplete.activationTargets = stub().returns(targets);
+      const setActivation = autocomplete.setActivation = spy();
+      autocomplete.isActive = stub().returns(true);
+      autocomplete.config = <any>{ autocomplete: { hoverQuery: true }};
+
+      autocomplete.state.onHover(<any>{});
+
+      expect(setActivation).to.be.calledTwice;
+      expect(setActivation).to.be.calledWithExactly(matchAny, matchAny, matchAny, true);
+    });
+
     it('should call setActivation once when isActive is false', () => {
       const targets = [1, 2, 3];
       const activationTargets = autocomplete.activationTargets = stub().returns(targets);
       const setActivation = autocomplete.setActivation = spy();
       autocomplete.isActive = stub().returns(false);
+      autocomplete.config = <any>{ autocomplete: { hoverQuery: false }};
 
       autocomplete.state.onHover(<any>{});
 
