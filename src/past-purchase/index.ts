@@ -6,7 +6,7 @@ class PastPurchase {
   $pastPurchase: Store.Autocomplete.Suggestion;
 
   state: PastPurchase.State = {
-    onClick: (event: MouseEvent) => {
+    onClick: () => {
       this.flux.store.dispatch(this.flux.actions.updatePastPurchaseQuery(this.$pastPurchase.value));
       this.flux.emit('sayt:hide');
     },
@@ -27,7 +27,7 @@ interface PastPurchase extends Tag { }
 namespace PastPurchase {
   export interface State {
     pastPurchases: number;
-    onClick(event: MouseEvent): void;
+    onClick(): void;
   }
 }
 

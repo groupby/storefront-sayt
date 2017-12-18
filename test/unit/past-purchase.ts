@@ -41,7 +41,7 @@ suite('PastPurchase', ({ expect, spy, stub }) => {
         };
         pastPurchase.$pastPurchase = { value };
 
-        pastPurchase.state.onClick(<any>{});
+        pastPurchase.state.onClick();
 
         expect(updatePastPurchaseQuery).to.be.calledWithExactly(value);
         expect(dispatch).to.be.calledWithExactly(action);
