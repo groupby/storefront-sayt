@@ -13,9 +13,9 @@ class Autocomplete {
         return;
       }
       if (this.isActive()) {
-        this.setActivation(targets, this.state.selected, false);
+        this.setActivation(targets, this.state.selected, false, false);
       }
-      this.setActivation(targets, index, true);
+      this.setActivation(targets, Array.from(targets).findIndex((element) => element === event.target), true, false);
     }
   };
 
@@ -86,7 +86,7 @@ class Autocomplete {
     }
   }
 
-  setActivation(targets: NodeListOf<HTMLElement>, index: number, activate: boolean) {
+  setActivation(targets: NodeListOf<HTMLElement>, index: number, activate: boolean, updateQuery: boolean = true) {
     const target = targets[index];
     const indexExists = index !== -1;
     if (indexExists) {
@@ -95,14 +95,17 @@ class Autocomplete {
     if (activate) {
       this.state.selected = index;
       if (indexExists) {
-        this.updateProducts(target);
+        this.updateProducts(target, updateQuery);
       }
     }
   }
 
-  updateProducts({ dataset: { query: selectedQuery, refinement, field, pastPurchase } }: HTMLElement) {
+  // tslint:disable-next-line:max-line-length
+  updateProducts({ dataset: { query: selectedQuery, refinement, field, pastPurchase } }: HTMLElement, updateQuery: boolean = true) {
     const query = selectedQuery == null ? this.select(Selectors.autocompleteQuery) : selectedQuery;
-    this.flux.emit('query:update', query);
+    if (updateQuery) {
+      this.flux.emit('query:update', query);
+    }
     if (pastPurchase !== undefined) {
       this.flux.displaySaytPastPurchases();
     } else {

@@ -335,6 +335,16 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
       expect(autocomplete.updateProducts).to.not.have.been.called;
     });
 
+    it('should call update products with updateQuery false', () => {
+      const index = 0;
+      const state = autocomplete.state = <any>{ selected: 4 };
+      const updateProducts = autocomplete.updateProducts = spy();
+
+      autocomplete.setActivation(<any>[{ classList: { add: () => null }}], index, true, false);
+
+      expect(updateProducts).to.be.calledWithExactly(sinon.match.any, false);
+    });
+
     it('should add gb-active to classList if activating and update state', () => {
       const add = spy();
       const target = { classList: { add } };
@@ -371,6 +381,15 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
       autocomplete.updateProducts(<any>{ dataset: { query } });
 
       expect(emit).to.be.calledWithExactly('query:update', query);
+    });
+
+    it('should not emit query:update event', () => {
+      const emit = spy();
+      autocomplete.flux = <any>{ emit, saytProducts: () => null };
+
+      autocomplete.updateProducts(<any>{ dataset: { query } }, false);
+
+      expect(emit).to.not.be.called;
     });
 
     it('should call flux.saytProducts() with only query', () => {
@@ -438,6 +457,32 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
       autocomplete.state = <any>{ selected: -1 };
 
       expect(autocomplete.isActive()).to.be.false;
+    });
+  });
+
+  describe('state.onHover', () => {
+    it('should call setActivation with updateQuery set to false', () => {
+      const targets = [1, 2, 3];
+      const matchAny = sinon.match.any;
+      const activationTargets = autocomplete.activationTargets = stub().returns(targets);
+      const setActivation = autocomplete.setActivation = spy();
+      autocomplete.isActive = stub().returns(true);
+
+      autocomplete.state.onHover(<any>{});
+
+      expect(setActivation).to.be.calledTwice;
+      expect(setActivation).to.be.calledWithExactly(matchAny, matchAny, matchAny, false);
+    });
+
+    it('should call setActivation once when isActive is false', () => {
+      const targets = [1, 2, 3];
+      const activationTargets = autocomplete.activationTargets = stub().returns(targets);
+      const setActivation = autocomplete.setActivation = spy();
+      autocomplete.isActive = stub().returns(false);
+
+      autocomplete.state.onHover(<any>{});
+
+      expect(setActivation).to.be.calledOnce;
     });
   });
 });
