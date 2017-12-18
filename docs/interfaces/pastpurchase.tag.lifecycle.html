@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Description | @storefront/sayt</title>
+	<title>Lifecycle | @storefront/sayt</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,16 +56,16 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../classes/autocomplete.html">Autocomplete</a>
+					<a href="../classes/pastpurchase.html">PastPurchase</a>
 				</li>
 				<li>
-					<a href="../modules/autocomplete.tag.html">Tag</a>
+					<a href="../modules/pastpurchase.tag.html">Tag</a>
 				</li>
 				<li>
-					<a href="autocomplete.tag.description.html">Description</a>
+					<a href="pastpurchase.tag.lifecycle.html">Lifecycle</a>
 				</li>
 			</ul>
-			<h1>Interface Description</h1>
+			<h1>Interface Lifecycle</h1>
 		</div>
 	</div>
 </header>
@@ -76,7 +76,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">Description</span>
+						<span class="target">Lifecycle</span>
 					</li>
 				</ul>
 			</section>
@@ -85,47 +85,133 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Properties</h3>
+							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="autocomplete.tag.description.html#css" class="tsd-kind-icon">css</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="autocomplete.tag.description.html#metadata" class="tsd-kind-icon">metadata</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="autocomplete.tag.description.html#view" class="tsd-kind-icon">view</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="pastpurchase.tag.lifecycle.html#onbeforemount" class="tsd-kind-icon">on<wbr>Before<wbr>Mount</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="pastpurchase.tag.lifecycle.html#onbeforeunmount" class="tsd-kind-icon">on<wbr>Before<wbr>Unmount</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="pastpurchase.tag.lifecycle.html#onmount" class="tsd-kind-icon">on<wbr>Mount</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="pastpurchase.tag.lifecycle.html#onunmount" class="tsd-kind-icon">on<wbr>Unmount</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="pastpurchase.tag.lifecycle.html#onupdate" class="tsd-kind-icon">on<wbr>Update</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="pastpurchase.tag.lifecycle.html#onupdated" class="tsd-kind-icon">on<wbr>Updated</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="css" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> css</h3>
-					<div class="tsd-signature tsd-kind-icon">css<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in node_modules/@storefront/core/dist/core/tag/index.d.ts:45</li>
-						</ul>
-					</aside>
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="onbeforemount" class="tsd-anchor"></a>
+					<h3>on<wbr>Before<wbr>Mount</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Before<wbr>Mount<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@storefront/core/dist/core/tag/index.d.ts:69</li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>aliases are available here</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="metadata" class="tsd-anchor"></a>
-					<h3>metadata</h3>
-					<div class="tsd-signature tsd-kind-icon">metadata<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Metadata</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in node_modules/@storefront/core/dist/core/tag/index.d.ts:46</li>
-						</ul>
-					</aside>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="onbeforeunmount" class="tsd-anchor"></a>
+					<h3>on<wbr>Before<wbr>Unmount</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Before<wbr>Unmount<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@storefront/core/dist/core/tag/index.d.ts:73</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="view" class="tsd-anchor"></a>
-					<h3>view</h3>
-					<div class="tsd-signature tsd-kind-icon">view<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in node_modules/@storefront/core/dist/core/tag/index.d.ts:44</li>
-						</ul>
-					</aside>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="onmount" class="tsd-anchor"></a>
+					<h3>on<wbr>Mount</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Mount<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@storefront/core/dist/core/tag/index.d.ts:70</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="onunmount" class="tsd-anchor"></a>
+					<h3>on<wbr>Unmount</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Unmount<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@storefront/core/dist/core/tag/index.d.ts:74</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="onupdate" class="tsd-anchor"></a>
+					<h3>on<wbr>Update</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Update<span class="tsd-signature-symbol">(</span>state<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@storefront/core/dist/core/tag/index.d.ts:71</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>state: <span class="tsd-signature-type">any</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="onupdated" class="tsd-anchor"></a>
+					<h3>on<wbr>Updated</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Updated<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in node_modules/@storefront/core/dist/core/tag/index.d.ts:72</li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
 				</section>
 			</section>
 		</div>
@@ -135,7 +221,7 @@
 					<li class="globals  ">
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
-					<li class="current tsd-kind-module tsd-parent-kind-class">
+					<li class=" tsd-kind-module tsd-parent-kind-class">
 						<a href="../modules/autocomplete.tag.html">Autocomplete.<wbr>Tag</a>
 					</li>
 					<li class=" tsd-kind-module tsd-parent-kind-class">
@@ -144,7 +230,7 @@
 					<li class=" tsd-kind-module tsd-parent-kind-class">
 						<a href="../modules/navigations.tag.html">Navigations.<wbr>Tag</a>
 					</li>
-					<li class=" tsd-kind-module tsd-parent-kind-class">
+					<li class="current tsd-kind-module tsd-parent-kind-class">
 						<a href="../modules/pastpurchase.tag.html">Past<wbr>Purchase.<wbr>Tag</a>
 					</li>
 					<li class=" tsd-kind-module tsd-parent-kind-class">
@@ -160,56 +246,65 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="pastpurchase.tag.description.html" class="tsd-kind-icon">Description</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-module">
+						<a href="pastpurchase.tag.event.html" class="tsd-kind-icon">Event</a>
+					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface tsd-parent-kind-module">
-						<a href="autocomplete.tag.description.html" class="tsd-kind-icon">Description</a>
+						<a href="pastpurchase.tag.lifecycle.html" class="tsd-kind-icon">Lifecycle</a>
 						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="autocomplete.tag.description.html#css" class="tsd-kind-icon">css</a>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="pastpurchase.tag.lifecycle.html#onbeforemount" class="tsd-kind-icon">on<wbr>Before<wbr>Mount</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="autocomplete.tag.description.html#metadata" class="tsd-kind-icon">metadata</a>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="pastpurchase.tag.lifecycle.html#onbeforeunmount" class="tsd-kind-icon">on<wbr>Before<wbr>Unmount</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="autocomplete.tag.description.html#view" class="tsd-kind-icon">view</a>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="pastpurchase.tag.lifecycle.html#onmount" class="tsd-kind-icon">on<wbr>Mount</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="pastpurchase.tag.lifecycle.html#onunmount" class="tsd-kind-icon">on<wbr>Unmount</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="pastpurchase.tag.lifecycle.html#onupdate" class="tsd-kind-icon">on<wbr>Update</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="pastpurchase.tag.lifecycle.html#onupdated" class="tsd-kind-icon">on<wbr>Updated</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="autocomplete.tag.event.html" class="tsd-kind-icon">Event</a>
+						<a href="pastpurchase.tag.metadata.html" class="tsd-kind-icon">Metadata</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="autocomplete.tag.lifecycle.html" class="tsd-kind-icon">Lifecycle</a>
+						<a href="pastpurchase.tag.mixin.html" class="tsd-kind-icon">Mixin</a>
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="autocomplete.tag.metadata.html" class="tsd-kind-icon">Metadata</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="autocomplete.tag.mixin.html" class="tsd-kind-icon">Mixin</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="autocomplete.tag.props.html" class="tsd-kind-icon">Props</a>
+						<a href="pastpurchase.tag.props.html" class="tsd-kind-icon">Props</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
-						<a href="../modules/autocomplete.tag.html#transform" class="tsd-kind-icon">Transform</a>
+						<a href="../modules/pastpurchase.tag.html#transform" class="tsd-kind-icon">Transform</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/autocomplete.tag.html#create" class="tsd-kind-icon">create</a>
+						<a href="../modules/pastpurchase.tag.html#create" class="tsd-kind-icon">create</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/autocomplete.tag.html#getdescription" class="tsd-kind-icon">get<wbr>Description</a>
+						<a href="../modules/pastpurchase.tag.html#getdescription" class="tsd-kind-icon">get<wbr>Description</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/autocomplete.tag.html#getmeta" class="tsd-kind-icon">get<wbr>Meta</a>
+						<a href="../modules/pastpurchase.tag.html#getmeta" class="tsd-kind-icon">get<wbr>Meta</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/autocomplete.tag.html#mixin-1" class="tsd-kind-icon">mixin</a>
+						<a href="../modules/pastpurchase.tag.html#mixin-1" class="tsd-kind-icon">mixin</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/autocomplete.tag.html#setdescription" class="tsd-kind-icon">set<wbr>Description</a>
+						<a href="../modules/pastpurchase.tag.html#setdescription" class="tsd-kind-icon">set<wbr>Description</a>
 					</li>
 				</ul>
 			</nav>

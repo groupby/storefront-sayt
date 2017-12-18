@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Description | @storefront/sayt</title>
+	<title>State | @storefront/sayt</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,16 +56,13 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../classes/autocomplete.html">Autocomplete</a>
+					<a href="../classes/pastpurchase.html">PastPurchase</a>
 				</li>
 				<li>
-					<a href="../modules/autocomplete.tag.html">Tag</a>
-				</li>
-				<li>
-					<a href="autocomplete.tag.description.html">Description</a>
+					<a href="pastpurchase.state.html">State</a>
 				</li>
 			</ul>
-			<h1>Interface Description</h1>
+			<h1>Interface State</h1>
 		</div>
 	</div>
 </header>
@@ -76,7 +73,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">Description</span>
+						<span class="target">State</span>
 					</li>
 				</ul>
 			</section>
@@ -87,9 +84,13 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="autocomplete.tag.description.html#css" class="tsd-kind-icon">css</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="autocomplete.tag.description.html#metadata" class="tsd-kind-icon">metadata</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="autocomplete.tag.description.html#view" class="tsd-kind-icon">view</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="pastpurchase.state.html#pastpurchases" class="tsd-kind-icon">past<wbr>Purchases</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section ">
+							<h3>Methods</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="pastpurchase.state.html#onclick" class="tsd-kind-icon">on<wbr>Click</a></li>
 							</ul>
 						</section>
 					</div>
@@ -98,34 +99,34 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="css" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> css</h3>
-					<div class="tsd-signature tsd-kind-icon">css<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="pastpurchases" class="tsd-anchor"></a>
+					<h3>past<wbr>Purchases</h3>
+					<div class="tsd-signature tsd-kind-icon">past<wbr>Purchases<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in node_modules/@storefront/core/dist/core/tag/index.d.ts:45</li>
+							<li>Defined in <a href="https://github.com/groupby/storefront-sayt/blob/0c1bf77/src/past-purchase/index.ts#L29">src/past-purchase/index.ts:29</a></li>
 						</ul>
 					</aside>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="metadata" class="tsd-anchor"></a>
-					<h3>metadata</h3>
-					<div class="tsd-signature tsd-kind-icon">metadata<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Metadata</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in node_modules/@storefront/core/dist/core/tag/index.d.ts:46</li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="view" class="tsd-anchor"></a>
-					<h3>view</h3>
-					<div class="tsd-signature tsd-kind-icon">view<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in node_modules/@storefront/core/dist/core/tag/index.d.ts:44</li>
-						</ul>
-					</aside>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="onclick" class="tsd-anchor"></a>
+					<h3>on<wbr>Click</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">on<wbr>Click<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/groupby/storefront-sayt/blob/0c1bf77/src/past-purchase/index.ts#L30">src/past-purchase/index.ts:30</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
 				</section>
 			</section>
 		</div>
@@ -135,81 +136,71 @@
 					<li class="globals  ">
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
-					<li class="current tsd-kind-module tsd-parent-kind-class">
-						<a href="../modules/autocomplete.tag.html">Autocomplete.<wbr>Tag</a>
-					</li>
-					<li class=" tsd-kind-module tsd-parent-kind-class">
-						<a href="../modules/categories.tag.html">Categories.<wbr>Tag</a>
-					</li>
-					<li class=" tsd-kind-module tsd-parent-kind-class">
-						<a href="../modules/navigations.tag.html">Navigations.<wbr>Tag</a>
-					</li>
-					<li class=" tsd-kind-module tsd-parent-kind-class">
-						<a href="../modules/pastpurchase.tag.html">Past<wbr>Purchase.<wbr>Tag</a>
-					</li>
-					<li class=" tsd-kind-module tsd-parent-kind-class">
-						<a href="../modules/products.tag.html">Products.<wbr>Tag</a>
-					</li>
-					<li class=" tsd-kind-module tsd-parent-kind-class">
-						<a href="../modules/sayt.tag.html">Sayt.<wbr>Tag</a>
-					</li>
-					<li class=" tsd-kind-module tsd-parent-kind-class">
-						<a href="../modules/searchterms.tag.html">Search<wbr>Terms.<wbr>Tag</a>
-					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-class">
+						<a href="../classes/autocomplete.html" class="tsd-kind-icon">Autocomplete</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter">
+						<a href="../classes/categories.html" class="tsd-kind-icon">Categories</a>
+					</li>
+					<li class=" tsd-kind-class tsd-has-type-parameter">
+						<a href="../classes/navigations.html" class="tsd-kind-icon">Navigations</a>
+					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-interface tsd-parent-kind-module">
-						<a href="autocomplete.tag.description.html" class="tsd-kind-icon">Description</a>
+					<li class="current tsd-kind-class tsd-has-type-parameter">
+						<a href="../classes/pastpurchase.html" class="tsd-kind-icon">Past<wbr>Purchase</a>
 						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="autocomplete.tag.description.html#css" class="tsd-kind-icon">css</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="autocomplete.tag.description.html#metadata" class="tsd-kind-icon">metadata</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="autocomplete.tag.description.html#view" class="tsd-kind-icon">view</a>
+							<li class="current tsd-kind-interface tsd-parent-kind-class">
+								<a href="pastpurchase.state.html" class="tsd-kind-icon">State</a>
+								<ul>
+									<li class=" tsd-kind-property tsd-parent-kind-interface">
+										<a href="pastpurchase.state.html#pastpurchases" class="tsd-kind-icon">past<wbr>Purchases</a>
+									</li>
+									<li class=" tsd-kind-method tsd-parent-kind-interface">
+										<a href="pastpurchase.state.html#onclick" class="tsd-kind-icon">on<wbr>Click</a>
+									</li>
+								</ul>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="autocomplete.tag.event.html" class="tsd-kind-icon">Event</a>
+					<li class=" tsd-kind-class">
+						<a href="../classes/products.html" class="tsd-kind-icon">Products</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="autocomplete.tag.lifecycle.html" class="tsd-kind-icon">Lifecycle</a>
+					<li class=" tsd-kind-class">
+						<a href="../classes/sayt.html" class="tsd-kind-icon">Sayt</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="autocomplete.tag.metadata.html" class="tsd-kind-icon">Metadata</a>
+					<li class=" tsd-kind-class tsd-has-type-parameter">
+						<a href="../classes/searchterms.html" class="tsd-kind-icon">Search<wbr>Terms</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="autocomplete.tag.mixin.html" class="tsd-kind-icon">Mixin</a>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="../globals.html#category" class="tsd-kind-icon">CATEGORY</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-module">
-						<a href="autocomplete.tag.props.html" class="tsd-kind-icon">Props</a>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="../globals.html#category_values" class="tsd-kind-icon">CATEGORY_<wbr>VALUES</a>
 					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-module">
-						<a href="../modules/autocomplete.tag.html#transform" class="tsd-kind-icon">Transform</a>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="../globals.html#navigations" class="tsd-kind-icon">NAVIGATIONS</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/autocomplete.tag.html#create" class="tsd-kind-icon">create</a>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="../globals.html#past" class="tsd-kind-icon">PAST</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/autocomplete.tag.html#getdescription" class="tsd-kind-icon">get<wbr>Description</a>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="../globals.html#products" class="tsd-kind-icon">PRODUCTS</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/autocomplete.tag.html#getmeta" class="tsd-kind-icon">get<wbr>Meta</a>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="../globals.html#query" class="tsd-kind-icon">QUERY</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/autocomplete.tag.html#mixin-1" class="tsd-kind-icon">mixin</a>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="../globals.html#suggestions" class="tsd-kind-icon">SUGGESTIONS</a>
 					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="../modules/autocomplete.tag.html#setdescription" class="tsd-kind-icon">set<wbr>Description</a>
+					<li class=" tsd-kind-object-literal tsd-is-not-exported">
+						<a href="../globals.html#structure" class="tsd-kind-icon">STRUCTURE</a>
 					</li>
 				</ul>
 			</nav>
