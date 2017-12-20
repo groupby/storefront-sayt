@@ -12,6 +12,7 @@ const PRODUCTS = ['j', 'k', 'l', 'm'];
 suite('Autocomplete', ({ expect, spy, stub }) => {
   let autocomplete: Autocomplete;
   let select: sinon.SinonStub;
+  let services: sinon.SinonStub;
 
   beforeEach(() => {
     Autocomplete.prototype.flux = <any>{};
@@ -47,10 +48,12 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
         beforeEach(() => {
           autocomplete.activationTargets = spy(() => targets);
           autocomplete.setActivation = spy(() => null);
+          autocomplete.config = <any>{ autocomplete: { hoverQuery: false }};
         });
 
         it('should do nothing if selected value did not change', () => {
           autocomplete.state.selected = 1;
+
           autocomplete.state.onHover(<any>{ target: 'tar' });
 
           expect(autocomplete.setActivation).to.not.be.called;
@@ -58,9 +61,9 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
 
         it('should not call setActivation with false activate if this.isActive() is false', () => {
           const target = 'tar';
-
           autocomplete.state.selected = 0;
           autocomplete.isActive = spy(() => false);
+
           autocomplete.state.onHover(<any>{ target });
 
           expect(autocomplete.setActivation).to.be.calledOnce
@@ -69,9 +72,9 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
 
         it('should call setActivation with false activate if this.isActive() is true', () => {
           const target = 'tar';
-
           autocomplete.state.selected = 0;
           autocomplete.isActive = spy(() => true);
+
           autocomplete.state.onHover(<any>{ target });
 
           expect(autocomplete.setActivation).to.be.calledTwice
@@ -461,13 +464,15 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
   });
 
   describe('state.onHover', () => {
+    const targets = [1, 2, 3];
+    const matchAny = sinon.match.any;
+
     it('should call setActivation with updateQuery set to false', () => {
-      const targets = [1, 2, 3];
-      const matchAny = sinon.match.any;
-      const activationTargets = autocomplete.activationTargets = stub().returns(targets);
       const setActivation = autocomplete.setActivation = spy();
+      autocomplete.activationTargets = stub().returns(targets);
       autocomplete.isActive = stub().returns(true);
       autocomplete.config = <any>{ autocomplete: { hoverQuery: false }};
+      autocomplete.state.selected = -2;
 
       autocomplete.state.onHover(<any>{});
 
@@ -476,29 +481,41 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
     });
 
     it('should call setActivation with updateQuery set to true', () => {
-      const targets = [1, 2, 3];
-      const matchAny = sinon.match.any;
-      const activationTargets = autocomplete.activationTargets = stub().returns(targets);
       const setActivation = autocomplete.setActivation = spy();
+      autocomplete.activationTargets = stub().returns(targets);
       autocomplete.isActive = stub().returns(true);
       autocomplete.config = <any>{ autocomplete: { hoverQuery: true }};
+      autocomplete.state.selected = -2;
 
       autocomplete.state.onHover(<any>{});
 
       expect(setActivation).to.be.calledTwice;
       expect(setActivation).to.be.calledWithExactly(matchAny, matchAny, matchAny, true);
+      expect(setActivation).to.be.calledWithExactly(matchAny, matchAny, matchAny, true);
     });
 
     it('should call setActivation once when isActive is false', () => {
-      const targets = [1, 2, 3];
-      const activationTargets = autocomplete.activationTargets = stub().returns(targets);
       const setActivation = autocomplete.setActivation = spy();
+      autocomplete.activationTargets = stub().returns(targets);
+      autocomplete.state.selected = -2;
       autocomplete.isActive = stub().returns(false);
       autocomplete.config = <any>{ autocomplete: { hoverQuery: false }};
 
       autocomplete.state.onHover(<any>{});
 
       expect(setActivation).to.be.calledOnce;
+    });
+
+    it('should not call setActivation if selected are equal', () => {
+      const setActivation = autocomplete.setActivation = spy();
+      autocomplete.activationTargets = stub().returns(targets);
+      autocomplete.state.selected = -1;
+      autocomplete.isActive = stub().returns(false);
+      autocomplete.config = <any>{ autocomplete: { hoverQuery: false }};
+
+      autocomplete.state.onHover(<any>{});
+
+      expect(setActivation).to.not.be.called;
     });
   });
 });
