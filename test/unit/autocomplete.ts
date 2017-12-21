@@ -48,7 +48,7 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
         beforeEach(() => {
           autocomplete.activationTargets = spy(() => targets);
           autocomplete.setActivation = spy(() => null);
-          autocomplete.config = <any>{ autocomplete: { hoverQuery: false }};
+          autocomplete.config = <any>{ autocomplete: { hoverAutoFill: false }};
         });
 
         it('should do nothing if selected value did not change', () => {
@@ -471,7 +471,7 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
       const setActivation = autocomplete.setActivation = spy();
       autocomplete.activationTargets = stub().returns(targets);
       autocomplete.isActive = stub().returns(true);
-      autocomplete.config = <any>{ autocomplete: { hoverQuery: false }};
+      autocomplete.config = <any>{ autocomplete: { hoverAutoFill: false }};
       autocomplete.state.selected = -2;
 
       autocomplete.state.onHover(<any>{});
@@ -484,7 +484,7 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
       const setActivation = autocomplete.setActivation = spy();
       autocomplete.activationTargets = stub().returns(targets);
       autocomplete.isActive = stub().returns(true);
-      autocomplete.config = <any>{ autocomplete: { hoverQuery: true }};
+      autocomplete.config = <any>{ autocomplete: { hoverAutoFill: true }};
       autocomplete.state.selected = -2;
 
       autocomplete.state.onHover(<any>{});
@@ -499,7 +499,7 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
       autocomplete.activationTargets = stub().returns(targets);
       autocomplete.state.selected = -2;
       autocomplete.isActive = stub().returns(false);
-      autocomplete.config = <any>{ autocomplete: { hoverQuery: false }};
+      autocomplete.config = <any>{ autocomplete: { hoverAutoFill: false }};
 
       autocomplete.state.onHover(<any>{});
 
@@ -511,7 +511,7 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
       autocomplete.activationTargets = stub().returns(targets);
       autocomplete.state.selected = -1;
       autocomplete.isActive = stub().returns(false);
-      autocomplete.config = <any>{ autocomplete: { hoverQuery: false }};
+      autocomplete.config = <any>{ autocomplete: { hoverAutoFill: false }};
 
       autocomplete.state.onHover(<any>{});
 
