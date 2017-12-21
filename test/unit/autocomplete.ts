@@ -41,6 +41,44 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
           products: PRODUCTS
         });
       });
+
+      describe('onHover()', () => {
+        const targets = [0,'tar',2,3,4];
+        beforeEach(() => {
+          autocomplete.activationTargets = spy(() => targets);
+          autocomplete.setActivation = spy(() => null);
+        });
+
+        it('should do nothing if selected value did not change', () => {
+          autocomplete.state.selected = 1;
+          autocomplete.state.onHover(<any>{ target: 'tar' });
+
+          expect(autocomplete.setActivation).to.not.be.called;
+        });
+
+        it('should not call setActivation with false activate if this.isActive() is false', () => {
+          const target = 'tar';
+
+          autocomplete.state.selected = 0;
+          autocomplete.isActive = spy(() => false);
+          autocomplete.state.onHover(<any>{ target });
+
+          expect(autocomplete.setActivation).to.be.calledOnce
+            .and.calledWith(targets, Array.from(targets).findIndex((element) => element === target), true);
+        });
+
+        it('should call setActivation with false activate if this.isActive() is true', () => {
+          const target = 'tar';
+
+          autocomplete.state.selected = 0;
+          autocomplete.isActive = spy(() => true);
+          autocomplete.state.onHover(<any>{ target });
+
+          expect(autocomplete.setActivation).to.be.calledTwice
+            .and.calledWith(targets, autocomplete.state.selected, false)
+            .and.calledWith(targets, Array.from(targets).findIndex((element) => element === target), true);
+        });
+      });
     });
   });
 
@@ -377,6 +415,15 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
       autocomplete.updateProducts(<any>{ dataset: { query, refinement } });
 
       expect(saytProducts).to.be.calledWithExactly(query, [{ field: category, value: refinement }]);
+    });
+
+    it('should call flux.pastPurchaseProducts() if past purchase', () => {
+      const displaySaytPastPurchases = spy();
+      autocomplete.flux = <any>{ emit: () => null, displaySaytPastPurchases };
+
+      autocomplete.updateProducts(<any>{ dataset: { pastPurchase: true, query: 'test' } });
+
+      expect(displaySaytPastPurchases).to.be.calledWithExactly();
     });
   });
 
