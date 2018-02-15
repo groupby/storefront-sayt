@@ -172,7 +172,7 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
       const unregisterClickAwayHandler = sayt.unregisterClickAwayHandler = spy();
       sayt.select = spy();
       sayt.set = () => null;
-      sayt.flux = <any>{ emit: () => null};
+      sayt.flux = <any>{ emit: () => null };
 
       sayt.setInactive();
 
@@ -237,7 +237,7 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
   });
 
   describe('checkRootNode()', () => {
-    it('should not setInactive() if target found', () => {
+    it('should not setInactive() if target found in the root node', () => {
       const stubSetInactive = stub(sayt, 'setInactive');
       const event: any = { target: { nodeName: 'gb-sayt' } };
       stub(sayt, 'root').value({ contains: () => true });
@@ -247,9 +247,31 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
       expect(stubSetInactive).to.not.be.called;
     });
 
+    it('should not setInactive() if target found in the search box node', () => {
+      const stubSetInactive = stub(sayt, 'setInactive');
+      const event: any = { target: { nodeName: 'gb-sayt' } };
+      const querySelector = () => {
+        return {
+          contains: () => true
+        };
+      };
+      stub(utils, 'WINDOW').returns({ document: { querySelector } });
+      stub(sayt, 'root').value({ contains: () => false });
+
+      sayt.checkRootNode(event);
+
+      expect(stubSetInactive).to.not.be.called;
+    });
+
     it('should setInactive() if target not found', () => {
       const stubSetInactive = stub(sayt, 'setInactive');
       const event: any = { target: { nodeName: 'html' } };
+      const querySelector = () => {
+        return {
+          contains: () => false
+        };
+      };
+      stub(utils, 'WINDOW').returns({ document: { querySelector } });
       stub(sayt, 'root').value({ contains: () => false });
 
       sayt.checkRootNode(event);

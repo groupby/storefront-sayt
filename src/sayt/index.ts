@@ -47,8 +47,11 @@ class Sayt {
     }
   }
 
-  checkRootNode = ({ target }: MouseEvent & { target: Node }) =>
-    !this.root.contains(target) && this.setInactive()
+  checkRootNode = ({ target }: MouseEvent & { target: Node }) => {
+    // tslint:disable-next-line:max-line-length
+    const shouldSetInactive = !(this.root.contains(target) || utils.WINDOW().document.querySelector('gb-search-box').contains(target));
+    return shouldSetInactive && this.setInactive();
+  }
 
   setRecommendationsActive = () =>
     !this.state.showRecommendations && this.set({ isActive: true, showRecommendations: true })
