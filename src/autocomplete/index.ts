@@ -7,11 +7,17 @@ class Autocomplete {
 
   state: Autocomplete.State = <any>{
     onHover: (event: MouseEvent) => {
+      const updateQuery = !!this.config.autocomplete.hoverAutoFill;
       const targets = this.activationTargets();
-      if (this.isActive()) {
-        this.setActivation(targets, this.state.selected, false);
+      const index = Array.from(targets).findIndex((element) => element === event.target);
+      if (index === this.state.selected) {
+        return;
       }
-      this.setActivation(targets, Array.from(targets).findIndex((element) => element === event.target), true);
+      if (this.isActive()) {
+        this.setActivation(targets, this.state.selected, false, updateQuery);
+      }
+      this.setActivation(targets, Array.from(targets).findIndex((element) => element === event.target),
+                         true, updateQuery);
     }
   };
 
@@ -82,7 +88,7 @@ class Autocomplete {
     }
   }
 
-  setActivation(targets: NodeListOf<HTMLElement>, index: number, activate: boolean) {
+  setActivation(targets: NodeListOf<HTMLElement>, index: number, activate: boolean, updateQuery: boolean = true) {
     const target = targets[index];
     const indexExists = index !== -1;
     if (indexExists) {
@@ -91,16 +97,23 @@ class Autocomplete {
     if (activate) {
       this.state.selected = index;
       if (indexExists) {
-        this.updateProducts(target);
+        this.updateProducts(target, updateQuery);
       }
     }
   }
 
-  updateProducts({ dataset: { query: selectedQuery, refinement, field } }: HTMLElement) {
+  // tslint:disable-next-line:max-line-length
+  updateProducts({ dataset: { query: selectedQuery, refinement, field, pastPurchase } }: HTMLElement, updateQuery: boolean = true) {
     const query = selectedQuery == null ? this.select(Selectors.autocompleteQuery) : selectedQuery;
-    this.flux.emit('query:update', query);
-    // tslint:disable-next-line max-line-length
-    this.flux.saytProducts(field ? null : query, refinement ? [{ field: field || this.state.category, value: refinement }] : []);
+    if (updateQuery) {
+      this.flux.emit('query:update', query);
+    }
+    if (pastPurchase !== undefined) {
+      this.flux.displaySaytPastPurchases();
+    } else {
+      // tslint:disable-next-line max-line-length
+      this.flux.saytProducts(field ? null : query, refinement ? [{ field: field || this.state.category, value: refinement }] : []);
+    }
   }
 
   isActive() {
