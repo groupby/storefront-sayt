@@ -47,8 +47,8 @@ class Sayt {
     }
   }
 
-  checkRootNode = ({ target }: MouseEvent & { target: Node }) =>
-    !this.root.contains(target) && this.setInactive()
+  checkRootNode = ({ target }: MouseEvent & { target: HTMLElement }) =>
+    !(this.root.contains(target) || this.services.autocomplete.isInSearchBox(target)) && this.setInactive()
 
   setRecommendationsActive = () =>
     !this.state.showRecommendations && this.set({ isActive: true, showRecommendations: true })

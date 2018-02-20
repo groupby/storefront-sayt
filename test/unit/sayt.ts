@@ -172,7 +172,7 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
       const unregisterClickAwayHandler = sayt.unregisterClickAwayHandler = spy();
       sayt.select = spy();
       sayt.set = () => null;
-      sayt.flux = <any>{ emit: () => null};
+      sayt.flux = <any>{ emit: () => null };
 
       sayt.setInactive();
 
@@ -237,10 +237,21 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
   });
 
   describe('checkRootNode()', () => {
-    it('should not setInactive() if target found', () => {
+    it('should not setInactive() if target found in root', () => {
       const stubSetInactive = stub(sayt, 'setInactive');
       const event: any = { target: { nodeName: 'gb-sayt' } };
       stub(sayt, 'root').value({ contains: () => true });
+
+      sayt.checkRootNode(event);
+
+      expect(stubSetInactive).to.not.be.called;
+    });
+
+    it('should not setInactive() if target found in a search box element', () => {
+      const stubSetInactive = stub(sayt, 'setInactive');
+      const event: any = { target: { nodeName: 'gb-sayt' } };
+      stub(sayt, 'root').value({ contains: () => false });
+      sayt.services = <any>{ autocomplete: { isInSearchBox: () => true } };
 
       sayt.checkRootNode(event);
 
@@ -251,6 +262,7 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
       const stubSetInactive = stub(sayt, 'setInactive');
       const event: any = { target: { nodeName: 'html' } };
       stub(sayt, 'root').value({ contains: () => false });
+      sayt.services = <any>{ autocomplete: { isInSearchBox: () => false } };
 
       sayt.checkRootNode(event);
 
