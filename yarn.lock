@@ -65,9 +65,9 @@
   version "1.4.0-alpha.82914663"
   resolved "https://registry.yarnpkg.com/@simple-dom/void-map/-/void-map-1.4.0-alpha.82914663.tgz#0669dd8d3a1cb3a391e548a139a3cdc327e07e09"
 
-"@storefront/core@~1.36.0":
-  version "1.36.7"
-  resolved "https://registry.yarnpkg.com/@storefront/core/-/core-1.36.7.tgz#9f984daf30bbdb39915266fdb04374e4850db5b7"
+"@storefront/core@~1.38.0":
+  version "1.38.0"
+  resolved "https://registry.yarnpkg.com/@storefront/core/-/core-1.38.0.tgz#dfb3846943ff05212706127f5fbeae462f43bbd0"
   dependencies:
     "@storefront/flux-capacitor" "1.43.1"
     "@types/clone" "^0.1.30"
