@@ -1,5 +1,5 @@
 <gb-list items="{ $autocomplete.categoryValues }" item-alias="categoryValue">
-  <gb-link class="gb-autocomplete-target" data-match-all="{ $categoryValue.matchAll }" data-refinement="{ $categoryValue.value }" onmouseenter="{ $autocomplete.onHover }" on-click="{ $saytCategories.onClick($categoryValue) }">
+  <gb-link class="gb-autocomplete-target" data-match-all="{ $categoryValue.matchAll }" data-refinement="{ $categoryValue.value }" data-query="{ $autocomplete.suggestions[0].value }" onmouseenter="{ $autocomplete.onHover }" on-click="{ $saytCategories.onClick($categoryValue) }">
     <yield>
       <gb-raw content="{ $sayt.highlight($saytCategories.query, '<b>$&</b>') }"></gb-raw>
       in
