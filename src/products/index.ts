@@ -11,7 +11,7 @@ class Products {
 
   init() {
     this.services.autocomplete.registerProducts(this);
-    this.flux.on(Events.AUTOCOMPLETE_PRODUCTS_UPDATED, this.updateProducts);
+    this.subscribe(Events.AUTOCOMPLETE_PRODUCTS_UPDATED, this.updateProducts);
   }
 
   updateProducts = (products: Store.Product[]) =>

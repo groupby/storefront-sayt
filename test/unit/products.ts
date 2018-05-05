@@ -29,7 +29,7 @@ suite('Products', ({ expect, spy, stub }) => {
     it('should register with autocomplete service', () => {
       const registerProducts = spy();
       products.services = <any>{ autocomplete: { registerProducts } };
-      products.flux = <any>{ on: () => null };
+      products.subscribe = () => null;
 
       products.init();
 
@@ -37,13 +37,12 @@ suite('Products', ({ expect, spy, stub }) => {
     });
 
     it('should listen for AUTOCOMPLETE_PRODUCTS_UPDATED', () => {
-      const on = spy();
-      products.flux = <any>{ on };
+      const subscribe = products.subscribe = spy();
       products.services = <any>{ autocomplete: { registerProducts: () => null } };
 
       products.init();
 
-      expect(on).to.be.calledWith(Events.AUTOCOMPLETE_PRODUCTS_UPDATED, products.updateProducts);
+      expect(subscribe).to.be.calledWith(Events.AUTOCOMPLETE_PRODUCTS_UPDATED, products.updateProducts);
     });
   });
 

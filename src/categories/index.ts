@@ -21,7 +21,7 @@ class Categories {
   };
 
   init() {
-    this.flux.on(Events.AUTOCOMPLETE_QUERY_UPDATED, this.updateQuery);
+    this.subscribe(Events.AUTOCOMPLETE_QUERY_UPDATED, this.updateQuery);
   }
 
   updateQuery = (query: string) => this.set({ query });

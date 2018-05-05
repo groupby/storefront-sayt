@@ -89,12 +89,13 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
     it('should listen for flux events', () => {
       const on = spy();
       autocomplete.flux = <any>{ on };
+      const subscribe = autocomplete.subscribe = spy();
       autocomplete.services = <any>{ autocomplete: { registerAutocomplete: () => null } };
 
       autocomplete.init();
 
-      expect(on).to.have.callCount(4)
-        .and.calledWith(Events.AUTOCOMPLETE_SUGGESTIONS_UPDATED, autocomplete.updateSuggestions)
+      expect(on).to.be.calledWith(Events.AUTOCOMPLETE_SUGGESTIONS_UPDATED, autocomplete.updateSuggestions);
+      expect(subscribe).to.have.callCount(3)
         .and.calledWith('sayt:activate_next', autocomplete.activateNext)
         .and.calledWith('sayt:activate_previous', autocomplete.activatePrevious)
         .and.calledWith('sayt:select_active', autocomplete.selectActive);
@@ -104,24 +105,11 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
       const registerAutocomplete = spy();
       autocomplete.services = <any>{ autocomplete: { registerAutocomplete } };
       autocomplete.flux = <any>{ on: () => null };
+      autocomplete.subscribe = () => null;
 
       autocomplete.init();
 
       expect(registerAutocomplete).to.be.calledWith(autocomplete);
-    });
-  });
-
-  describe('onUnmount()', () => {
-    it('should remove flux event listeners', () => {
-      const off = spy();
-      autocomplete.flux = <any>{ off };
-
-      autocomplete.onUnmount();
-
-      expect(off).to.have.callCount(3)
-        .and.calledWithExactly('sayt:activate_next', autocomplete.activateNext)
-        .and.calledWithExactly('sayt:activate_previous', autocomplete.activatePrevious)
-        .and.calledWithExactly('sayt:select_active', autocomplete.selectActive);
     });
   });
 
