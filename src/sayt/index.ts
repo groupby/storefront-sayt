@@ -24,12 +24,12 @@ class Sayt {
 
   init() {
     this.services.autocomplete.register(this);
-    this.flux.on('sayt:show', this.setActive);
-    this.flux.on('sayt:hide', this.setInactive);
-    this.flux.on(Events.URL_UPDATED, this.setInactive);
+    this.subscribe('sayt:show', this.setActive);
+    this.subscribe('sayt:hide', this.setInactive);
+    this.subscribe(Events.URL_UPDATED, this.setInactive);
     if (this.props.recommendations) {
-      this.flux.on('sayt:show_recommendations', this.setRecommendationsActive);
-      this.flux.on(Events.AUTOCOMPLETE_QUERY_UPDATED, this.setRecommendationsInactive);
+      this.subscribe('sayt:show_recommendations', this.setRecommendationsActive);
+      this.subscribe(Events.AUTOCOMPLETE_QUERY_UPDATED, this.setRecommendationsInactive);
     }
   }
 
@@ -60,7 +60,7 @@ class Sayt {
     utils.WINDOW().document.addEventListener('click', this.checkRootNode)
 
   unregisterClickAwayHandler = () => {
-    this.flux.once(Events.AUTOCOMPLETE_QUERY_UPDATED, this.registerClickAwayHandler);
+    this.subscribeOnce(Events.AUTOCOMPLETE_QUERY_UPDATED, this.registerClickAwayHandler);
     utils.WINDOW().document.removeEventListener('click', this.checkRootNode);
   }
 }

@@ -52,12 +52,11 @@ suite('PastPurchase', ({ expect, spy, stub }) => {
 
   describe('init()', () => {
     it('should wait on SAYT_PAST_PURCHASE_UPDATED', () => {
-      const on = spy();
-      pastPurchase.flux = <any>{ on };
+      const subscribe = pastPurchase.subscribe = spy();
 
       pastPurchase.init();
 
-      expect(on).to.be.calledWithExactly(Events.SAYT_PAST_PURCHASES_UPDATED, pastPurchase.updatePastPurchases);
+      expect(subscribe).to.be.calledWithExactly(Events.SAYT_PAST_PURCHASES_UPDATED, pastPurchase.updatePastPurchases);
     });
   });
 

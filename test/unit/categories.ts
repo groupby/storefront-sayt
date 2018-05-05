@@ -50,12 +50,11 @@ suite('Categories', ({ expect, spy, stub }) => {
 
   describe('init()', () => {
     it('should listen for AUTOCOMPLETE_QUERY_UPDATED', () => {
-      const on = spy();
-      categories.flux = <any>{ on };
+      const subscribe = categories.subscribe = spy();
 
       categories.init();
 
-      expect(on).to.be.calledWithExactly(Events.AUTOCOMPLETE_QUERY_UPDATED, categories.updateQuery);
+      expect(subscribe).to.be.calledWithExactly(Events.AUTOCOMPLETE_QUERY_UPDATED, categories.updateQuery);
     });
   });
 

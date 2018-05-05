@@ -33,15 +33,9 @@ class Autocomplete {
   init() {
     this.services.autocomplete.registerAutocomplete(this);
     this.flux.on(Events.AUTOCOMPLETE_SUGGESTIONS_UPDATED, this.updateSuggestions);
-    this.flux.on('sayt:activate_next', this.activateNext);
-    this.flux.on('sayt:activate_previous', this.activatePrevious);
-    this.flux.on('sayt:select_active', this.selectActive);
-  }
-
-  onUnmount() {
-    this.flux.off('sayt:activate_next', this.activateNext);
-    this.flux.off('sayt:activate_previous', this.activatePrevious);
-    this.flux.off('sayt:select_active', this.selectActive);
+    this.subscribe('sayt:activate_next', this.activateNext);
+    this.subscribe('sayt:activate_previous', this.activatePrevious);
+    this.subscribe('sayt:select_active', this.selectActive);
   }
 
   activationTargets(): NodeListOf<HTMLElement> {

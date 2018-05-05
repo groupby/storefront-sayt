@@ -14,7 +14,7 @@ class PastPurchase {
   };
 
   init() {
-    this.flux.on(Events.SAYT_PAST_PURCHASES_UPDATED, this.updatePastPurchases);
+    this.subscribe(Events.SAYT_PAST_PURCHASES_UPDATED, this.updatePastPurchases);
   }
 
   updatePastPurchases = (pastPurchases: Store.ProductWithMetadata[]) =>
