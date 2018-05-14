@@ -5,7 +5,7 @@ import suite from './_suite';
 
 const QUERY = 'red dress';
 
-suite('Categories', ({ expect, spy, stub }) => {
+suite('Categories', ({ expect, spy, stub, itShouldProvideAlias }) => {
   let categories: Categories;
   let select: sinon.SinonStub;
 
@@ -15,6 +15,8 @@ suite('Categories', ({ expect, spy, stub }) => {
     categories = new Categories();
   });
   afterEach(() => delete Categories.prototype.flux);
+
+  itShouldProvideAlias(Categories, 'saytCategories');
 
   describe('constructor()', () => {
     describe('state', () => {
@@ -29,9 +31,9 @@ suite('Categories', ({ expect, spy, stub }) => {
           const handler = categories.state.onClick({ value });
 
           select.returns(query);
-          categories.$autocomplete = <any>{ category: navigationId };
-          categories.actions = <any>{ updateSearch };
-          categories.flux = <any>{ store: { getState: () => state } };
+          categories.props = { category: navigationId } as any;
+          categories.actions = { updateSearch } as any;
+          categories.flux = { store: { getState: () => state } } as any;
 
           handler();
 
@@ -50,7 +52,7 @@ suite('Categories', ({ expect, spy, stub }) => {
 
   describe('init()', () => {
     it('should listen for AUTOCOMPLETE_QUERY_UPDATED', () => {
-      const subscribe = categories.subscribe = spy();
+      const subscribe = (categories.subscribe = spy());
 
       categories.init();
 
@@ -61,7 +63,7 @@ suite('Categories', ({ expect, spy, stub }) => {
   describe('updateQuery()', () => {
     it('should update the query', () => {
       const query = 'test';
-      const set = categories.set = spy();
+      const set = (categories.set = spy());
 
       categories.updateQuery(query);
 

@@ -1,8 +1,10 @@
-<h4>{ $navigation.label }</h4>
-<gb-list items="{ $navigation.refinements }" item-alias="refinement">
-  <gb-link class="gb-autocomplete-target" data-query="" data-field="{ $navigation.field }" data-refinement="{ $refinement }" onmouseenter="{ $autocomplete.onHover }" on-click="{ $navigations.onClick($navigation.field, $refinement) }">
+<h4>{ props.label }</h4>
+<gb-list items="{ props.refinements }" item-alias="refinement" _consumes="navigation,autocomplete">
+  <gb-link class="gb-autocomplete-target" data-query="" data-field="{ $navigation.field }" data-refinement="{ item }" onmouseenter="{ $autocomplete.onHover }" on-click="{ $navigations.onClick($navigation.field, item) }">
     <yield>
-      <gb-raw content="{ $sayt.highlight($refinement, '<b>$&</b>') }"></gb-raw>
+      <virtual data-is="consume" aliases="sayt,refinement">
+        <gb-raw content="{ $sayt.highlight($refinement, '<b>$&</b>') }"></gb-raw>
+      </virtual>
     </yield>
   </gb-link>
 </gb-list>

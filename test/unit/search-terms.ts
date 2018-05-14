@@ -1,10 +1,12 @@
 import SearchTerms from '../../src/search-terms';
 import suite from './_suite';
 
-suite('SearchTerms', ({ expect, spy }) => {
+suite('SearchTerms', ({ expect, spy, itShouldProvideAlias }) => {
   let searchTerms: SearchTerms;
 
-  beforeEach(() => searchTerms = new SearchTerms());
+  beforeEach(() => (searchTerms = new SearchTerms()));
+
+  itShouldProvideAlias(SearchTerms, 'searchTerms');
 
   describe('constructor()', () => {
     describe('props', () => {
@@ -20,17 +22,6 @@ suite('SearchTerms', ({ expect, spy }) => {
           expect(search).to.be.calledWith(query);
         });
       });
-    });
-  });
-
-  describe('init()', () => {
-    it('should expose props as searchTerms', () => {
-      const props = searchTerms.props = <any>{ a: 'b' };
-      const expose = searchTerms.expose = spy();
-
-      searchTerms.init();
-
-      expect(expose).to.be.calledWithExactly('searchTerms', props);
     });
   });
 });

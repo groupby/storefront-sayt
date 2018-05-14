@@ -1,5 +1,5 @@
-<gb-list items="{ $autocomplete.navigations }" item-alias="navigation">
-  <gb-sayt-refinements>
+<gb-list items="{ props.items }" item-alias="navigation">
+  <gb-sayt-refinements _props="{ item }">
     <yield/>
   </gb-sayt-refinements>
 </gb-list>

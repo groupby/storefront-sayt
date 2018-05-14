@@ -1,16 +1,14 @@
-import { alias, tag, Events, Selectors, Store, Tag } from '@storefront/core';
+import { provide, tag, Events, Selectors, Store, Tag } from '@storefront/core';
 
-@alias('pastPurchaseItem')
+@provide('pastPurchaseItem')
 @tag('gb-sayt-past-purchase', require('./index.html'))
 class PastPurchase {
-  $pastPurchase: Store.Autocomplete.Suggestion;
-
   state: PastPurchase.State = {
     onClick: () => {
-      this.flux.store.dispatch(this.flux.actions.updatePastPurchaseQuery(this.$pastPurchase.value));
+      this.dispatch(this.flux.actions.updatePastPurchaseQuery(this.props.data) as any);
       this.flux.emit('sayt:hide');
     },
-    pastPurchases: this.select(Selectors.saytPastPurchases).length
+    pastPurchases: this.select(Selectors.saytPastPurchases).length,
   };
 
   init() {
@@ -19,12 +17,16 @@ class PastPurchase {
 
   updatePastPurchases = (pastPurchases: Store.ProductWithMetadata[]) =>
     this.set({
-      pastPurchases: pastPurchases.length
-    })
+      pastPurchases: pastPurchases.length,
+    });
 }
 
-interface PastPurchase extends Tag { }
+interface PastPurchase extends Tag {}
 namespace PastPurchase {
+  export interface Props {
+    data: any;
+  }
+
   export interface State {
     pastPurchases: number;
     onClick(): void;
