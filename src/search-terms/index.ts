@@ -1,4 +1,4 @@
-import { provide, tag, Selectors, Tag } from '@storefront/core';
+import { provide, tag, Selectors, Store, Tag } from '@storefront/core';
 import Sayt from '../sayt';
 
 @provide('searchTerms', (props) => props)
@@ -6,14 +6,15 @@ import Sayt from '../sayt';
 class SearchTerms {
   props: SearchTerms.Props = {
     onClick: (query) => () => this.actions.search(query),
-  };
+  } as any;
 }
 
 interface SearchTerms extends Tag<SearchTerms.Props> {}
 namespace SearchTerms {
-  export interface Props extends Tag.Props {
+  export interface Props {
     labels?: Sayt.Labels;
     onClick: (query: string) => () => void;
+    suggestions: Store.Autocomplete.Suggestion[];
   }
 }
 
