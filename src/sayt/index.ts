@@ -1,16 +1,15 @@
-import { alias, configurable, origin, tag, utils, Events, Selectors, Tag } from '@storefront/core';
+import { configurable, origin, provide, tag, utils, Events, Selectors, Tag } from '@storefront/core';
 import * as escapeRegexp from 'escape-string-regexp';
 
 @configurable
-@alias('sayt')
+@provide('sayt')
 @origin('sayt')
 @tag('gb-sayt', require('./index.html'))
 class Sayt {
-
   props: Sayt.Props = {
     labels: {
-      trending: 'Trending'
-    }
+      trending: 'Trending',
+    },
   };
   state: Sayt.State = {
     isActive: true,
@@ -19,7 +18,7 @@ class Sayt {
     highlight: (value, replacement) => {
       const query = this.select(Selectors.autocompleteQuery);
       return value.replace(new RegExp(escapeRegexp(query), 'i'), replacement);
-    }
+    },
   };
 
   init() {
@@ -45,27 +44,25 @@ class Sayt {
     if (this.state.isActive) {
       this.set({ isActive: false });
     }
-  }
+  };
 
   checkRootNode = ({ target }: MouseEvent & { target: HTMLElement }) =>
-    !(this.root.contains(target) || this.services.autocomplete.isInSearchBox(target)) && this.setInactive()
+    !(this.root.contains(target) || this.services.autocomplete.isInSearchBox(target)) && this.setInactive();
 
   setRecommendationsActive = () =>
-    !this.state.showRecommendations && this.set({ isActive: true, showRecommendations: true })
+    !this.state.showRecommendations && this.set({ isActive: true, showRecommendations: true });
 
-  setRecommendationsInactive = () =>
-    this.state.showRecommendations && this.set({ showRecommendations: false })
+  setRecommendationsInactive = () => this.state.showRecommendations && this.set({ showRecommendations: false });
 
-  registerClickAwayHandler = () =>
-    utils.WINDOW().document.addEventListener('click', this.checkRootNode)
+  registerClickAwayHandler = () => utils.WINDOW().document.addEventListener('click', this.checkRootNode);
 
   unregisterClickAwayHandler = () => {
     this.subscribeOnce(Events.AUTOCOMPLETE_QUERY_UPDATED, this.registerClickAwayHandler);
     utils.WINDOW().document.removeEventListener('click', this.checkRootNode);
-  }
+  };
 }
 
-interface Sayt extends Tag<Sayt.Props, Sayt.State> { }
+interface Sayt extends Tag<Sayt.Props, Sayt.State> {}
 namespace Sayt {
   export interface Props extends Tag.Props {
     labels?: Labels;

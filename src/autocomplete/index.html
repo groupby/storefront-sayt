@@ -1,6 +1,6 @@
 <yield>
-  <gb-sayt-past-purchases></gb-sayt-past-purchases>
-  <gb-sayt-categories></gb-sayt-categories>
-  <gb-sayt-search-terms labels="{ props.labels }"></gb-sayt-search-terms>
-  <gb-sayt-navigations></gb-sayt-navigations>
+  <gb-sayt-past-purchases suggestions="{ state.suggestions }"></gb-sayt-past-purchases>
+  <gb-sayt-categories category="{ props.category }" values="{ state.categoryValues }"></gb-sayt-categories>
+  <gb-sayt-search-terms labels="{ props.labels }" suggestions="{ state.suggestions }"></gb-sayt-search-terms>
+  <gb-sayt-navigations items="{ state.navigations }"></gb-sayt-navigations>
 </yield>

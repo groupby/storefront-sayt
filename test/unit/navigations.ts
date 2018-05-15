@@ -1,10 +1,12 @@
 import Navigations from '../../src/navigations';
 import suite from './_suite';
 
-suite('Navigations', ({ expect, spy }) => {
+suite('Navigations', ({ expect, spy, itShouldProvideAlias }) => {
   let navigations: Navigations;
 
-  beforeEach(() => navigations = new Navigations());
+  beforeEach(() => (navigations = new Navigations()));
+
+  itShouldProvideAlias(Navigations, 'navigations');
 
   describe('constructor()', () => {
     describe('state', () => {

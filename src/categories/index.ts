@@ -1,23 +1,20 @@
-import { alias, tag, Events, Selectors, Tag } from '@storefront/core';
+import { provide, tag, Events, Selectors, Tag } from '@storefront/core';
 import Autocomplete from '../autocomplete';
 
-@alias('saytCategories')
+@provide('saytCategories')
 @tag('gb-sayt-categories', require('./index.html'))
 class Categories {
-
-  $autocomplete: Autocomplete.State;
-
   state: Categories.State = {
     onClick: ({ matchAll, value }) => () =>
       this.actions.updateSearch({
         clear: true,
         query: this.select(Selectors.autocompleteQuery),
         ...(<any>matchAll || {
-          navigationId: this.$autocomplete.category,
-          value
-        })
+          navigationId: this.props.category,
+          value,
+        }),
       }),
-    query: this.select(Selectors.autocompleteQuery)
+    query: this.select(Selectors.autocompleteQuery),
   };
 
   init() {
@@ -27,11 +24,16 @@ class Categories {
   updateQuery = (query: string) => this.set({ query });
 }
 
-interface Categories extends Tag { }
+interface Categories extends Tag<Categories.Props, Categories.State> {}
 namespace Categories {
+  export interface Props {
+    category: string;
+    values: any[];
+  }
+
   export interface State {
     query: string;
-    onClick: (category: { value?: string, matchAll?: boolean }) => () => void;
+    onClick: (category: { value?: string; matchAll?: boolean }) => () => void;
   }
 }
 

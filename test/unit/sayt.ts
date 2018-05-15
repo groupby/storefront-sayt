@@ -2,13 +2,13 @@ import { utils, Events, Selectors } from '@storefront/core';
 import Sayt from '../../src/sayt';
 import suite from './_suite';
 
-suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias }) => {
+suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldProvideAlias }) => {
   let sayt: Sayt;
 
-  beforeEach(() => sayt = new Sayt());
+  beforeEach(() => (sayt = new Sayt()));
 
   itShouldBeConfigurable(Sayt);
-  itShouldHaveAlias(Sayt, 'sayt');
+  itShouldProvideAlias(Sayt, 'sayt');
 
   describe('constructor()', () => {
     describe('props', () => {
@@ -27,7 +27,7 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
       describe('highlight()', () => {
         it('should replace the current autocomplete query', () => {
           const query = 'yellow tie';
-          const select = sayt.select = spy(() => query);
+          const select = (sayt.select = spy(() => query));
 
           const highlighted = sayt.state.highlight('flamboyant yellow tie', '<i>$&</i>');
 
@@ -60,7 +60,7 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
     });
 
     it('should listen for sayt:show', () => {
-      const subscribe = sayt.subscribe = spy();
+      const subscribe = (sayt.subscribe = spy());
       stub(utils, 'WINDOW').returns({ document: { addEventListener: () => null } });
       sayt.services = <any>{ autocomplete: { register: () => null } };
 
@@ -70,7 +70,7 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
     });
 
     it('should listen for sayt:hide', () => {
-      const subscribe = sayt.subscribe = spy();
+      const subscribe = (sayt.subscribe = spy());
       stub(utils, 'WINDOW').returns({ document: { addEventListener: () => null } });
       sayt.services = <any>{ autocomplete: { register: () => null } };
 
@@ -80,7 +80,7 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
     });
 
     it('should listen for sayt:show_recommendations when recommendations on', () => {
-      const subscribe = sayt.subscribe = spy();
+      const subscribe = (sayt.subscribe = spy());
       stub(utils, 'WINDOW').returns({ document: { addEventListener: () => null } });
       sayt.services = <any>{ autocomplete: { register: () => null } };
       sayt.props = { recommendations: true };
@@ -91,7 +91,7 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
     });
 
     it('should not listen for sayt:show_recommendations when recommendations off', () => {
-      const subscribe = sayt.subscribe = spy();
+      const subscribe = (sayt.subscribe = spy());
       stub(utils, 'WINDOW').returns({ document: { addEventListener: () => null } });
       sayt.services = <any>{ autocomplete: { register: () => null } };
 
@@ -101,7 +101,7 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
     });
 
     it('should listen for URL_UPDATED when recommendations on', () => {
-      const subscribe = sayt.subscribe = spy();
+      const subscribe = (sayt.subscribe = spy());
       stub(utils, 'WINDOW').returns({ document: { addEventListener: () => null } });
       sayt.services = <any>{ autocomplete: { register: () => null } };
       sayt.props = { recommendations: true };
@@ -112,7 +112,7 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
     });
 
     it('should not listen for URL_UPDATED when recommendations off', () => {
-      const subscribe = sayt.subscribe = spy();
+      const subscribe = (sayt.subscribe = spy());
       stub(utils, 'WINDOW').returns({ document: { addEventListener: () => null } });
       sayt.services = <any>{ autocomplete: { register: () => null } };
 
@@ -122,7 +122,7 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
     });
 
     it('should listen for URL_UPDATED', () => {
-      const subscribe = sayt.subscribe = spy();
+      const subscribe = (sayt.subscribe = spy());
       stub(utils, 'WINDOW').returns({ document: { addEventListener: () => null } });
       sayt.services = <any>{ autocomplete: { register: () => null } };
 
@@ -134,7 +134,7 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
 
   describe('onMount()', () => {
     it('should inactivate sayt', () => {
-      const setInactive = sayt.setInactive = spy();
+      const setInactive = (sayt.setInactive = spy());
 
       sayt.onMount();
 
@@ -144,7 +144,7 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
 
   describe('setActive()', () => {
     it('should set isActive', () => {
-      const set = sayt.set = spy();
+      const set = (sayt.set = spy());
       sayt.state.isActive = false;
 
       sayt.setActive();
@@ -162,7 +162,7 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
 
   describe('setInactive()', () => {
     it('should call unregisterClickAwayHandler()', () => {
-      const unregisterClickAwayHandler = sayt.unregisterClickAwayHandler = spy();
+      const unregisterClickAwayHandler = (sayt.unregisterClickAwayHandler = spy());
       sayt.select = spy();
       sayt.set = () => null;
       sayt.flux = <any>{ emit: () => null };
@@ -175,7 +175,7 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
     it('should set isActive', () => {
       const query = 'apple';
       const state = { a: 'b' };
-      const set = sayt.set = spy();
+      const set = (sayt.set = spy());
       sayt.unregisterClickAwayHandler = () => null;
       sayt.state.isActive = true;
 
@@ -195,7 +195,7 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
 
   describe('setRecommendationsActive()', () => {
     it('should set showRecommendations', () => {
-      const set = sayt.set = spy();
+      const set = (sayt.set = spy());
       sayt.state.showRecommendations = false;
 
       sayt.setRecommendationsActive();
@@ -213,7 +213,7 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
 
   describe('setRecommendationsInactive()', () => {
     it('should set showRecommendations', () => {
-      const set = sayt.set = spy();
+      const set = (sayt.set = spy());
       sayt.state.showRecommendations = true;
 
       sayt.setRecommendationsInactive();
@@ -233,7 +233,7 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
     it('should not setInactive() if target found in root', () => {
       const stubSetInactive = stub(sayt, 'setInactive');
       const event: any = { target: { nodeName: 'gb-sayt' } };
-      stub(sayt, 'root').value({ contains: () => true });
+      sayt.root = { contains: () => true } as any;
 
       sayt.checkRootNode(event);
 
@@ -243,7 +243,7 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
     it('should not setInactive() if target found in a search box element', () => {
       const stubSetInactive = stub(sayt, 'setInactive');
       const event: any = { target: { nodeName: 'gb-sayt' } };
-      stub(sayt, 'root').value({ contains: () => false });
+      sayt.root = { contains: () => false } as any;
       sayt.services = <any>{ autocomplete: { isInSearchBox: () => true } };
 
       sayt.checkRootNode(event);
@@ -254,7 +254,7 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
     it('should setInactive() if target not found', () => {
       const stubSetInactive = stub(sayt, 'setInactive');
       const event: any = { target: { nodeName: 'html' } };
-      stub(sayt, 'root').value({ contains: () => false });
+      sayt.root = { contains: () => false } as any;
       sayt.services = <any>{ autocomplete: { isInSearchBox: () => false } };
 
       sayt.checkRootNode(event);
@@ -276,7 +276,7 @@ suite('Sayt', ({ expect, spy, stub, itShouldBeConfigurable, itShouldHaveAlias })
 
   describe('unregisterClickAwayHandler()', () => {
     it('should add a one-time event listener to re-register the click handler', () => {
-      const subscribeOnce = sayt.subscribeOnce = spy();
+      const subscribeOnce = (sayt.subscribeOnce = spy());
       stub(utils, 'WINDOW').returns({ document: { removeEventListener: () => null } });
 
       sayt.unregisterClickAwayHandler();

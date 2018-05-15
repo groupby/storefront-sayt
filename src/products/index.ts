@@ -1,12 +1,11 @@
-import { alias, tag, Events, ProductTransformer, Store, Structure, Tag } from '@storefront/core';
+import { provide, tag, Events, ProductTransformer, Store, Structure, Tag } from '@storefront/core';
 
-@alias('saytProducts')
+@provide('saytProducts')
 @tag('gb-sayt-products', require('./index.html'))
 class Products {
-
   structure: Structure = this.config.structure;
   state: Products.State = {
-    products: []
+    products: [],
   };
 
   init() {
@@ -16,11 +15,11 @@ class Products {
 
   updateProducts = (products: Store.Product[]) =>
     this.set({
-      products: products.map(ProductTransformer.transformer(this.structure))
-    })
+      products: products.map(ProductTransformer.transformer(this.structure)),
+    });
 }
 
-interface Products extends Tag<any, Products.State> { }
+interface Products extends Tag<any, Products.State> {}
 namespace Products {
   export interface State {
     products: any[];

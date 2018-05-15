@@ -4,7 +4,7 @@ import suite from './_suite';
 
 const STRUCTURE = { a: 'b' };
 
-suite('Products', ({ expect, spy, stub }) => {
+suite('Products', ({ expect, spy, stub, itShouldProvideAlias }) => {
   let products: Products;
 
   beforeEach(() => {
@@ -12,6 +12,8 @@ suite('Products', ({ expect, spy, stub }) => {
     products = new Products();
   });
   afterEach(() => delete Products.prototype.config);
+
+  itShouldProvideAlias(Products, 'saytProducts');
 
   describe('constructor()', () => {
     it('should set initial values', () => {
@@ -37,7 +39,7 @@ suite('Products', ({ expect, spy, stub }) => {
     });
 
     it('should listen for AUTOCOMPLETE_PRODUCTS_UPDATED', () => {
-      const subscribe = products.subscribe = spy();
+      const subscribe = (products.subscribe = spy());
       products.services = <any>{ autocomplete: { registerProducts: () => null } };
 
       products.init();
@@ -48,14 +50,17 @@ suite('Products', ({ expect, spy, stub }) => {
 
   describe('updateProducts()', () => {
     it('should set products', () => {
-      const set = products.set = spy();
+      const set = (products.set = spy());
       const transform = spy(() => 'x');
       const transformer = stub(ProductTransformer, 'transformer').returns(transform);
 
       products.updateProducts(<any[]>['a', 'b', 'c']);
 
       expect(set).to.be.calledWith({ products: ['x', 'x', 'x'] });
-      expect(transform).to.be.calledWith('a').calledWith('b').calledWith('c');
+      expect(transform)
+        .to.be.calledWith('a')
+        .calledWith('b')
+        .calledWith('c');
     });
   });
 });

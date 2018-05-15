@@ -1,10 +1,9 @@
-import { alias, tag, Events, Selectors, Store, Tag } from '@storefront/core';
+import { provide, tag, Events, Selectors, Store, Tag } from '@storefront/core';
 import Sayt from '../sayt';
 
-@alias('autocomplete')
+@provide('autocomplete')
 @tag('gb-sayt-autocomplete', require('./index.html'))
 class Autocomplete {
-
   state: Autocomplete.State = <any>{
     onHover: (event: MouseEvent) => {
       const updateQuery = !!this.config.autocomplete.hoverAutoFill;
@@ -16,9 +15,13 @@ class Autocomplete {
       if (this.isActive()) {
         this.setActivation(targets, this.state.selected, false, updateQuery);
       }
-      this.setActivation(targets, Array.from(targets).findIndex((element) => element === event.target),
-                         true, updateQuery);
-    }
+      this.setActivation(
+        targets,
+        Array.from(targets).findIndex((element) => element === event.target),
+        true,
+        updateQuery
+      );
+    },
   };
 
   constructor() {
@@ -51,7 +54,7 @@ class Autocomplete {
       }
       this.setActivation(targets, ++selected, true);
     }
-  }
+  };
 
   activatePrevious = () => {
     const targets = this.activationTargets();
@@ -60,17 +63,23 @@ class Autocomplete {
       this.setActivation(targets, selected, false);
       this.setActivation(targets, --selected, true);
     }
-  }
+  };
 
   selectActive = () => {
     if (this.isActive()) {
-      this.activationTargets()[this.state.selected].querySelector('a').click();
+      const targets = this.activationTargets();
+
+      targets[this.state.selected].querySelector('a').click();
       this.set({ selected: -1 });
     }
-  }
+  };
 
-  // tslint:disable-next-line:max-line-length
-  updateSuggestions = ({ suggestions, navigations, category: { values: categoryValues }, products }: Store.Autocomplete) => {
+  updateSuggestions = ({
+    suggestions,
+    navigations,
+    category: { values: categoryValues },
+    products,
+  }: Store.Autocomplete) => {
     if (this.isActive() && this.isMounted) {
       this.setActivation(this.activationTargets(), this.state.selected, false);
     }
@@ -80,7 +89,7 @@ class Autocomplete {
     } else {
       this.flux.emit('sayt:show');
     }
-  }
+  };
 
   setActivation(targets: NodeListOf<HTMLElement>, index: number, activate: boolean, updateQuery: boolean = true) {
     const target = targets[index];
@@ -96,8 +105,10 @@ class Autocomplete {
     }
   }
 
-  // tslint:disable-next-line:max-line-length
-  updateProducts({ dataset: { query: selectedQuery, refinement, field, pastPurchase } }: HTMLElement, updateQuery: boolean = true) {
+  updateProducts(
+    { dataset: { query: selectedQuery, refinement, field, pastPurchase } }: HTMLElement,
+    updateQuery: boolean = true
+  ) {
     const query = selectedQuery == null ? this.select(Selectors.autocompleteQuery) : selectedQuery;
     if (updateQuery) {
       this.flux.emit('query:update', query);
@@ -105,8 +116,10 @@ class Autocomplete {
     if (pastPurchase !== undefined) {
       this.flux.displaySaytPastPurchases();
     } else {
-      // tslint:disable-next-line max-line-length
-      this.flux.saytProducts(field ? null : query, refinement ? [{ field: field || this.state.category, value: refinement }] : []);
+      this.flux.saytProducts(
+        field ? null : query,
+        refinement ? [{ field: field || this.state.category, value: refinement }] : []
+      );
     }
   }
 
@@ -115,11 +128,9 @@ class Autocomplete {
   }
 }
 
-interface Autocomplete extends Tag<Autocomplete.Props, Autocomplete.State> { }
+interface Autocomplete extends Tag<Autocomplete.Props, Autocomplete.State> {}
 namespace Autocomplete {
-  export interface Props extends Tag.Props {
-    labels?: Sayt.Labels;
-  }
+  export interface Props extends Sayt.Props {}
 
   export interface State {
     selected: number;

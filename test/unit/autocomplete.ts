@@ -9,7 +9,7 @@ const SUGGESTIONS = ['d', 'e', 'f'];
 const NAVIGATIONS = ['g', 'h', 'i'];
 const PRODUCTS = ['j', 'k', 'l', 'm'];
 
-suite('Autocomplete', ({ expect, spy, stub }) => {
+suite('Autocomplete', ({ expect, spy, stub, itShouldProvideAlias }) => {
   let autocomplete: Autocomplete;
   let select: sinon.SinonStub;
   let services: sinon.SinonStub;
@@ -29,6 +29,8 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
     delete Autocomplete.prototype.select;
   });
 
+  itShouldProvideAlias(Autocomplete, 'autocomplete');
+
   describe('constructor()', () => {
     describe('state', () => {
       it('should set initial value', () => {
@@ -39,16 +41,16 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
           categoryValues: CATEGORY_VALUES,
           suggestions: SUGGESTIONS,
           navigations: NAVIGATIONS,
-          products: PRODUCTS
+          products: PRODUCTS,
         });
       });
 
       describe('onHover()', () => {
-        const targets = [0,'tar',2,3,4];
+        const targets = [0, 'tar', 2, 3, 4];
         beforeEach(() => {
           autocomplete.activationTargets = spy(() => targets);
           autocomplete.setActivation = spy(() => null);
-          autocomplete.config = <any>{ autocomplete: { hoverAutoFill: false }};
+          autocomplete.config = <any>{ autocomplete: { hoverAutoFill: false } };
         });
 
         it('should do nothing if selected value did not change', () => {
@@ -66,8 +68,11 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
 
           autocomplete.state.onHover(<any>{ target });
 
-          expect(autocomplete.setActivation).to.be.calledOnce
-            .and.calledWith(targets, Array.from(targets).findIndex((element) => element === target), true);
+          expect(autocomplete.setActivation).to.be.calledOnce.and.calledWith(
+            targets,
+            Array.from(targets).findIndex((element) => element === target),
+            true
+          );
         });
 
         it('should call setActivation with false activate if this.isActive() is true', () => {
@@ -77,8 +82,8 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
 
           autocomplete.state.onHover(<any>{ target });
 
-          expect(autocomplete.setActivation).to.be.calledTwice
-            .and.calledWith(targets, autocomplete.state.selected, false)
+          expect(autocomplete.setActivation)
+            .to.be.calledTwice.and.calledWith(targets, autocomplete.state.selected, false)
             .and.calledWith(targets, Array.from(targets).findIndex((element) => element === target), true);
         });
       });
@@ -89,13 +94,14 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
     it('should listen for flux events', () => {
       const on = spy();
       autocomplete.flux = <any>{ on };
-      const subscribe = autocomplete.subscribe = spy();
+      const subscribe = (autocomplete.subscribe = spy());
       autocomplete.services = <any>{ autocomplete: { registerAutocomplete: () => null } };
 
       autocomplete.init();
 
       expect(on).to.be.calledWith(Events.AUTOCOMPLETE_SUGGESTIONS_UPDATED, autocomplete.updateSuggestions);
-      expect(subscribe).to.have.callCount(3)
+      expect(subscribe)
+        .to.have.callCount(3)
         .and.calledWith('sayt:activate_next', autocomplete.activateNext)
         .and.calledWith('sayt:activate_previous', autocomplete.activatePrevious)
         .and.calledWith('sayt:select_active', autocomplete.selectActive);
@@ -131,29 +137,28 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
 
     it('should deactivate old target if it exists', () => {
       const selected = 1;
-      const setActivation = autocomplete.setActivation = spy();
+      const setActivation = (autocomplete.setActivation = spy());
       autocomplete.state = <any>{ selected };
       autocomplete.activationTargets = (): any => targets;
       autocomplete.isActive = () => true;
 
       autocomplete.activateNext();
 
-      expect(setActivation).to.be.calledTwice
-        .and.calledWith(targets, selected, false)
+      expect(setActivation)
+        .to.be.calledTwice.and.calledWith(targets, selected, false)
         .and.calledWith(targets, selected + 1, true);
     });
 
     it('should only activate next if no old target exists', () => {
       const selected = 1;
-      const setActivation = autocomplete.setActivation = spy();
+      const setActivation = (autocomplete.setActivation = spy());
       autocomplete.state = <any>{ selected };
       autocomplete.activationTargets = (): any => targets;
       autocomplete.isActive = () => false;
 
       autocomplete.activateNext();
 
-      expect(setActivation).to.be.calledOnce
-        .and.calledWith(targets, selected + 1, true);
+      expect(setActivation).to.be.calledOnce.and.calledWith(targets, selected + 1, true);
     });
 
     it('should not move activation if at end of targets', () => {
@@ -170,15 +175,15 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
 
     it('should deactivate old target if it exists', () => {
       const selected = 1;
-      const setActivation = autocomplete.setActivation = spy();
+      const setActivation = (autocomplete.setActivation = spy());
       autocomplete.state = <any>{ selected };
       autocomplete.activationTargets = (): any => targets;
       autocomplete.isActive = () => true;
 
       autocomplete.activatePrevious();
 
-      expect(setActivation).to.be.calledTwice
-        .and.calledWith(targets, selected, false)
+      expect(setActivation)
+        .to.be.calledTwice.and.calledWith(targets, selected, false)
         .and.calledWith(targets, selected - 1, true);
     });
 
@@ -195,7 +200,7 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
     it('should click anchor tag in selected element', () => {
       const click = spy();
       const querySelector = spy(() => ({ click }));
-      const set = autocomplete.set = spy();
+      const set = (autocomplete.set = spy());
       autocomplete.state = <any>{ selected: 1 };
       autocomplete.activationTargets = (): any => [{}, { querySelector }, {}];
       autocomplete.isActive = () => true;
@@ -222,7 +227,7 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
     const products = ['10', '11'];
 
     it('should set values and not change activation', () => {
-      const set = autocomplete.set = spy();
+      const set = (autocomplete.set = spy());
       autocomplete.flux = <any>{ emit: () => null };
       autocomplete.isActive = () => false;
       autocomplete.setActivation = () => expect.fail();
@@ -233,7 +238,7 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
     });
 
     it('should not change activation if not mounted', () => {
-      const set = autocomplete.set = spy();
+      const set = (autocomplete.set = spy());
       autocomplete.flux = <any>{ emit: () => null };
       autocomplete.isActive = () => true;
       autocomplete.isMounted = false;
@@ -245,8 +250,8 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
     it('should deactivate selected element', () => {
       const selected = 1;
       const targets = ['a', 'b', 'c'];
-      const set = autocomplete.set = spy();
-      const setActivation = autocomplete.setActivation = spy();
+      const set = (autocomplete.set = spy());
+      const setActivation = (autocomplete.setActivation = spy());
       autocomplete.flux = <any>{ emit: () => null };
       autocomplete.activationTargets = (): any => targets;
       autocomplete.state = <any>{ selected };
@@ -274,9 +279,12 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
       autocomplete.flux = <any>{ emit };
       autocomplete.set = () => null;
 
-      autocomplete.updateSuggestions(
-        <any>{ suggestions, navigations, products: [], category: { values: categoryValues } }
-      );
+      autocomplete.updateSuggestions(<any>{
+        suggestions,
+        navigations,
+        products: [],
+        category: { values: categoryValues },
+      });
 
       expect(emit).to.be.calledWith('sayt:show');
     });
@@ -296,9 +304,12 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
       autocomplete.flux = <any>{ emit };
       autocomplete.set = () => null;
 
-      autocomplete.updateSuggestions(
-        <any>{ suggestions, navigations, products: [], category: { values: categoryValues } }
-      );
+      autocomplete.updateSuggestions(<any>{
+        suggestions,
+        navigations,
+        products: [],
+        category: { values: categoryValues },
+      });
 
       expect(emit).to.be.calledWith('sayt:show');
     });
@@ -307,7 +318,7 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
   describe('setActivation()', () => {
     it('should not toggle gb-active if selected is -1', () => {
       const index = -1;
-      const state = autocomplete.state = <any>{ selected: 4 };
+      const state = (autocomplete.state = <any>{ selected: 4 });
       autocomplete.updateProducts = () => null;
 
       autocomplete.setActivation(<any>[], index, true);
@@ -317,7 +328,7 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
 
     it('should not update products if selected is -1', () => {
       const index = -1;
-      const state = autocomplete.state = <any>{ selected: 4 };
+      const state = (autocomplete.state = <any>{ selected: 4 });
       autocomplete.updateProducts = spy();
 
       autocomplete.setActivation(<any>[], index, true);
@@ -328,10 +339,10 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
 
     it('should call update products with updateQuery false', () => {
       const index = 0;
-      const state = autocomplete.state = <any>{ selected: 4 };
-      const updateProducts = autocomplete.updateProducts = spy();
+      const state = (autocomplete.state = <any>{ selected: 4 });
+      const updateProducts = (autocomplete.updateProducts = spy());
 
-      autocomplete.setActivation(<any>[{ classList: { add: () => null }}], index, true, false);
+      autocomplete.setActivation(<any>[{ classList: { add: () => null } }], index, true, false);
 
       expect(updateProducts).to.be.calledWithExactly(sinon.match.any, false);
     });
@@ -339,8 +350,8 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
     it('should add gb-active to classList if activating and update state', () => {
       const add = spy();
       const target = { classList: { add } };
-      const state = autocomplete.state = <any>{ selected: 4 };
-      const updateProducts = autocomplete.updateProducts = spy();
+      const state = (autocomplete.state = <any>{ selected: 4 });
+      const updateProducts = (autocomplete.updateProducts = spy());
 
       autocomplete.setActivation(<any>[{}, target, {}], 1, true);
 
@@ -352,7 +363,7 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
     it('should remove gb-active from classList if deactivating', () => {
       const remove = spy();
       const selected = 4;
-      const state = autocomplete.state = <any>{ selected };
+      const state = (autocomplete.state = <any>{ selected });
       autocomplete.updateProducts = () => null;
 
       autocomplete.setActivation(<any>[{}, { classList: { remove } }, {}], 1, false);
@@ -456,10 +467,10 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
     const matchAny = sinon.match.any;
 
     it('should call setActivation with updateQuery set to false', () => {
-      const setActivation = autocomplete.setActivation = spy();
+      const setActivation = (autocomplete.setActivation = spy());
       autocomplete.activationTargets = stub().returns(targets);
       autocomplete.isActive = stub().returns(true);
-      autocomplete.config = <any>{ autocomplete: { hoverAutoFill: false }};
+      autocomplete.config = <any>{ autocomplete: { hoverAutoFill: false } };
       autocomplete.state.selected = -2;
 
       autocomplete.state.onHover(<any>{});
@@ -469,10 +480,10 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
     });
 
     it('should call setActivation with updateQuery set to true', () => {
-      const setActivation = autocomplete.setActivation = spy();
+      const setActivation = (autocomplete.setActivation = spy());
       autocomplete.activationTargets = stub().returns(targets);
       autocomplete.isActive = stub().returns(true);
-      autocomplete.config = <any>{ autocomplete: { hoverAutoFill: true }};
+      autocomplete.config = <any>{ autocomplete: { hoverAutoFill: true } };
       autocomplete.state.selected = -2;
 
       autocomplete.state.onHover(<any>{});
@@ -483,11 +494,11 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
     });
 
     it('should call setActivation once when isActive is false', () => {
-      const setActivation = autocomplete.setActivation = spy();
+      const setActivation = (autocomplete.setActivation = spy());
       autocomplete.activationTargets = stub().returns(targets);
       autocomplete.state.selected = -2;
       autocomplete.isActive = stub().returns(false);
-      autocomplete.config = <any>{ autocomplete: { hoverAutoFill: false }};
+      autocomplete.config = <any>{ autocomplete: { hoverAutoFill: false } };
 
       autocomplete.state.onHover(<any>{});
 
@@ -495,11 +506,11 @@ suite('Autocomplete', ({ expect, spy, stub }) => {
     });
 
     it('should not call setActivation if selected are equal', () => {
-      const setActivation = autocomplete.setActivation = spy();
+      const setActivation = (autocomplete.setActivation = spy());
       autocomplete.activationTargets = stub().returns(targets);
       autocomplete.state.selected = -1;
       autocomplete.isActive = stub().returns(false);
-      autocomplete.config = <any>{ autocomplete: { hoverAutoFill: false }};
+      autocomplete.config = <any>{ autocomplete: { hoverAutoFill: false } };
 
       autocomplete.state.onHover(<any>{});
 
