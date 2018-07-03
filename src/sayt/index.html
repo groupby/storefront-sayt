@@ -1,4 +1,4 @@
-<div if="{ state.isActive }">
+<div show="{ state.isActive }">
   <yield>
     <gb-recommendations if="{ state.showRecommendations }"></gb-recommendations>
     <gb-sayt-autocomplete if="{ !state.showRecommendations }" _props="{ props }"></gb-sayt-autocomplete>
