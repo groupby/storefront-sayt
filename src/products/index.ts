@@ -1,4 +1,4 @@
-import { provide, tag, Events, ProductTransformer, Store, Structure, Tag } from '@storefront/core';
+import { provide, tag, Events, ProductTransformer, Selectors, Store, Structure, Tag } from '@storefront/core';
 
 @provide('saytProducts')
 @tag('gb-sayt-products', require('./index.html'))
@@ -11,6 +11,8 @@ class Products {
   init() {
     this.services.autocomplete.registerProducts(this);
     this.subscribe(Events.AUTOCOMPLETE_PRODUCTS_UPDATED, this.updateProducts);
+
+    this.updateProducts(this.select(Selectors.autocompleteProducts));
   }
 
   updateProducts = (products: Store.Product[]) =>

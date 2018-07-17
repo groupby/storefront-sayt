@@ -1,4 +1,4 @@
-import { Events, ProductTransformer } from '@storefront/core';
+import { Events, ProductTransformer, Selectors } from '@storefront/core';
 import Products from '../../src/products';
 import suite from './_suite';
 
@@ -32,19 +32,26 @@ suite('Products', ({ expect, spy, stub, itShouldProvideAlias }) => {
       const registerProducts = spy();
       products.services = <any>{ autocomplete: { registerProducts } };
       products.subscribe = () => null;
+      products.select = stub();
+      products.updateProducts = stub();
 
       products.init();
 
       expect(registerProducts).to.be.calledWith(products);
     });
 
-    it('should listen for AUTOCOMPLETE_PRODUCTS_UPDATED', () => {
+    it('should listen for AUTOCOMPLETE_PRODUCTS_UPDATED and set initial state', () => {
+      const autocompleteProducts = [{ a: 'b' }, { c: 'd' }];
       const subscribe = (products.subscribe = spy());
+      const updateProducts = (products.updateProducts = spy());
+      const select = (products.select = stub());
+      select.withArgs(Selectors.autocompleteProducts).returns(autocompleteProducts);
       products.services = <any>{ autocomplete: { registerProducts: () => null } };
 
       products.init();
 
-      expect(subscribe).to.be.calledWith(Events.AUTOCOMPLETE_PRODUCTS_UPDATED, products.updateProducts);
+      expect(subscribe).to.be.calledWith(Events.AUTOCOMPLETE_PRODUCTS_UPDATED, updateProducts);
+      expect(updateProducts).to.be.calledWithExactly(autocompleteProducts);
     });
   });
 
