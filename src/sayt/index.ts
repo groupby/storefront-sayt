@@ -25,6 +25,7 @@ class Sayt {
     this.services.autocomplete.register(this);
     this.subscribe('sayt:show', this.setActive);
     this.subscribe('sayt:hide', this.setInactive);
+    this.subscribe('sayt:select_navigation_query_match', this.selectNavigationQueryMatch);
     this.subscribe(Events.URL_UPDATED, this.setInactive);
     if (this.props.recommendations) {
       this.subscribe('sayt:show_recommendations', this.setRecommendationsActive);
@@ -35,6 +36,30 @@ class Sayt {
   onMount() {
     // initialize as active to initialize child component
     this.setInactive();
+  }
+
+  selectNavigationQueryMatch = () => {
+    const query = this.select(Selectors.query);
+    const navs = this.select(Selectors.autocompleteNavigations);
+    const refinements = navs.reduce((curr, nav) => {
+      const refinementsList = nav.refinements.map(refinement => ({
+        navigationId: nav.field,
+        value: refinement
+      }));
+
+      return curr.concat(refinementsList);
+    }, []);
+
+    const exactMatch = refinements.find(item => item.value.toLowerCase() === query.toLowerCase());
+
+    if (exactMatch) {
+      this.actions.updateSearch({
+        clear: true,
+        query: null,
+        navigationId: exactMatch.navigationId,
+        value: query
+      })
+    }
   }
 
   setActive = () => !this.state.isActive && this.set({ isActive: true });
